@@ -27,7 +27,7 @@
             text-align: center;
         }
         h1 {
-            color: #4CAF50;
+            color:rgb(131, 143, 244);
         }
         input[type="number"] {
             width: 100%;
@@ -50,7 +50,7 @@
             margin-top: 10px;
         }
         button:hover {
-            background-color: #45a049;
+            background-color: rgb(131, 143, 244);;
         }
         .result {
             margin-top: 20px;
@@ -71,7 +71,7 @@
         }
         .result .highlight {
             font-weight: bold;
-            color: #4CAF50;
+            color:rgb(131, 143, 244);
         }
     </style>
 </head>
