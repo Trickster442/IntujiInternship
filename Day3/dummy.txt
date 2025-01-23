@@ -1,0 +1,1 @@
+If you just need to find out if two files are identical, comparing file hashes can be inefficient, especially on large files.  There's no reason to read two whole files and do all the math if the second byte of each file is different.  If you don't need to store the hash value for later use, there may not be a need to calculate the hash value just to compare files.
