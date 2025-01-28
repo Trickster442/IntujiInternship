@@ -5,6 +5,11 @@ COPY . /var/www/html/
 # Set permissions for the web server
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html
+
+
+# Enable mod_rewrite for Apache
+RUN a2enmod rewrite
+
 # Expose port 80 for the web server
 EXPOSE 80
 # Start Apache when the container starts

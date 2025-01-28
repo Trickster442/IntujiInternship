@@ -5,96 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Validation</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            background-color: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            text-align: center;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        label {
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #333;
-        }
-
-        input[type="password"] {
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 1em;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        button {
-            padding: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 1.1em;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-
-        .result {
-            margin-top: 20px;
-            font-size: 1.1em;
-            font-weight: bold;
-            color: #d9534f;
-        }
-
-        /* Success color */
-        .result.success {
-            color: #5bc0de;
-        }
-        /* Moderate password color */
-        .result.moderate {
-            color: #f0ad4e;
-        }
-        /* Weak password color */
-        .result.weak {
-            color: #d9534f;
-        }
-
-        /* Added some spacing for the error notification */
-        .error-notification {
-            color: #d9534f;
-            font-weight: bold;
-            margin-top: 15px;
-            padding: 10px;
-            background-color: #f8d7da;
-            border-radius: 4px;
-            border: 1px solid #f5c6cb;
-            display: none;
-        }
-
-    </style>
+    <link rel="stylesheet" href="./password_checker.css">
 </head>
 
 <body>
@@ -112,7 +23,19 @@
     <div class="result">
         <?php 
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
-            $password = $_POST['password'];
+            check_password();
+        }
+        ?>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+<?php
+function check_password() {
+    $password = $_POST['password'];
 
             $upperCaseSearch = preg_match_all('/[A-Z]/', $password);
             $lowerCaseSearch = preg_match_all('/[a-z]/', $password);
@@ -136,9 +59,6 @@
             } else {
                 echo '<span class="success">Password is very strong</span>';
             }
-        }
-        ?>
-    </div>
-</div>
-</body>
-</html>
+}
+
+?>

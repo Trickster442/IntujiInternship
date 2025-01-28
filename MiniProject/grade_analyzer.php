@@ -6,74 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Score Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            width: 80%;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: #444;
-        }
-        .form-section {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-        label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 10px;
-        }
-        input[type="number"], input[type="text"] {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        .results {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        .results h3 {
-            margin-top: 0;
-        }
-        .results p {
-            font-size: 16px;
-        }
-        .alert {
-            color: #D8000C;
-            background-color: #FFBABA;
-            padding: 10px;
-            border-radius: 4px;
-            margin-bottom: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="./grade_analyzer.css"></link>
 </head>
 <body>
 
@@ -84,7 +17,7 @@
         <h1>Enter Student Data</h1>
         <form method="post">
             <label for="num_of_students">Enter the number of students:</label>
-            <input type="number" name="num_of_students" id="num_of_students" required>
+            <input type="number" name="num_of_students" id="num_of_students" value="<?php echo isset($_POST['num_of_students']) ? $_POST['num_of_students'] : ''; ?>" required>
             <button type="submit">Submit</button>
         </form>
     </div>
@@ -100,9 +33,9 @@
         for ($i = 0; $i < $num_of_students; $i++) {
             echo "
             <label>Name of Student " . ($i + 1) . ":</label>
-            <input type='text' name='name[{$i}]' required><br>
+            <input type='text' name='name[$i]' required><br>
             <label>Score of Student " . ($i + 1) . ":</label>
-            <input type='number' name='score[{$i}]' max='100' min='0' step='0.001' required><br><br>
+            <input type='number' name='score[$i]' max='100' min='0' step='0.1' required onchange='validate_score(this)'><br><br>
             <hr>
             ";
         }
@@ -114,6 +47,7 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["name"]) && isset($_POST["score"])) {
         $names = $_POST["name"];
         $scores = $_POST["score"];
+        
         $student_scores = [];
 
         // Store the names and scores in an associative array
@@ -159,3 +93,17 @@
 
 </body>
 </html>
+
+<script>
+function validate_score(input) {
+    
+    const value = input.value;
+    if (value % 0.5 !== 0) {
+        
+        input.setCustomValidity("Score must be in .5 or real value");
+    } else {
+        
+        input.setCustomValidity("");
+    }
+}
+</script>

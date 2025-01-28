@@ -1,15 +1,18 @@
 <?php declare(strict_types=1); ?>
+<?php
+include('./expense_tracker_function_holder.php');
 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Expense Calculator</title>
+    <title>Dynamic Expense Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f7fa;
+            background-color:rgba(244, 247, 250, 0.9);
             margin: 0;
             padding: 0;
             display: flex;
@@ -18,7 +21,7 @@
             height: 100vh;
         }
         .container {
-            padding-top: 20vh;
+            padding-top: 10vh;
             background-color: white;
             padding: 20px;
             border-radius: 8px;
@@ -27,9 +30,9 @@
             text-align: center;
         }
         h1 {
-            color:rgb(131, 143, 244);
+            color: rgb(244, 131, 131);
         }
-        input[type="number"] {
+        input[type="number"], input[type="text"] {
             width: 100%;
             padding: 10px;
             margin: 8px 0;
@@ -39,7 +42,7 @@
             font-size: 1rem;
         }
         button {
-            background-color: #4CAF50;
+            background-color:rgb(76, 134, 175);
             color: white;
             padding: 12px 20px;
             border: none;
@@ -50,7 +53,7 @@
             margin-top: 10px;
         }
         button:hover {
-            background-color: rgb(131, 143, 244);;
+            background-color: rgb(131, 143, 244);
         }
         .result {
             margin-top: 20px;
@@ -61,7 +64,7 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
         .result h3 {
-            text-align: center ;
+            text-align: center;
             color: #333;
         }
         .result p {
@@ -71,7 +74,7 @@
         }
         .result .highlight {
             font-weight: bold;
-            color:rgb(131, 143, 244);
+            color: rgb(131, 143, 244);
         }
     </style>
 </head>
@@ -80,64 +83,17 @@
 <div class="container">
     <h1>Expense Calculator</h1>
     <form method="post">
-        <input type="number" placeholder="Add expense for Sunday" id="sunday" name="sunday" step="0.01" value="<?php echo isset($_POST['sunday']) ? $_POST['sunday'] : ''; ?>" required><br>
-        <input type="number" placeholder="Add expense for Monday" id="monday" name="monday" step="0.01" value="<?php echo isset($_POST['monday']) ? $_POST['monday'] : ''; ?>" required ><br>
-        <input type="number" placeholder="Add expense for Tuesday" id="tuesday" name="tuesday" step="0.01" value="<?php echo isset($_POST['tuesday']) ? $_POST['tuesday'] : ''; ?>" required><br>
-        <input type="number" placeholder="Add expense for Wednesday" id="wednesday" name="wednesday" step="0.01" value="<?php echo isset($_POST['wednesday']) ? $_POST['wednesday'] : ''; ?>" required><br>
-        <input type="number" placeholder="Add expense for Thursday" id="thursday" name="thursday" step="0.01" value="<?php echo isset($_POST['thursday']) ? $_POST['thursday'] : ''; ?>" required><br>
-        <input type="number" placeholder="Add expense for Friday" id="friday" name="friday" step="0.01" value="<?php echo isset($_POST['friday']) ? $_POST['friday'] : ''; ?>" required><br>
-        <input type="number" placeholder="Add expense for Saturday" id="saturday" name="saturday" step="0.01" value="<?php echo isset($_POST['saturday']) ? $_POST['saturday'] : ''; ?>" required><br>
-        <button type="submit" name="calculate">Calculate</button>
+        <input type="number" placeholder="Enter the number of days" id="num_days" name="num_days" step="1" min=0 value="<?php echo isset($_POST['num_days']) ? $_POST['num_days'] : ''; ?>" required><br>
+        <button type="submit" name="generate">Generate Number of Days</button>
     </form>
 
     <?php 
-    if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        $expenses = array();
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["generate"])) {
+        generate_user_form();
+    }
 
-        // Collect the input values for each day
-        if (isset($_POST["sunday"])) {
-            $expenses["Sunday"] = $_POST["sunday"];
-        }
-        if (isset($_POST["monday"])) {
-            $expenses["Monday"] = $_POST["monday"];
-        }
-        if (isset($_POST["tuesday"])) {
-            $expenses["Tuesday"] = $_POST["tuesday"];
-        }
-        if (isset($_POST["wednesday"])) {
-            $expenses["Wednesday"] = $_POST["wednesday"];
-        }
-        if (isset($_POST["thursday"])) {
-            $expenses["Thursday"] = $_POST["thursday"];
-        }
-        if (isset($_POST["friday"])) {
-            $expenses["Friday"] = $_POST["friday"];
-        }
-        if (isset($_POST["saturday"])) {
-            $expenses["Saturday"] = $_POST["saturday"];
-        }
-
-        // Handling the 'Calculate' button 
-        if (isset($_POST["calculate"])) {
-            $total = array_sum($expenses);  // Summing the expenses
-            echo "<div class='result'>";
-            echo "<h3>Results :</h3>";
-            echo "<p>Total: <span class='highlight'>$" . $total . "</span></p>";
-
-            $average = round($total / 7, 2);  // two decimal points
-            echo "<p>Average: <span class='highlight'>$" . $average . "</span></p>";
-
-            $minExp = min($expenses);  // minimum value
-            $maxExp = max($expenses);  // maximum value
-            $minDay = array_search($minExp, $expenses);  // key of min value
-            $maxDay = array_search($maxExp, $expenses);  // key of max value
-
-            echo "<p>The day with minimum expenses is <span class='highlight'>" . $minDay . "</span> with expenses of: <span class='highlight'>$" . $minExp . "</span></p>";
-            echo "<p>The day with maximum expenses is <span class='highlight'>" . $maxDay . "</span> with expenses of: <span class='highlight'>$" . $maxExp . "</span></p>";
-            echo "</div>";
-
-            
-        }
+    if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["calculate"])) {
+        calculate_expense(); 
     }
     ?>
 </div>
