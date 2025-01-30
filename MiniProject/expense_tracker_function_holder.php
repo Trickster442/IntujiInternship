@@ -1,5 +1,3 @@
-<?php declare(strict_types= 1);?>
-
 <?php
 function generate_user_form(){
     $numDays = (int)$_POST["num_days"];
