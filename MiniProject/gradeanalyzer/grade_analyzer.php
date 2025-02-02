@@ -88,13 +88,13 @@ if (isset($_POST['num_of_students_submit'])) {
         $computer_marks = $_POST["computer"];
         $social_marks = $_POST["social"];
 
-        $student_scores = [];
+        $_SESSION['student_scores'] = [];
 
         // Store in associative way
         for ($i = 0; $i < count($names); $i++) {
             $total = (float) $sciences_marks[$i] + (float) $math_marks[$i] + (float) $english_marks[$i] + (float) $computer_marks[$i] + (float) $social_marks[$i];
             $total_percentage = (float) ($total / 500) * 100;
-            $student_scores[$names[$i]] = ['science' => (float) $sciences_marks[$i], 'math' => (float) $math_marks[$i], 'english' => (float) $english_marks[$i], 'computer' => (float) $computer_marks[$i], 'social' => (float) $social_marks[$i], 'percentage' => round($total_percentage,2)];  
+            $_SESSION['student_scores'][$names[$i]] = ['science' => (float) $sciences_marks[$i], 'math' => (float) $math_marks[$i], 'english' => (float) $english_marks[$i], 'computer' => (float) $computer_marks[$i], 'social' => (float) $social_marks[$i], 'percentage' => round($total_percentage,2)];  
         }
 
         // Display the results
@@ -103,18 +103,18 @@ if (isset($_POST['num_of_students_submit'])) {
         
 
         // call highest score counting function
-        $highest_percentage_student = count_highest_percentage($student_scores); 
+        $highest_percentage_student = count_highest_percentage($_SESSION['student_scores']); 
 
         // // call lowest score counting function
-        $lowest_percentage_student = count_lowest_percentage($student_scores);
+        $lowest_percentage_student = count_lowest_percentage($_SESSION['student_scores']);
         
         // call average calculating function
-        $average = calculate_average($student_scores);
+        $average = calculate_average($_SESSION['student_scores']);
         
 
         // count for students with score above average
         $count = 0;
-        foreach ($student_scores as $name => $score) {
+        foreach ($_SESSION['student_scores'] as $name => $score) {
             if ($score > $average){
                 $count++;
             }
@@ -124,50 +124,84 @@ if (isset($_POST['num_of_students_submit'])) {
 
         if (isset($_POST['give_filename']) && !empty($_POST['give_filename'])) {
             $set_file_name = $_POST['give_filename'];
-            create_csv_file($student_scores, $set_file_name);
+            create_csv_file($_SESSION['student_scores'], $set_file_name);
         }
 
         // highest in all subjects
         $_SESSION['highest_marks'] = [];
         $subjects = ['science', 'math', 'english', 'computer', 'social'];
         foreach ($subjects as $subject) {
-            $marks = search_highest_marks($student_scores, $subject);
+            $marks = search_highest_marks($_SESSION['student_scores'], $subject);
             $_SESSION['highest_marks'][$subject] = $marks;
         }
         echo '<br>';
         // lowest in all subjects
         $_SESSION['lowest_marks'] = [];
         foreach ($subjects as $subject) {
-            $marks = search_lowest_marks($student_scores, $subject);
+            $marks = search_lowest_marks($_SESSION['student_scores'], $subject);
             $_SESSION['lowest_marks'][$subject] = $marks;
         }
 
         // marks by name for topper
-        $marks_for_topper = search_marks_by_name($student_scores, $highest_percentage_student);
+        $marks_for_topper = search_marks_by_name($_SESSION['student_scores'], $highest_percentage_student);
         
         $topper_marks_match_lowest_marks = array_intersect_assoc($_SESSION['lowest_marks'],$marks_for_topper);
         if (count($topper_marks_match_lowest_marks) > 0) {
             foreach($topper_marks_match_lowest_marks as $key => $value) {
-                echo 'Even though ' . $highest_percentage_student . ' has highest percentage, he has lowest marks in ' .  '<b>' .$key. '</b>' .'</br>'; 
+                echo '<p style="color:red">' . 'Even though ' . $highest_percentage_student . ' has highest percentage, he has lowest marks in ' .  '<b>' .$key. '</b>' .'</br>' . '</p>'; 
             }
         }
 
         // marks by name for lowest percentage student
-        $marks_for_lowest_student = search_marks_by_name($student_scores, $lowest_percentage_student);
+        $marks_for_lowest_student = search_marks_by_name($_SESSION['student_scores'], $lowest_percentage_student);
 
         $lowest_student_marks_match_highest_marks = array_intersect_assoc($_SESSION['highest_marks'], $marks_for_lowest_student);
         if (count($lowest_student_marks_match_highest_marks) > 0){
             foreach($lowest_student_marks_match_highest_marks as $key => $value) {
-                echo 'Even though ' . $lowest_percentage_student . ' has lowest percentage, he has highest marks in ' .  '<b>' .$key. '</b>' . '</br>'; 
+                echo '<p style="color:red">' . 'Even though ' . $lowest_percentage_student . ' has lowest percentage, he has highest marks in ' .  '<b>' .$key. '</b>' . '</br>' . '</p>'; 
             }
-        }
+        };
 
+        
+        echo '
+        <form method="post">
+        <input type="text" name="student_report_name" placeholder="Search for student report">
+        <button type="submit" name="student_report_name_button">Submit</button>
+        </form>';
     }
+
+    // Handle the search request for a student report
+    if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['student_report_name'])) {
+        $search_name = $_POST['student_report_name'];
+        $highest_marks = $_SESSION['highest_marks'];
+        if (isset($_SESSION['student_scores'][$search_name])) {
+            $student_data = $_SESSION['student_scores'][$search_name];
+            
+            echo "<h3>Report for $search_name</h3>";
+            echo "<table border='1' cellpadding='8' cellspacing='0' style='border-collapse: collapse; width: 50%; text-align: center;'>";
+            echo "<tr style='background-color: #f2f2f2;'>
+                    <th>Subject</th>
+                    <th>Marks</th>
+                    <th>Highest Marks</th>
+                  </tr>";
+            echo "<tr><td>Science</td><td>{$student_data['science']}</td><td>{$highest_marks['science']}</td></tr>";
+            echo "<tr><td>Math</td><td>{$student_data['math']}</td><td>{$highest_marks['math']}</td></tr>";
+            echo "<tr><td>English</td><td>{$student_data['english']}</td><td>{$highest_marks['english']}</td></tr>";
+            echo "<tr><td>Computer</td><td>{$student_data['computer']}</td><td>{$highest_marks['computer']}</td></tr>";
+            echo "<tr><td>Social</td><td>{$student_data['social']}</td><td>{$highest_marks['social']}</td></tr>";
+            echo "<tr style='background-color: #d9edf7; font-weight: bold;'>
+                    <td>Percentage</td>
+                    <td>{$student_data['percentage']}%</td>
+                  </tr>";
+            echo "</table>";
+        } else {
+            echo "<p style='color:red;'>Student not found!</p>";
+        };
+
+        marks_for_students($_SESSION['student_scores'], 'ABCCC');
+    }
+    
     ?>
-    
-    
-
-
 </div>
 
 </body>
@@ -185,31 +219,10 @@ function validate_score(input) {
 </script>
 
 <?php
-function search_highest_marks(array $student_grades, string $subject_name): float{
-    $subject_marks_array = array_column($student_grades, $subject_name);
-
-    $highest_marks = max($subject_marks_array);
+function marks_for_students(array $scores , string $student_name){
+    $marks_in_subjects = $scores[$student_name];
+    unset($marks_in_subjects['percentage']);
     
-    return $highest_marks;
-} 
-
-function search_lowest_marks(array $student_grades, string $subject_name): float{
-    $subject_marks_array = array_column($student_grades, $subject_name);
-
-    $highest_marks = min($subject_marks_array);
-    
-    return $highest_marks;
-} 
-
-function search_marks_by_name(array $student_grades, string $student_name): array {
-    if (array_key_exists($student_name, $student_grades)) {
-        $student_marks = $student_grades[$student_name];
-        unset($student_marks['percentage']);
-        return $student_marks;
-    }
-    return []; 
 }
-
-
 
 ?>

@@ -93,13 +93,25 @@ function generate_form_by_students_by_file($num_of_students, $file_path) {
         $row = fgetcsv($csv_file);
         if ($row !== false) {
             $name = $row[0]; // Assuming the first column is the name
-            $score = $row[1]; // Assuming the second column is the score
+            $science = $row[1]; 
+            $math = $row[2];
+            $english = $row[3];
+            $computer = $row[4];
+            $social =$row[5];
             echo "
             <label>Id : ". ($i+1) ." </label>
             <label>Name of Student " . ($i + 1) . ":</label>
             <input type='text' name='name[$i]' value='$name' required readonly><br>
-            <label>Score of Student " . ($i + 1) . ":</label>
-            <input type='number' name='score[$i]' value='$score' max='100' min='0' step='0.1' required onchange='validate_score(this)' readonly><br><br>
+            <label>Science score " . ($i + 1) . ":</label>
+            <input type='number' name='science[$i]' value='$science' max='100' min='0' step='0.1' required onchange='validate_score(this)' readonly><br><br>
+            <label>Math score " . ($i + 1) . ":</label>
+            <input type='number' name='math[$i]' value='$math' max='100' min='0' step='0.1' required onchange='validate_score(this)' readonly><br><br>
+            <label>English score " . ($i + 1) . ":</label>
+            <input type='number' name='english[$i]' value='$english' max='100' min='0' step='0.1' required onchange='validate_score(this)' readonly><br><br>
+            <label>Computer score " . ($i + 1) . ":</label>
+            <input type='number' name='computer[$i]' value='$computer' max='100' min='0' step='0.1' required onchange='validate_score(this)' readonly><br><br>
+            <label>Social score " . ($i + 1) . ":</label>
+            <input type='number' name='social[$i]' value='$social' max='100' min='0' step='0.1' required onchange='validate_score(this)' readonly><br><br>
             <hr>
             ";
         }
@@ -109,5 +121,29 @@ function generate_form_by_students_by_file($num_of_students, $file_path) {
     echo '</form></div>';
 }
 
+function search_highest_marks(array $student_grades, string $subject_name): float{
+    $subject_marks_array = array_column($student_grades, $subject_name);
+
+    $highest_marks = max($subject_marks_array);
+    
+    return $highest_marks;
+} 
+
+function search_lowest_marks(array $student_grades, string $subject_name): float{
+    $subject_marks_array = array_column($student_grades, $subject_name);
+
+    $highest_marks = min($subject_marks_array);
+    
+    return $highest_marks;
+} 
+
+function search_marks_by_name(array $student_grades, string $student_name): array {
+    if (array_key_exists($student_name, $student_grades)) {
+        $student_marks = $student_grades[$student_name];
+        unset($student_marks['percentage']);
+        return $student_marks;
+    }
+    return []; 
+}
 
 ?>
