@@ -172,12 +172,12 @@ if (isset($_POST['num_of_students_submit'])) {
 
     // Handle the search request for a student report
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['student_report_name'])) {
-        $search_name = $_POST['student_report_name'];
+        $_SESSION['search_name'] = $_POST['student_report_name'];
         $highest_marks = $_SESSION['highest_marks'];
-        if (isset($_SESSION['student_scores'][$search_name])) {
-            $student_data = $_SESSION['student_scores'][$search_name];
+        if (isset($_SESSION['student_scores'][$_SESSION['search_name']])) {
+            $student_data = $_SESSION['student_scores'][$_SESSION['search_name']];
             
-            echo "<h3>Report for $search_name</h3>";
+            echo "<h3>Report for $_SESSION[search_name] </h3>";
             echo "<table border='1' cellpadding='8' cellspacing='0' style='border-collapse: collapse; width: 50%; text-align: center;'>";
             echo "<tr style='background-color: #f2f2f2;'>
                     <th>Subject</th>
@@ -194,11 +194,23 @@ if (isset($_POST['num_of_students_submit'])) {
                     <td>{$student_data['percentage']}%</td>
                   </tr>";
             echo "</table>";
+
+            
         } else {
             echo "<p style='color:red;'>Student not found!</p>";
         };
 
-        marks_for_students($_SESSION['student_scores'], 'ABCCC');
+        echo '<br>'; 
+
+        echo '
+        <form method="post">
+        <input type="text" name="student_report_name" placeholder="Search for student report">
+        <button type="submit" name="student_report_name_button">Submit</button>
+        </form>';
+
+
+        marks_for_students($_SESSION['student_scores'], $_SESSION['search_name']);
+
     }
     
     ?>
@@ -222,6 +234,24 @@ function validate_score(input) {
 function marks_for_students(array $scores , string $student_name){
     $marks_in_subjects = $scores[$student_name];
     unset($marks_in_subjects['percentage']);
+
+    $count_subjects = count($marks_in_subjects);
+    $total_marks = array_sum($marks_in_subjects);
+    $average_marks = round($total_marks / $count_subjects , 2);
+    $subject_marks_less_than_average = [];
+
+    foreach ($marks_in_subjects as $subject => $value) {
+        if ($value < $average_marks) {
+            $subject_marks_less_than_average[$subject] = $value;
+        }
+    }
+
+    foreach($subject_marks_less_than_average as $subject => $value) {
+        if ($average_marks - $value > 20){
+            echo '<p style="color:red">' . 'You need to work on ' . '<b>' . $subject . '</b>' . '<br>' . '</p>';
+        }
+    }
+
     
 }
 
