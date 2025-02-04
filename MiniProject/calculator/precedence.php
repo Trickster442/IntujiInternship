@@ -1,31 +1,85 @@
 <?php declare(strict_types=1); ?>
 
 <?php
-$operators = [];
-$operands = [];
-$check_operator = ['+', '-', '*' , '/' ];
+function calculate_by_precedence(array $exp): string{
+    $check_operator = ['+', '-', '*', '/', '(', ')'];
+    $expression = $exp;
+    $operators = [];
+    $output = [];
 
-function set_precedence(string $a) : int {
-    if ($a === '/' || $a === '*') return 2;
-    if ($a === '+' || $a === '-') return 1;
-    return 0; 
+function get_precedence(string $op): int {
+    return ($op === '/' || $op === '*') ? 2 : (($op === '+' || $op === '-') ? 1 : 0);
 }
 
-function add_to_array(array $a)  {
-    global $check_operator, $operators, $operands;
-    foreach ($a as $k) {
-        if (in_array($k, $check_operator)) {
-            $operators[] = $k;
-        } else {
-            $operands[] = $k;
+foreach ($expression as $token) {
+    if (is_numeric($token)) {
+        // If it's a number, add it to the output
+        $output[] = $token;
+    } elseif ($token === '(') {
+
+        $operators[] = $token;
+    } elseif ($token === ')') {
+        // Pop from stack to output until '(' is found
+        while (!empty($operators) && end($operators) !== '(') {
+            $output[] = array_pop($operators);
         }
+        array_pop($operators); 
+    } else {
+        
+        while (!empty($operators) && get_precedence(end($operators)) >= get_precedence($token) && end($operators) !== '(') {
+            $output[] = array_pop($operators);
+        }
+        $operators[] = $token;
     }
 }
 
+// Pop remaining operators from stack
+while (!empty($operators)) {
+    $output[] = array_pop($operators);
+}
 
-$expression = ['2' , '-' , '5', '+', '6' , '*' , '7'];
-add_to_array($expression);
 
-print_r($operators);
-print_r($operands);
+foreach($output as $k) {
+    if (in_array($k, $check_operator)) {
+        $operator_index = array_search($k, $output);
+        $left_operand_index = $operator_index-2;
+        $left_operand = (float) $output[$left_operand_index];
+        $right_operand_index = $operator_index-1;  
+        $right_operand = (float) $output[$right_operand_index];
+        $result = perform_calculation($k, $left_operand , $right_operand);
+        array_splice($output,$left_operand_index,3, $result);
+    }
+}
+
+// Print results
+return (string) $output[0];
+}
 ?>
+
+<?php
+function perform_calculation(string $op, float $left, float $right): float {
+    $result = 0;
+    switch ($op) {
+        case '+': 
+            $result = $left + $right;
+            break;
+        case '-': 
+            $result = $left - $right;
+            break;
+        case '*': 
+            $result = $left * $right;
+            break;
+        case '/': 
+            if ($right == 0) {
+                throw new Exception("Division by zero is not allowed.");
+            }
+            $result = $left / $right;
+            break;
+        default:
+            throw new Exception("Invalid operator.");
+    }
+    
+    return $result;
+}
+?>
+

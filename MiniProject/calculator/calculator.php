@@ -1,6 +1,7 @@
 <?php
-include("./calculator_function_holder.php");
+include("./helper.php");
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +43,6 @@ include("./calculator_function_holder.php");
                 <button type="submit" name="operator" value="/" class="operator">/</button>
                 <button type="submit" name="operator" value="C" class="clear">C</button>
                 <button type="submit" name="operator" value="=" class="equal">=</button>
-                <button type="submit" name="operator" value="**" class="operator">^2</button> 
             </div>
         </form>
     </div>

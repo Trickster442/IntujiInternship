@@ -63,15 +63,15 @@ function generate_form_by_students_by_user_input($stds_number){
         <label>Name of Student :</label>
         <input type='text' name='name[]' required><br>
         <label>Science score : </label>
-        <input type='number' name='science[$i]' max='100' min='0' step='0.1' required onchange='validate_score(this)'><br>
+        <input type='number' name='science[$i]' max='100' min='1' step='0.1' required onchange='validate_score(this)'><br>
         <label>Math score : </label>
-        <input type='number' name='math[$i]' max='100' min='0' step='0.1' required onchange='validate_score(this)'><br>
+        <input type='number' name='math[$i]' max='100' min='1' step='0.1' required onchange='validate_score(this)'><br>
         <label>English score : </label>
-        <input type='number' name='english[$i]' max='100' min='0' step='0.1' required onchange='validate_score(this)'><br><br>
+        <input type='number' name='english[$i]' max='100' min='1' step='0.1' required onchange='validate_score(this)'><br><br>
         <label>Computer score : </label>
-        <input type='number' name='computer[$i]' max='100' min='0' step='0.1' required onchange='validate_score(this)'><br><br>
+        <input type='number' name='computer[$i]' max='100' min='1' step='0.1' required onchange='validate_score(this)'><br><br>
         <label>Social score : </label>
-        <input type='number' name='social[$i]' max='100' min='0' step='0.1' required onchange='validate_score(this)'><br><br>
+        <input type='number' name='social[$i]' max='100' min='1' step='0.1' required onchange='validate_score(this)'><br><br>
         <hr>
         ";
     }  
