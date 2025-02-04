@@ -38,6 +38,7 @@ function count_lowest_percentage(array $student_grades): string{
     return $lowest_scoring_student;
 }
 
+
 function calculate_average(array $student_grades): float{
     $percentage_array = percentage_array($student_grades);
     $average = array_sum($percentage_array) / count($student_grades);
@@ -55,72 +56,6 @@ function create_csv_file(array $student_grades, string $set_file_name){
     fclose($csv_file);
 }
 
-function generate_form_by_students_by_user_input($stds_number){
-    echo '<div class="form-section"><form method="post">';
-    for ($i = 0; $i < $stds_number; $i++) {
-        echo "
-        <label>Id : ". ($i+1) ." </label>
-        <label>Name of Student :</label>
-        <input type='text' name='name[]' required><br>
-        <label>Science score : </label>
-        <input type='number' name='science[$i]' max='100' min='1' step='0.1' required onchange='validate_score(this)'><br>
-        <label>Math score : </label>
-        <input type='number' name='math[$i]' max='100' min='1' step='0.1' required onchange='validate_score(this)'><br>
-        <label>English score : </label>
-        <input type='number' name='english[$i]' max='100' min='1' step='0.1' required onchange='validate_score(this)'><br><br>
-        <label>Computer score : </label>
-        <input type='number' name='computer[$i]' max='100' min='1' step='0.1' required onchange='validate_score(this)'><br><br>
-        <label>Social score : </label>
-        <input type='number' name='social[$i]' max='100' min='1' step='0.1' required onchange='validate_score(this)'><br><br>
-        <hr>
-        ";
-    }  
-    echo '<label>Enter name for your file : </label>';
-    echo '<input type="text" name="give_filename" maxlength="20" minlength="3"></input>';
-    echo "<button type='submit' name='submit_scores'>Submit Scores</button>";
-    echo '</form></div>';
-}
-
-function generate_form_by_students_by_file($num_of_students, $file_path) {
-    // Open the uploaded file
-    $csv_file = fopen($file_path, "r");
-
-    // Skip the header row (if any)
-    fgetcsv($csv_file);
-
-    echo '<div class="form-section"><form method="post">';
-    for ($i = 0; $i < $num_of_students; $i++) {
-        $row = fgetcsv($csv_file);
-        if ($row !== false) {
-            $name = $row[0]; // Assuming the first column is the name
-            $science = $row[1]; 
-            $math = $row[2];
-            $english = $row[3];
-            $computer = $row[4];
-            $social =$row[5];
-            echo "
-            <label>Id : ". ($i+1) ." </label>
-            <label>Name of Student " . ($i + 1) . ":</label>
-            <input type='text' name='name[$i]' value='$name' required readonly><br>
-            <label>Science score " . ($i + 1) . ":</label>
-            <input type='number' name='science[$i]' value='$science' max='100' min='0' step='0.1' required onchange='validate_score(this)' readonly><br><br>
-            <label>Math score " . ($i + 1) . ":</label>
-            <input type='number' name='math[$i]' value='$math' max='100' min='0' step='0.1' required onchange='validate_score(this)' readonly><br><br>
-            <label>English score " . ($i + 1) . ":</label>
-            <input type='number' name='english[$i]' value='$english' max='100' min='0' step='0.1' required onchange='validate_score(this)' readonly><br><br>
-            <label>Computer score " . ($i + 1) . ":</label>
-            <input type='number' name='computer[$i]' value='$computer' max='100' min='0' step='0.1' required onchange='validate_score(this)' readonly><br><br>
-            <label>Social score " . ($i + 1) . ":</label>
-            <input type='number' name='social[$i]' value='$social' max='100' min='0' step='0.1' required onchange='validate_score(this)' readonly><br><br>
-            <hr>
-            ";
-        }
-    }
-    fclose($csv_file);
-    echo "<button type='submit'>Submit Scores</button>";
-    echo '</form></div>';
-}
-
 function search_highest_marks(array $student_grades, string $subject_name): float{
     $subject_marks_array = array_column($student_grades, $subject_name);
 
@@ -131,10 +66,9 @@ function search_highest_marks(array $student_grades, string $subject_name): floa
 
 function search_lowest_marks(array $student_grades, string $subject_name): float{
     $subject_marks_array = array_column($student_grades, $subject_name);
+    $lowest_marks = min($subject_marks_array);
 
-    $highest_marks = min($subject_marks_array);
-    
-    return $highest_marks;
+    return $lowest_marks;
 } 
 
 function search_marks_by_name(array $student_grades, string $student_name): array {
@@ -146,4 +80,27 @@ function search_marks_by_name(array $student_grades, string $student_name): arra
     return []; 
 }
 
+function marks_for_students(array $scores , string $student_name){
+    $marks_in_subjects = $scores[$student_name];
+    unset($marks_in_subjects['percentage']);
+
+    $count_subjects = count($marks_in_subjects);
+    $total_marks = array_sum($marks_in_subjects);
+    $average_marks = round($total_marks / $count_subjects , 2);
+    $subject_marks_less_than_average = [];
+
+    foreach ($marks_in_subjects as $subject => $value) {
+        if ($value < $average_marks) {
+            $subject_marks_less_than_average[$subject] = $value;
+        }
+    }
+
+    foreach($subject_marks_less_than_average as $subject => $value) {
+        if ($average_marks - $value > 20){
+            echo '<p style="color:red">' . 'You need to work on ' . '<b>' . $subject . '</b>' . '<br>' . '</p>';
+        }
+    }
+
+    
+}
 ?>

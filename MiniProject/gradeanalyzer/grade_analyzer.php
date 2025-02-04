@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 session_start();
 include('./function_holder.php');
+include('./form_holder.php');
 ?>
 
 <?php 
@@ -58,7 +59,7 @@ if (isset($_POST['num_of_students_submit'])) {
             <button type="submit" name="num_of_students_submit">Submit</button>
             <input type="file" name="file_upload">
             <button type="submit" name="upload_file">Upload</button>
-        </form>
+        </form> 
 
         <?php if (!empty($error_message)): ?>
         <p style="color: red;"><?php echo htmlspecialchars($error_message); ?></p>
@@ -69,12 +70,11 @@ if (isset($_POST['num_of_students_submit'])) {
     // Generate the form based on the number of students
     if ($num_of_students > 0) {
         if (isset($_POST['num_of_students_submit'])) {
-            // If the user submitted the number of students manually
+            // submitted the number of students manually
             generate_form_by_students_by_user_input($num_of_students);
         } elseif (isset($_POST['upload_file'])) {
-            // If the user uploaded a file
-            generate_form_by_students_by_file($num_of_students, $_SESSION['file_name']);
-            
+            //  uploaded a file
+            generate_form_by_students_by_file($num_of_students, $_SESSION['file_name']);    
         }
     }
 
@@ -119,6 +119,7 @@ if (isset($_POST['num_of_students_submit'])) {
                 $count++;
             }
         }
+        
         echo "<p><strong>Number of students with percentage above average are: " . $count . "</strong></p>";
         echo '</div>';
 
@@ -135,12 +136,16 @@ if (isset($_POST['num_of_students_submit'])) {
             $_SESSION['highest_marks'][$subject] = $marks;
         }
         echo '<br>';
+
         // lowest in all subjects
         $_SESSION['lowest_marks'] = [];
         foreach ($subjects as $subject) {
             $marks = search_lowest_marks($_SESSION['student_scores'], $subject);
             $_SESSION['lowest_marks'][$subject] = $marks;
         }
+        
+        
+
 
         // marks by name for topper
         $marks_for_topper = search_marks_by_name($_SESSION['student_scores'], $highest_percentage_student);
@@ -148,7 +153,7 @@ if (isset($_POST['num_of_students_submit'])) {
         $topper_marks_match_lowest_marks = array_intersect_assoc($_SESSION['lowest_marks'],$marks_for_topper);
         if (count($topper_marks_match_lowest_marks) > 0) {
             foreach($topper_marks_match_lowest_marks as $key => $value) {
-                echo '<p style="color:red">' . 'Even though ' . $highest_percentage_student . ' has highest percentage, he has lowest marks in ' .  '<b>' .$key. '</b>' .'</br>' . '</p>'; 
+                echo '<p style="color:red">' . 'Even though ' . $highest_percentage_student . ' has highest percentage, he has lowest marks in ' .  '<b>' .$key. ' i.e '. $value . '</b>' .'</br>' . '</p>'; 
             }
         }
 
@@ -158,16 +163,20 @@ if (isset($_POST['num_of_students_submit'])) {
         $lowest_student_marks_match_highest_marks = array_intersect_assoc($_SESSION['highest_marks'], $marks_for_lowest_student);
         if (count($lowest_student_marks_match_highest_marks) > 0){
             foreach($lowest_student_marks_match_highest_marks as $key => $value) {
-                echo '<p style="color:red">' . 'Even though ' . $lowest_percentage_student . ' has lowest percentage, he has highest marks in ' .  '<b>' .$key. '</b>' . '</br>' . '</p>'; 
+                echo '<p style="color:red">' . 'Even though ' . $lowest_percentage_student . ' has lowest percentage, he has highest marks in ' .  '<b>' .$key. ' i.e '. $value . '</b>' . '</br>' . '</p>'; 
             }
         };
 
-        
-        echo '
-        <form method="post">
-        <input type="text" name="student_report_name" placeholder="Search for student report">
-        <button type="submit" name="student_report_name_button">Submit</button>
-        </form>';
+        foreach ($_SESSION['student_scores'] as $name => $value){
+            $matching = array_intersect_assoc($_SESSION['lowest_marks'], $value);
+            if (count($matching) > 0){
+                foreach($matching as $key => $value) {
+                    echo  '<p style="color:red">'.$name . ' has the lowest marks in ' . $key . ' i.e ' . $value . '<br></p>';
+                }
+            }
+        }
+
+        search_student_report();    
     }
 
     // Handle the search request for a student report
@@ -202,16 +211,25 @@ if (isset($_POST['num_of_students_submit'])) {
 
         echo '<br>'; 
 
-        echo '
-        <form method="post">
-        <input type="text" name="student_report_name" placeholder="Search for student report">
-        <button type="submit" name="student_report_name_button">Submit</button>
-        </form>';
-
+        search_student_report();
 
         marks_for_students($_SESSION['student_scores'], $_SESSION['search_name']);
 
     }
+
+    // $page = 1 ;
+    // $num_of_pages = ceil($num_of_students/5);
+    // echo "
+    // <form method='get'>
+    // <button type='submit' name='page' value='$page+1'>Next</button>
+    // <button type='submit' name='page' valye='$page-1'>Prev</button>
+    // </form>
+    // ";
+    // if ($_SERVER['REQUEST_METHOD'] === 'get'){
+    //     echo $_GET['page'];
+    // }
+        
+    
     
     ?>
 </div>
@@ -228,31 +246,13 @@ function validate_score(input) {
         input.setCustomValidity("");
     }
 }
-</script>
 
-<?php
-function marks_for_students(array $scores , string $student_name){
-    $marks_in_subjects = $scores[$student_name];
-    unset($marks_in_subjects['percentage']);
-
-    $count_subjects = count($marks_in_subjects);
-    $total_marks = array_sum($marks_in_subjects);
-    $average_marks = round($total_marks / $count_subjects , 2);
-    $subject_marks_less_than_average = [];
-
-    foreach ($marks_in_subjects as $subject => $value) {
-        if ($value < $average_marks) {
-            $subject_marks_less_than_average[$subject] = $value;
-        }
+function validate_name(input){
+    const name = input.value;
+    if (name.match(/[!,@,#,$,%,^,&,*,/,[0-9]/g)){
+        input.setCustomValidity("Input must be alphabet only")
+    } else{
+        input.setCustomValidity("");
     }
-
-    foreach($subject_marks_less_than_average as $subject => $value) {
-        if ($average_marks - $value > 20){
-            echo '<p style="color:red">' . 'You need to work on ' . '<b>' . $subject . '</b>' . '<br>' . '</p>';
-        }
-    }
-
-    
 }
-
-?>
+</script>

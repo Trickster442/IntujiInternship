@@ -1,85 +1,90 @@
-<?php declare(strict_types=1); ?>
-
 <?php
-function calculate_by_precedence(array $exp): string{
-    $check_operator = ['+', '-', '*', '/', '(', ')'];
-    $expression = $exp;
-    $operators = [];
+function calculate_by_precedence(string $expression): float {
+    $tokens = format_expression($expression);
     $output = [];
+    $operators = [];
 
-function get_precedence(string $op): int {
-    return ($op === '/' || $op === '*') ? 2 : (($op === '+' || $op === '-') ? 1 : 0);
-}
+    $precedence = [
+        '+' => 1,
+        '-' => 1,
+        '*' => 2,
+        '/' => 2,
+    ];
 
-foreach ($expression as $token) {
-    if (is_numeric($token)) {
-        // If it's a number, add it to the output
-        $output[] = $token;
-    } elseif ($token === '(') {
-
-        $operators[] = $token;
-    } elseif ($token === ')') {
-        // Pop from stack to output until '(' is found
-        while (!empty($operators) && end($operators) !== '(') {
-            $output[] = array_pop($operators);
+    foreach ($tokens as $token) {
+        if (is_numeric($token)) {
+            $output[] = $token;
+        } elseif ($token === '(') {
+            $operators[] = $token;
+        } elseif ($token === ')') {
+            while (!empty($operators) && end($operators) !== '(') {
+                $output[] = array_pop($operators);
+            }
+            array_pop($operators); // Remove '('
+        } else {
+            while (!empty($operators) && end($operators) !== '(' &&
+                   $precedence[end($operators)] >= $precedence[$token]) {
+                $output[] = array_pop($operators);
+            }
+            $operators[] = $token;
         }
-        array_pop($operators); 
-    } else {
-        
-        while (!empty($operators) && get_precedence(end($operators)) >= get_precedence($token) && end($operators) !== '(') {
-            $output[] = array_pop($operators);
+    }
+
+    while (!empty($operators)) {
+        $output[] = array_pop($operators);
+    }
+
+    return evaluate_rpn($output);
+}
+
+function format_expression(string $expression): array {
+    $tokens = [];
+    $number = '';
+    for ($i = 0; $i < strlen($expression); $i++) {
+        $char = $expression[$i];
+        if (is_numeric($char) || $char === '.') {
+            $number .= $char;
+        } else {
+            if ($number !== '') {
+                $tokens[] = $number;
+                $number = '';
+            }
+            $tokens[] = $char;
         }
-        $operators[] = $token;
     }
-}
-
-// Pop remaining operators from stack
-while (!empty($operators)) {
-    $output[] = array_pop($operators);
-}
-
-
-foreach($output as $k) {
-    if (in_array($k, $check_operator)) {
-        $operator_index = array_search($k, $output);
-        $left_operand_index = $operator_index-2;
-        $left_operand = (float) $output[$left_operand_index];
-        $right_operand_index = $operator_index-1;  
-        $right_operand = (float) $output[$right_operand_index];
-        $result = perform_calculation($k, $left_operand , $right_operand);
-        array_splice($output,$left_operand_index,3, $result);
+    if ($number !== '') {
+        $tokens[] = $number;
     }
+    return $tokens;
 }
 
-// Print results
-return (string) $output[0];
+function evaluate_rpn(array $tokens): float {
+    $stack = [];
+    foreach ($tokens as $token) {
+        if (is_numeric($token)) {
+            array_push($stack, $token);
+        } else {
+            $right = array_pop($stack);
+            $left = array_pop($stack);
+            $result = perform_calculation($token, (float)$left, (float)$right);
+            array_push($stack, $result);
+        }
+    }
+    return array_pop($stack);
 }
-?>
 
-<?php
 function perform_calculation(string $op, float $left, float $right): float {
-    $result = 0;
     switch ($op) {
-        case '+': 
-            $result = $left + $right;
-            break;
-        case '-': 
-            $result = $left - $right;
-            break;
-        case '*': 
-            $result = $left * $right;
-            break;
-        case '/': 
+        case '+': return $left + $right;
+        case '-': return $left - $right;
+        case '*': return $left * $right;
+        case '/':
             if ($right == 0) {
                 throw new Exception("Division by zero is not allowed.");
             }
-            $result = $left / $right;
-            break;
+            return $left / $right;
         default:
             throw new Exception("Invalid operator.");
     }
-    
-    return $result;
 }
 ?>
-
