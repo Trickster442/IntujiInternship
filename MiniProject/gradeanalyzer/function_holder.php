@@ -38,7 +38,6 @@ function count_lowest_percentage(array $student_grades): string{
     return $lowest_scoring_student;
 }
 
-
 function calculate_average(array $student_grades): float{
     $percentage_array = percentage_array($student_grades);
     $average = array_sum($percentage_array) / count($student_grades);
