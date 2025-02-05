@@ -80,6 +80,7 @@ function search_marks_by_name(array $student_grades, string $student_name): arra
 }
 
 function marks_for_students(array $scores , string $student_name){
+    if (array_key_exists($student_name, $scores)) {
     $marks_in_subjects = $scores[$student_name];
     unset($marks_in_subjects['percentage']);
 
@@ -99,7 +100,29 @@ function marks_for_students(array $scores , string $student_name){
             echo '<p style="color:red">' . 'You need to work on ' . '<b>' . $subject . '</b>' . '<br>' . '</p>';
         }
     }
-
+    }else {
+        echo '<p style="color:red">'."Student not found" . '</p>';
+    }
     
 }
 ?>
+
+<script>
+function validate_score(input) {
+    const value = input.value;
+    if (value % 0.5 !== 0) {
+        input.setCustomValidity("Score must be in .5 or real value");
+    } else {
+        input.setCustomValidity("");
+    }
+}
+
+function validate_name(input){
+    const name = input.value;
+    if (name.match(/[!,@,#,$,%,^,&,*,/,[0-9]/g)){
+        input.setCustomValidity("Input must be alphabet only")
+    } else{
+        input.setCustomValidity("");
+    }
+}
+</script>

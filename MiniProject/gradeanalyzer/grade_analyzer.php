@@ -183,40 +183,19 @@ if (isset($_POST['num_of_students_submit'])) {
     if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['student_report_name'])) {
         $_SESSION['search_name'] = $_POST['student_report_name'];
         $highest_marks = $_SESSION['highest_marks'];
-        if (isset($_SESSION['student_scores'][$_SESSION['search_name']])) {
+        if (in_array($_SESSION['search_name'], array_keys($_SESSION['student_scores']))) {
             $student_data = $_SESSION['student_scores'][$_SESSION['search_name']];
             
-            echo "<h3>Report for $_SESSION[search_name] </h3>";
-            echo "<table border='1' cellpadding='8' cellspacing='0' style='border-collapse: collapse; width: 50%; text-align: center;'>";
-            echo "<tr style='background-color: #f2f2f2;'>
-                    <th>Subject</th>
-                    <th>Marks</th>
-                    <th>Highest Marks</th>
-                  </tr>";
-            echo "<tr><td>Science</td><td>{$student_data['science']}</td><td>{$highest_marks['science']}</td></tr>";
-            echo "<tr><td>Math</td><td>{$student_data['math']}</td><td>{$highest_marks['math']}</td></tr>";
-            echo "<tr><td>English</td><td>{$student_data['english']}</td><td>{$highest_marks['english']}</td></tr>";
-            echo "<tr><td>Computer</td><td>{$student_data['computer']}</td><td>{$highest_marks['computer']}</td></tr>";
-            echo "<tr><td>Social</td><td>{$student_data['social']}</td><td>{$highest_marks['social']}</td></tr>";
-            echo "<tr style='background-color: #d9edf7; font-weight: bold;'>
-                    <td>Percentage</td>
-                    <td>{$student_data['percentage']}%</td>
-                  </tr>";
-            echo "</table>";
-
-            
-        } else {
-            echo "<p style='color:red;'>Student not found!</p>";
-        };
-
+            report_table($_SESSION['search_name'], $student_data, $highest_marks);
+        } 
         echo '<br>'; 
 
         search_student_report();
 
         marks_for_students($_SESSION['student_scores'], $_SESSION['search_name']);
-
     }
 
+    
     // $page = 1 ;
     // $num_of_pages = ceil($num_of_students/5);
     // echo "
@@ -229,30 +208,12 @@ if (isset($_POST['num_of_students_submit'])) {
     //     echo $_GET['page'];
     // }
         
-    
-    
     ?>
 </div>
 
 </body>
 </html>
 
-<script>
-function validate_score(input) {
-    const value = input.value;
-    if (value % 0.5 !== 0) {
-        input.setCustomValidity("Score must be in .5 or real value");
-    } else {
-        input.setCustomValidity("");
-    }
-}
 
-function validate_name(input){
-    const name = input.value;
-    if (name.match(/[!,@,#,$,%,^,&,*,/,[0-9]/g)){
-        input.setCustomValidity("Input must be alphabet only")
-    } else{
-        input.setCustomValidity("");
-    }
-}
-</script>
+
+
