@@ -14,7 +14,7 @@ if (isset($_POST['upload_file'])) {
         $received_file = $_FILES['file_upload'];
         $received_file_name = $_FILES['file_upload']['name'];
         $received_file_extension = explode('.', $received_file_name);
-        $received_file_actual_extension = end($received_file_extension);
+        $received_file_actual_extension = end($received_file_extension); 
         $received_file_tmp_name = $_FILES['file_upload']['tmp_name'];
         $_SESSION['file_name'] = $received_file_tmp_name;
 

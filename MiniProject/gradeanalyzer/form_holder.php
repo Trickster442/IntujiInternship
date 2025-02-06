@@ -3,7 +3,7 @@ function search_student_report()
 {
     echo '
         <form method="post">
-        <input type="text" name="student_report_name" placeholder="Search for student report" onchange="validate_name(this)">
+        <input type="text" name="student_report_name" placeholder="Search for student report" onchange="validate_name()">
         <button type="submit" name="student_report_name_button">Submit</button>
         </form>';
 }
@@ -35,55 +35,12 @@ function generate_form_by_students_by_user_input($stds_number)
     echo '</form></div>';
 }
 
-// function generate_form_by_students_by_file($num_of_students, $file_path){
-//     // Open the uploaded file
-//     $csv_file = fopen($file_path, "r");
-
-//     // Skip the header row (if any)
-//     fgetcsv($csv_file);
-
-//     echo '<div class="form-section"><form method="post">';
-//     for ($i = 0; $i < $num_of_students; $i++) {
-//         $row = fgetcsv($csv_file);
-//         if ($row !== false) {
-//             $name = $row[0]; // Assuming the first column is the name
-//             $science = $row[1];
-//             $math = $row[2];
-//             $english = $row[3];
-//             $computer = $row[4];
-//             $social = $row[5];
-//             echo "
-//             <label>Id : " . ($i + 1) . " </label>
-//             <label>Name of Student " . ($i + 1) . ":</label>
-//             <input type='text' name='name[$i]' value='$name' required readonly><br>
-//             <label>Science score " . ($i + 1) . ":</label>
-//             <input type='number' name='science[$i]' value='$science' max='100' min='0' step='0.1' required onchange='validate_score(this)' readonly><br><br>
-//             <label>Math score " . ($i + 1) . ":</label>
-//             <input type='number' name='math[$i]' value='$math' max='100' min='0' step='0.1' required onchange='validate_score(this)' readonly><br><br>
-//             <label>English score " . ($i + 1) . ":</label>
-//             <input type='number' name='english[$i]' value='$english' max='100' min='0' step='0.1' required onchange='validate_score(this)' readonly><br><br>
-//             <label>Computer score " . ($i + 1) . ":</label>
-//             <input type='number' name='computer[$i]' value='$computer' max='100' min='0' step='0.1' required onchange='validate_score(this)' readonly><br><br>
-//             <label>Social score " . ($i + 1) . ":</label>
-//             <input type='number' name='social[$i]' value='$social' max='100' min='0' step='0.1' required onchange='validate_score(this)' readonly><br><br>
-//             <hr>
-//             ";
-//         }
-//     }
-//     fclose($csv_file);
-//     echo "<button type='submit'>Submit Scores</button>";
-//     echo '</form></div>';
-// }
-
-
-function generate_form_by_students_by_file($num_of_students, $file_path){
-
-    if (!isset($_SESSION['page'])) {
-        $_SESSION['page'] = 0;
-    }
-    $items_per_page = 25;
+function generate_form_by_students_by_file($num_of_students, $file_path)
+{
+    // Open the uploaded file
     $csv_file = fopen($file_path, "r");
 
+    // Skip the header row (if any)
     fgetcsv($csv_file);
 
     echo '<div class="form-section"><form method="post">';
@@ -118,6 +75,7 @@ function generate_form_by_students_by_file($num_of_students, $file_path){
     echo "<button type='submit'>Submit Scores</button>";
     echo '</form></div>';
 }
+
 
 function report_table(string $name, array $student_data, array $highest_marks)
 {
