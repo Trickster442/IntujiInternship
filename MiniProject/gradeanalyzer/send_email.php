@@ -3,7 +3,7 @@ declare(strict_types= 1);
 ?>
 
 <?php
-function send_email(string $email, $msg) {
+function send_email(string $email, $msg, $recommendation) {
     // Mailtrap SMTP configuration
     $smtpServer = 'smtp.mailtrap.io';
     $smtpPort = 2525;  // Or use 587 for TLS
@@ -14,6 +14,11 @@ function send_email(string $email, $msg) {
     $to = $email . "@example.com";  // Replace with the recipient's email address
     $subject = "Test Email from Mailtrap";
     $message = $msg;
+
+    foreach ($recommendation as $value) {
+        $message .= $value;
+    }
+    
     $headers = "From: sender@example.com\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
     $headers .= "Content-Type: text/html; charset=UTF-8\r\n";  // Specify that the email is HTML

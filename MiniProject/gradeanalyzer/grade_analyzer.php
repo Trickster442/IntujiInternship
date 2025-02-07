@@ -146,8 +146,6 @@ if (isset($_POST['num_of_students_submit'])) {
             $_SESSION['lowest_marks'][$subject] = $marks;
         }
         
-        
-
 
         // marks by name for topper
         $marks_for_topper = search_marks_by_name($_SESSION['student_scores'], $highest_percentage_student);
@@ -203,8 +201,9 @@ if (isset($_POST['num_of_students_submit'])) {
     }
 
     if(isset($_POST['email_button']) && isset($_POST['parent_email'])){
-        send_email($_POST['parent_email'], $_SESSION['report']);
+        send_email($_POST['parent_email'], $_SESSION['report'], $_SESSION['recommendation']);
     }
+    
     
     ?>
 </div>

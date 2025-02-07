@@ -95,9 +95,11 @@ function marks_for_students(array $scores , string $student_name){
         }
     }
 
+    $_SESSION['recommendation'] = [];
     foreach($subject_marks_less_than_average as $subject => $value) {
         if ($average_marks - $value > 20){
             echo '<p style="color:red">' . 'You need to work on ' . '<b>' . $subject . '</b>' . '<br>' . '</p>';
+            $_SESSION['recommendation'][] = '<p style="color:red">' . 'You need to work on ' . '<b>' . $subject . '</b>' . '<br>' . '</p>';
         }
     }
     }else {

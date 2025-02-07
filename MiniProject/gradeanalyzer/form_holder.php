@@ -1,6 +1,6 @@
 <?php
 include('./pagination2.php');
-function search_student_report()
+function  search_student_report()
 {
     echo '
         <form method="post">
