@@ -12,7 +12,7 @@ include './helper.php';
 </head>
 <body>
     <div class="calculator">
-        <h2>PHP Calculator</h2>
+        <h2>PHP Calculator</h2> 
         <form method="POST">
             <input type="text" name="display" value="<?= htmlspecialchars($displayValue) ?>" readonly>
             <div class="button-row">

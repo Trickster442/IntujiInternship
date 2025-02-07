@@ -2,6 +2,7 @@
 session_start();
 include('./function_holder.php');
 include('./form_holder.php');
+include('./send_email.php');
 ?>
 
 <?php 
@@ -74,7 +75,8 @@ if (isset($_POST['num_of_students_submit'])) {
             generate_form_by_students_by_user_input($num_of_students);
         } elseif (isset($_POST['upload_file'])) {
             //  uploaded a file
-            generate_form_by_students_by_file($num_of_students, $_SESSION['file_name']);    
+            generate_form_by_students_by_file($num_of_students, $_SESSION['file_name']); 
+               
         }
     }
 
@@ -187,6 +189,7 @@ if (isset($_POST['num_of_students_submit'])) {
             $student_data = $_SESSION['student_scores'][$_SESSION['search_name']];
             
             report_table($_SESSION['search_name'], $student_data, $highest_marks);
+            send_email_form();
         } 
         echo '<br>'; 
 
@@ -195,19 +198,14 @@ if (isset($_POST['num_of_students_submit'])) {
         marks_for_students($_SESSION['student_scores'], $_SESSION['search_name']);
     }
 
+    if (empty($_SESSION['search_name'])){
+        unset($_SESSION['report']);
+    }
+
+    if(isset($_POST['email_button']) && isset($_POST['parent_email'])){
+        send_email($_POST['parent_email'], $_SESSION['report']);
+    }
     
-    // $page = 1 ;
-    // $num_of_pages = ceil($num_of_students/5);
-    // echo "
-    // <form method='get'>
-    // <button type='submit' name='page' value='$page+1'>Next</button>
-    // <button type='submit' name='page' valye='$page-1'>Prev</button>
-    // </form>
-    // ";
-    // if ($_SERVER['REQUEST_METHOD'] === 'get'){
-    //     echo $_GET['page'];
-    // }
-        
     ?>
 </div>
 
