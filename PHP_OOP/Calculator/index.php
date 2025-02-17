@@ -86,11 +86,79 @@ $displayValue = implode('', $_SESSION['display']);
 </html>
 
 <?php
-
-echo '<form>';
-foreach ($_SESSION['operation_steps'] as $key => $value) {
-    echo 'Step' .$key+1 . '   ' . $value . '<br>';
+if (!empty($_SESSION['operation_steps']) && is_array($_SESSION['operation_steps'])) {
+    echo '<form method="post" style="
+        margin-left: 16px;
+        color: red;
+        border: dashed 2px black;
+        font-size: 20px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border-radius: 8px;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        width: fit-content;
+        max-width: 90%;
+    ">';
+    
+    foreach ($_SESSION['operation_steps'] as $key => $value) {
+        echo '<p style="
+            margin: 5px 0;
+            font-weight: bold;
+            color: black;
+        ">Step ' . ($key + 1) . ': ' . htmlspecialchars($value) . '</p>';
+    }
+    echo '</form>';
 }
-echo '</form>';
 
-?>
+if (!empty($_SESSION['result_steps'])) {
+    echo '<div style="
+        margin-left: 10px;
+        margin-top: 10px;
+        padding: 10px;
+        border: solid 2px black;
+        background-color: #eaf4fc;
+        color: #333;
+        border-radius: 8px;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        font-size: 18px;
+        display: inline-block;
+        width: auto;
+        max-height: 200px;
+        overflow-y: auto;
+    ">';
+
+    foreach ($_SESSION['result_steps'] as $key => $value) {
+        echo '<p style="
+            margin: 5px 0;
+            font-weight: bold;
+        ">' . $key . ' = <span style="color: blue;">' . $value . '</span></p>';
+    }
+
+    echo '
+    <form method="post" style="margin-top: 10px;">
+        <button type="submit" name="clear_history" style="
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        " onmouseover="this.style.backgroundColor=\'darkred\'" 
+          onmouseout="this.style.backgroundColor=\'red\'">
+          Clear History
+        </button>
+    </form>';
+
+    echo '</div>';
+}
+
+if (isset($_POST['clear_history'])) {
+    $_SESSION['result_steps'] = [];
+}
+
+
+
+
+
