@@ -9,7 +9,8 @@ class DatabaseModel {
             LastName varchar(255) NOT NULL,
             RollNo int NOT NULL UNIQUE,
             PhoneNum varchar(20) NOT NULL UNIQUE,
-            PRIMARY KEY (id)
+            Class int NOT NULL,
+            PRIMARY KEY (id)    
         )";
         return $sql;
     }

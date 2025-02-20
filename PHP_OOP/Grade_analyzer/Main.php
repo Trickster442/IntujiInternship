@@ -1,7 +1,9 @@
 <?php
 use Grade_analyzer\View\FormHolder;
+
 include './View/FormHolder.php';
 include './Controller/FormHandling.php';
+require_once './Controller/FormHandling.php'
 ?>
 
 <!DOCTYPE html>
@@ -67,3 +69,10 @@ class Main
 
 $try = new Main;
 $try->main();
+
+if (isset($_POST['firstname'])){
+    echo $_POST['firstname'];
+}
+
+
+echo $dummY;
