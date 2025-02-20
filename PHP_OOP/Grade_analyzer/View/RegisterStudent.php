@@ -10,14 +10,14 @@ require_once '../Config/Config.php';
     <form method="POST">
         <div class="mb-3">
             <label for="firstname" style="font-size: 16px; font-weight: bold; color: #333;">First Name :</label>
-            <input id="firstname" name="firstname" type="text" required onchange="validate_text(this)" oninput="" 
+            <input id="firstname" name="firstname" type="text" required onchange="validate_text(this)" oninput="capitalizeFirstLetter(event)" 
                    value="<?php echo isset($_POST['firstname']) ? htmlspecialchars($_POST['firstname']) : '' ?>" 
                    style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
         </div>
 
         <div class="mb-3">
             <label for="lastname" style="font-size: 16px; font-weight: bold; color: #333;">Last Name :</label>
-            <input type="text" id="lastname" name="lastname" required onchange="validate_text(this)" 
+            <input type="text" id="lastname" name="lastname" required onchange="validate_text(this)" oninput="capitalizeFirstLetter(event)" 
                    style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;"
                    value="<?php echo isset($_POST['lastname']) ? htmlspecialchars($_POST['lastname']) : '' ?>">
         </div>
@@ -50,6 +50,10 @@ require_once '../Config/Config.php';
 </div>
 
 <script>
+    function capitalizeFirstLetter(event){
+        let value = event.target.value;
+        event.target.value = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
+    }
     function validate_text(input) {
         const input_value = input.value;
         if (input_value.match(/[^a-zA-Z]/g)) { 

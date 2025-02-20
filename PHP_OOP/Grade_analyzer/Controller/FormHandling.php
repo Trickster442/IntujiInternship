@@ -54,11 +54,65 @@ class FormHandling
         $stmt->close();
     }
     
-    public function num_of_students_by_class($class){
-        $stmt = 'SELECT * FROM studentInfo WHERE Class= . "$class" . ';
+    public function num_of_students_by_class($class): array {
+        $stmt = "SELECT FirstName, LastName, RollNo FROM studentInfo WHERE Class = '$class'";
+        $query = $this->config->query($stmt);
+        $result = $query->fetch_all(MYSQLI_ASSOC); 
+        
+        return $result;
+    } 
+    
+    public function insert_student_data($math, $science, $english, $nepali, $social, $health){
+        $rollNos = array_keys($social);
+        
+        foreach ($rollNos as $values) {
+            $stmt = $this->config->prepare("SELECT id FROM studentInfo WHERE RollNo = ?");
+            $stmt->bind_param("i", $values); 
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            $id_fetch = $result->fetch_assoc(); 
+            
+            if ($id_fetch) {
+                $id = (int) $id_fetch['id'];  
+
+                $stmt2 = $this->config->prepare("INSERT INTO subjectMarks (Math, Science, English, Nepali, Social, Health, student_id) 
+                                                 VALUES (?, ?, ?, ?, ?, ?, ?)");
+                
+                if ($stmt2) {
+                    $stmt2->bind_param("ddddddi", 
+                        $math[$values], 
+                        $science[$values], 
+                        $english[$values], 
+                        $nepali[$values], 
+                        $social[$values], 
+                        $health[$values], 
+                        $id
+                    );
+    
+                    if ($stmt2->execute()) {
+                        echo "Marks inserted successfully for RollNo: $values<br>";
+                    } else {
+                        echo "Error inserting marks for RollNo: $values - " . $stmt2->error . "<br>";
+                    }
+    
+                    $stmt2->close();
+                } else {
+                    echo "Error preparing INSERT statement.<br>";
+                }
+    
+            } else {
+                echo "No ID found for RollNo: $values<br>";
+            }
+        }
     }
+    
+    
+    
+    
 }
  
+
 
 
 

@@ -24,7 +24,7 @@ class DatabaseModel {
             Nepali int NOT NULL,
             Social int NOT NULL,
             Health int NOT NULL,
-            student_id int,
+            student_id int UNIQUE,
             FOREIGN KEY (student_id) REFERENCES studentInfo(id),
             PRIMARY KEY (id)
         )";

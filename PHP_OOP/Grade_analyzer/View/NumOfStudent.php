@@ -24,7 +24,7 @@ include './FormHolder.php';
             <input
                 class="w-full border border-gray-300 rounded-xl p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 type="number" name="student_of_class" id="student_of_class" value="<?php echo $_GET['student_of_class'] ?>"
-                max="150" min="0">
+                max="10" min="0">
             <button type="submit" name="num_of_students_submit"
                 class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition mb-4">Submit</button>
         </form>
@@ -46,11 +46,10 @@ $formHand = new FormHandling($config);
 if (isset($_GET['student_of_class']) || isset($_GET['file_upload'])) {
     if (isset($_GET['student_of_class']) && empty($_GET['file_upload'])) {
         $student_class = $_GET['student_of_class'];
-        $formHand -> num_of_students_by_class($student_class);
+        $get_data = $formHand -> num_of_students_by_class($student_class);
 
+        $try->grade_form_by_input($get_data);
 
-
-        $try->grade_form_by_input($student_class);
         if (isset($_POST['name']) && isset($_POST['science'])) {
             $data_values = $formHand->get_score();
             var_dump($data_values);
