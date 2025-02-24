@@ -6,7 +6,6 @@ use Controller\FormHandling;
 use Config\Config;
 class FormHolder
 {
-
     public function grade_form_by_input(array $students_by_class)
     {
         if (!count($students_by_class) < 1) {
@@ -43,6 +42,7 @@ class FormHolder
         } else {
             echo "No student found for that class";
         }
+
 
     }
 
@@ -82,5 +82,11 @@ if (isset($_POST['science'])) {
     $new = new FormHandling($config);
     $new->insert_student_data($math,$science,$english,$nepali,$social,$health);
 
+    $roll_keys = array_keys($social);
+    foreach ($roll_keys as $value){
+        $total = $social[$value] + $science[$value] + $math[$value] + $english[$value] + $nepali[$value] + $health[$value];
+        $percentage = ($total / 600) * 100 ;
+        echo $percentage . '%' . '<br>' ;
+    }
 
 }
