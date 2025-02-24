@@ -1,5 +1,7 @@
 <?php
-use Grade_analyzer\View\FormHolder, Controller\FormHandling, Config\Config;
+use Grade_analyzer\View\FormHolder;
+use Grade_analyzer\Controller\FormHandling;
+use Config\Config;
 require_once '../Controller/FormHandling.php';
 require_once '../Config/Config.php';
 include './FormHolder.php';
@@ -23,7 +25,7 @@ include './FormHolder.php';
             <label for="student_of_class" class="font-semibold block mb-2">Enter the Class:</label>
             <input
                 class="w-full border border-gray-300 rounded-xl p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                type="number" name="student_of_class" id="student_of_class" value="<?php echo $_GET['student_of_class'] ?>"
+                type="number" name="student_of_class" id="student_of_class" value="<?php echo isset($_GET['student_of_class']) ? $_GET['student_of_class'] : '' ?>"
                 max="10" min="0">
             <button type="submit" name="num_of_students_submit"
                 class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition mb-4">Submit</button>

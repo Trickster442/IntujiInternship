@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 
-namespace Controller;
+namespace Grade_analyzer\Controller;
+
 use Config\Config;
 
 
@@ -32,12 +33,12 @@ class FormHandling
 
         return $student_scores;
     }
-    public function register_student($fName, $lName, $rollNo, $phone, $class)
+    public function register_student($fName, $lName, $rollNo, $phone, $role, $class, $email, $password)
     {
         $rollNo = (int) $rollNo;
         $class = (int) $class;
 
-        $checkStmt = $this->config->prepare("SELECT RollNo FROM studentInfo WHERE RollNo = ?");
+        $checkStmt = $this->config->prepare("SELECT RollNo FROM userInfo WHERE RollNo = ?");
         $checkStmt->bind_param('i', $rollNo);
         $checkStmt->execute();
         $checkStmt->store_result();
@@ -48,15 +49,15 @@ class FormHandling
         }
 
         // Insert new student if RollNo is not found
-        $stmt = $this->config->prepare("INSERT INTO studentInfo (FirstName, LastName, RollNo, PhoneNum, Class) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param('ssisi', $fName, $lName, $rollNo, $phone, $class);
+        $stmt = $this->config->prepare("INSERT INTO userInfo (FirstName, LastName, RollNo, PhoneNum, role, Class, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param('ssississ', $fName, $lName, $rollNo, $phone,$role, $class,$email, $password);
         $stmt->execute();
         $stmt->close();
     }
 
     public function num_of_students_by_class($class): array
     {
-        $stmt = "SELECT FirstName, LastName, RollNo FROM studentInfo WHERE Class = '$class'";
+        $stmt = "SELECT FirstName, LastName, RollNo FROM userInfo WHERE Class = '$class'";
         $query = $this->config->query($stmt);
         $result = $query->fetch_all(MYSQLI_ASSOC);
 
@@ -68,7 +69,7 @@ class FormHandling
         $rollNos = array_keys($social);
 
         foreach ($rollNos as $values) {
-            $stmt = $this->config->prepare("SELECT id FROM studentInfo WHERE RollNo = ?");
+            $stmt = $this->config->prepare("SELECT id FROM userInfo WHERE RollNo = ?");
             $stmt->bind_param("i", $values);
             $stmt->execute();
             $result = $stmt->get_result();

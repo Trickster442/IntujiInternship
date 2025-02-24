@@ -2,7 +2,8 @@
 declare(strict_types=1);
 
 namespace Grade_analyzer\View;
-use Controller\FormHandling;
+use Dom\Document;
+use Grade_analyzer\Controller\FormHandling;
 use Config\Config;
 class FormHolder
 {
@@ -38,12 +39,12 @@ class FormHolder
             echo '<input type="text" name="give_filename" maxlength="20" minlength="3" class="w-full border border-gray-300 rounded-xl p-2 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-400"></input>';
             echo "<button type='submit' name='submit_scores' class='bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition mb-4'>Submit Scores</button>";
             echo '</form></div>';
-
+    
         } else {
             echo "No student found for that class";
         }
 
-
+    echo '<div id="result"></div>' ;
     }
 
 }
@@ -59,14 +60,14 @@ class FormHolder
         }
     }
 
-    function validate_name(input) {
-        const name = input.value;
-        if (name.match(/[!,@,#,$,%,^,&,*,/,[0-9]/g)) {
-            input.setCustomValidity("Input must be alphabet only")
-        } else {
-            input.setCustomValidity("");
-        }
-    }
+    // function validate_name(input) {
+    //    const name = input.value;
+    //    if (name.match(/[!,@,#,$,%,^,&,*,/,[0-9]/g)) {
+    //        input.setCustomValidity("Input must be alphabet only")
+    //    } else {
+    //        input.setCustomValidity("");
+    //    }
+    // }
 </script>
 
 <?php

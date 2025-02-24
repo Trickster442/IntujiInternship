@@ -1,8 +1,8 @@
-version: '3.8'
 
 services:
   php-apache:
-    build: .
+    image: php:8.2-apache
+    container_name: php-apache
     ports:
       - "8080:80"  
     volumes:
@@ -16,9 +16,22 @@ services:
       - MYSQL_DATABASE=users
       - MYSQL_USER=my_user
       - MYSQL_PASSWORD=my_pass
+    command: >
+      /bin/bash -c "
+        apt-get update &&
+        apt-get install -y default-mysql-client &&
+        docker-php-ext-install mysqli &&
+        docker-php-ext-enable mysqli &&
+        a2enmod rewrite &&
+        sed -i 's|/var/www/html|/var/www/html/View|' /etc/apache2/sites-available/000-default.conf &&
+        chown -R www-data:www-data /var/www/html &&
+        chmod -R 755 /var/www/html &&
+        apache2-foreground
+      "
 
   mysql:
     image: mysql:5.7
+    container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: users
@@ -48,36 +61,3 @@ networks:
 
 volumes:
   mysql_data:
-
-
-# version : '3.8'
-
-# services: 
-#   mysql:
-#     container_name: mysql
-#     image: mysql:5.7
-#     volume: 
-#       - mysql_volume:/var/lib/mysql
-#     ports:
-#       - 3307:3306
-#     networks:
-#       - mysql_network
-
-  # php: 
-  #   build: .
-  #   ports:
-  #     - "8080:80"
-  #   volumes:
-  #     - .:/var/www/html
-    
-  #   depends_on:
-  #     -mysql
-
-  #   networks:
-  #     - mysql_network
-
-  #   nginx:
-  #     networks:
-  #       - mysql_network
-
-

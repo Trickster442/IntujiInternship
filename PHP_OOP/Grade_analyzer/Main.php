@@ -1,5 +1,7 @@
 <?php
 use Grade_analyzer\View\FormHolder;
+use Grade_analyzer\Controller\FormHandling;
+use Config\Config;
 
 include './View/FormHolder.php';
 include './Controller/FormHandling.php';
@@ -48,7 +50,8 @@ class Main
         $num_of_students = 0;
         $num_of_records = 0;
         $try = new FormHolder;
-        $formHand = new FormHandling;
+        $config = new Config;
+        $formHand = new FormHandling($config);
         if (isset($_GET['num_of_students']) || isset($_GET['file_upload'])) {
             if (isset($_GET['num_of_students']) && empty($_GET['file_upload'])) {
                 $num_of_students = $_GET['num_of_students'];

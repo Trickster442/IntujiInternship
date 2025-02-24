@@ -1,9 +1,9 @@
 <?php
 
 namespace Config;
+use Grade_analyzer\Model\MainModel;
 
-use Grade_analyzer\Model\DatabaseModel;
-require("../Model/DatabaseModel.php");
+require ("../Model/MainModel.php");
 use mysqli;
 class Config
 {
@@ -22,25 +22,21 @@ class Config
         if ($this->conn->connect_error) {
             die("Connection failed: " . $this->conn->connect_error);
         }
-
-        $model = new DatabaseModel();
-        $query1 = $model->studentInfoModel();
-        $query2 = $model->subjectMarksModel();
-
-        // student info table creation
-        if ($this->conn->query($query1) !== TRUE) {
-            echo "Error creating Student Info table: " . $this->conn->error . "<br>";
-        }
-
-        // student subject marks table creation
-        if ($this->conn->query($query2) !== TRUE) {
-            echo "Error creating Student Marks table: " . $this->conn->error . "<br>";
+        $model = new MainModel();
+        $model = ($model->main());
+        foreach($model as $query){
+            if ($this->conn->query($query) !== TRUE) {
+                echo "Error creating table: " . $this->conn->error . "<br>";
+            }
         }
     }
 
+    
     public function getConnection(){
         return $this->conn;
     }
 
 }
 
+$try = new Config();
+$try->getConnection();

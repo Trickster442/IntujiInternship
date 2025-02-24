@@ -1,9 +1,27 @@
 <?php
-use Controller\FormHandling;
+session_start();
+use Grade_analyzer\Controller\FormHandling;
 use Config\Config;
 require_once '../Controller/FormHandling.php';
 require_once '../Config/Config.php'; 
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
+    $f_name = $_POST["firstname"]; 
+    $l_name = $_POST["lastname"];
+    $phone = $_POST["phone"];
+    $roll = $_POST["rollno"];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $student_class = $_POST["class"];
+    $role = $_POST['role'];
+    echo $role;
+    $config = new Config();
+    $form_submit = new FormHandling($config);
+
+    $form_submit->register_student($f_name, $l_name, $roll, $phone, $role, $student_class, $email, $password);
+}
 ?>
+
 
 <div class="container" style="max-width: 600px; margin: 50px auto; padding: 30px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
     <h2 class="text-center" style="margin-bottom: 20px; font-family: 'Arial', sans-serif;">Student Registration</h2>
@@ -43,48 +61,36 @@ require_once '../Config/Config.php';
                    value="<?php echo isset($_POST['class']) ? htmlspecialchars($_POST['class']) : '' ?>">
         </div>
 
+        <div class="mb-3">
+            <label for="email" style="font-size: 16px; font-weight: bold; color: #333;">Email :</label>
+            <input id="email" type="email" name="email" required 
+                   style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;"
+                   value="<?php echo isset($_POST['email']) ? htmlspecialchars($_POST['email']) : '' ?>">
+        </div>
+
+        <div class="mb-3">
+            <label for="password" style="font-size: 16px; font-weight: bold; color: #333;">Password :</label>
+            <input id="password" type="password" name="password" required 
+                   style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
+        </div>
+
+        <div class="mb-3">
+            <p>Select what is your role :</p>
+            <input id="Teacher" type="radio" name="role" value="Teacher"
+            style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
+            <label for="Teacher" style="font-size: 16px; font-weight: bold; color: #333;">Teacher</label>
+
+            <input id="Student" type="radio" name="role" value="Student"
+            style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
+            <label for="Student" style="font-size: 16px; font-weight: bold; color: #333;">Student</label>
+
+        </div>
+
+
         <input type="submit" name="submitbtn" 
                 style="width: 100%; padding: 12px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 20px;">
-        </input>
     </form>
 </div>
 
-<script>
-    function capitalizeFirstLetter(event){
-        let value = event.target.value;
-        event.target.value = value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
-    }
-    function validate_text(input) {
-        const input_value = input.value;
-        if (input_value.match(/[^a-zA-Z]/g)) { 
-            input.setCustomValidity("Input must be alphabet only");
-        } else {
-            input.setCustomValidity("");
-        }
-    }
 
-</script>
 
-<?php
-$f_name = '';
-$l_name = '';
-$phone = '';
-$roll = 1;
-$student_class = 1;
-
-if (isset($_POST["submitbtn"]) && isset($_POST['firstname'])) {
-    $f_name = $_POST["firstname"]; 
-    $l_name = $_POST["lastname"];
-    $phone = $_POST["phone"];
-    $roll = $_POST["rollno"];
-    $student_class = $_POST["class"];
-
-    $config = new Config();
-    $form_submit = new FormHandling($config);
-
-    // Call register_student method
-    $form_submit->register_student($f_name, $l_name, $roll, $phone, $student_class);
-
-}
-
-?>
