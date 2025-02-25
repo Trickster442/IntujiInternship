@@ -69,19 +69,19 @@
 
     <div class="login-container">
         <h2>Login</h2>
-        <form action="login.php" method="POST">
+        <form action="../Controller/authentication.php" method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" placeholder="Enter your username..." required>
 
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" placeholder="Enter your password..." required>
 
-            <label for="role">Role:</label>
+            <!-- <label for="role">Role:</label>
             <select name="role" id="role" required>
                 <option value="Teacher">Teacher</option>
                 <option value="Principal">Principal</option>
                 <option value="Student">Student</option>
-            </select>
+            </select> -->
 
             <button type="submit">Login</button>
         </form>

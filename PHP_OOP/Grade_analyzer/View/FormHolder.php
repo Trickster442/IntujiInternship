@@ -2,9 +2,8 @@
 declare(strict_types=1);
 
 namespace Grade_analyzer\View;
-use Dom\Document;
 use Grade_analyzer\Controller\FormHandling;
-use Config\Config;
+use Grade_analyzer\Config\Config;
 class FormHolder
 {
     public function grade_form_by_input(array $students_by_class)

@@ -2,7 +2,7 @@
 
 namespace Grade_analyzer\Controller;
 
-use Config\Config;
+use Grade_analyzer\Config\Config;
 
 
 class FormHandling
@@ -33,12 +33,12 @@ class FormHandling
 
         return $student_scores;
     }
-    public function register_student($fName, $lName, $rollNo, $phone, $role, $class, $email, $password)
+    public function register_student($fName, $lName, $rollNo, $phone, $class, $email, $password)
     {
         $rollNo = (int) $rollNo;
         $class = (int) $class;
 
-        $checkStmt = $this->config->prepare("SELECT RollNo FROM userInfo WHERE RollNo = ?");
+        $checkStmt = $this->config->prepare("SELECT RollNo FROM student WHERE RollNo = ?");
         $checkStmt->bind_param('i', $rollNo);
         $checkStmt->execute();
         $checkStmt->store_result();
@@ -49,15 +49,35 @@ class FormHandling
         }
 
         // Insert new student if RollNo is not found
-        $stmt = $this->config->prepare("INSERT INTO userInfo (FirstName, LastName, RollNo, PhoneNum, role, Class, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt = $this->config->prepare("INSERT INTO student (FirstName, LastName, RollNo, PhoneNum, role, Class, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param('ssississ', $fName, $lName, $rollNo, $phone,$role, $class,$email, $password);
         $stmt->execute();
         $stmt->close();
     }
 
+    public function register_teacher($fName, $lName, $phone, $class, $email, $password)
+    {
+        $class = (int) $class;
+
+        $checkStmt = $this->config->prepare("SELECT RollNo FROM student WHERE RollNo = ?");
+        $checkStmt->bind_param('i', $rollNo);
+        $checkStmt->execute();
+        $checkStmt->store_result();
+
+        if ($checkStmt->num_rows > 0) {
+            echo "Error: Roll number already exists!";
+            return;
+        }
+
+        // Insert new student if RollNo is not found
+        $stmt = $this->config->prepare("INSERT INTO student (FirstName, LastName, PhoneNum, role, Class, email, password) VALUES ( ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param('ssssiss', $fName, $lName, $phone,$role, $class,$email, $password);
+        $stmt->execute();
+        $stmt->close();
+    }
     public function num_of_students_by_class($class): array
     {
-        $stmt = "SELECT FirstName, LastName, RollNo FROM userInfo WHERE Class = '$class'";
+        $stmt = "SELECT FirstName, LastName, RollNo FROM student WHERE Class = '$class'";
         $query = $this->config->query($stmt);
         $result = $query->fetch_all(MYSQLI_ASSOC);
 
@@ -69,7 +89,7 @@ class FormHandling
         $rollNos = array_keys($social);
 
         foreach ($rollNos as $values) {
-            $stmt = $this->config->prepare("SELECT id FROM userInfo WHERE RollNo = ?");
+            $stmt = $this->config->prepare("SELECT id FROM student WHERE RollNo = ?");
             $stmt->bind_param("i", $values);
             $stmt->execute();
             $result = $stmt->get_result();

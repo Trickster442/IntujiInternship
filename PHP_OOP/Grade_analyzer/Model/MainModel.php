@@ -1,28 +1,31 @@
 <?php
 namespace Grade_analyzer\Model;
 
-require_once __DIR__ . '/UserModel.php';   
-require_once __DIR__ . '/ClassModel.php';      
-require_once __DIR__ . '/SubjectModel.php';         
-require_once __DIR__ . '/MarksModel.php';      
+require_once __DIR__ . '/ClassModel.php';
+require_once __DIR__ . '/StudentModel.php';
+require_once __DIR__ . '/SubjectModel.php';
+require_once __DIR__ . '/MarksModel.php';
+require_once __DIR__ . '/TeacherModel.php';
 
 class MainModel
 {
-    private $userDB, $marksDB, $classDB, $subjectDB;
+    private $studentDB, $marksDB, $classDB, $subjectDB, $teacherDB;
 
     public function __construct(){
-        $this->userDB = new UserModel();
-        $this->marksDB = new MarksModel();
         $this->classDB = new ClassModel();
         $this->subjectDB = new SubjectModel();
+        $this->studentDB = new StudentModel();
+        $this->marksDB = new MarksModel();
+        $this->teacherDB = new TeacherModel();
     }
 
     public function main(): array{
         return [
-            $this->userDB->createDatabase(), 
             $this->classDB->createDatabase(), 
+            $this->studentDB->createDatabase(), 
             $this->subjectDB->createDatabase(),
             $this->marksDB->createDatabase(), 
+            $this->teacherDB->createDatabase()
         ];
     }
 }

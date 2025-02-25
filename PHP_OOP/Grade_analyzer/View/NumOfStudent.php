@@ -1,7 +1,7 @@
 <?php
 use Grade_analyzer\View\FormHolder;
 use Grade_analyzer\Controller\FormHandling;
-use Config\Config;
+use Grade_analyzer\Config\Config;
 require_once '../Controller/FormHandling.php';
 require_once '../Config/Config.php';
 include './FormHolder.php';

@@ -1,30 +1,28 @@
 <?php
-session_start();
+// session_start();
 use Grade_analyzer\Controller\FormHandling;
 use Grade_analyzer\Config\Config;
 require_once '../Controller/FormHandling.php';
 require_once '../Config/Config.php'; 
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
-    $f_name = $_POST["firstname"]; 
-    $l_name = $_POST["lastname"];
-    $phone = $_POST["phone"];
-    $roll = $_POST["rollno"];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $student_class = $_POST["class"];
-    echo $role;
-    $config = new Config();
-    $form_submit = new FormHandling($config);
 
-    $form_submit->register_student($f_name, $l_name, $roll, $phone, $student_class, $email, $password);
-}
-?>
+// if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
+//     $f_name = $_POST["firstname"]; 
+//     $l_name = $_POST["lastname"];
+//     $phone = $_POST["phone"];
+//     $email = $_POST['email'];
+//     $password = $_POST['password'];
+//     $class = $_POST["class"];
+//     $subject = $_POST['subject'];
 
+//     $data = get_teacher_data($f_name, $l_name, $phone, $class, $email, $password, $subject); 
+
+// }
+// ?>
 
 <div class="container" style="max-width: 600px; margin: 50px auto; padding: 30px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
-    <h2 class="text-center" style="margin-bottom: 20px; font-family: 'Arial', sans-serif;">Student Registration</h2>
-    <form method="POST">
+    <h2 class="text-center" style="margin-bottom: 20px; font-family: 'Arial', sans-serif;">Teacher Registration</h2>
+    <form method="POST" action="./AdminTeacherRegistration.php">
         <div class="mb-3">
             <label for="firstname" style="font-size: 16px; font-weight: bold; color: #333;">First Name :</label>
             <input id="firstname" name="firstname" type="text" required onchange="validate_text(this)" oninput="capitalizeFirstLetter(event)" 
@@ -37,13 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
             <input type="text" id="lastname" name="lastname" required onchange="validate_text(this)" oninput="capitalizeFirstLetter(event)" 
                    style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;"
                    value="<?php echo isset($_POST['lastname']) ? htmlspecialchars($_POST['lastname']) : '' ?>">
-        </div>
-
-        <div class="mb-3">
-            <label for="rollno" style="font-size: 16px; font-weight: bold; color: #333;">Roll No :</label>
-            <input id="rollno" name="rollno" type="number" min="1" max="100" required 
-                   style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;"
-                   value="<?php echo isset($_POST['rollno']) ? htmlspecialchars($_POST['rollno']) : '' ?>">
         </div>
 
         <div class="mb-3">
@@ -61,6 +52,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
         </div>
 
         <div class="mb-3">
+            <label for="subject" style="font-size: 16px; font-weight: bold; color: #333;">Subject :</label>
+            <input id="subject" type="number" step="0" min="1" max="10" name="subject" required 
+                   style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;"
+                   value="<?php echo isset($_POST['subject']) ? htmlspecialchars($_POST['subject']) : '' ?>">
+        </div>
+        
+        <div class="mb-3">
             <label for="email" style="font-size: 16px; font-weight: bold; color: #333;">Email :</label>
             <input id="email" type="email" name="email" required 
                    style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;"
@@ -72,6 +70,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
             <input id="password" type="password" name="password" required 
                    style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
         </div>
+
+        
+
+        <!-- <div class="mb-3">
+            <p>Select what is your role :</p>
+            <input id="Teacher" type="radio" name="role" value="Teacher"
+            style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
+            <label for="Teacher" style="font-size: 16px; font-weight: bold; color: #333;">Teacher</label>
+
+            <input id="ClassTeacher" type="radio" name="role" value="ClassTeacher"
+            style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
+            <label for="ClassTeacher" style="font-size: 16px; font-weight: bold; color: #333;">Class Teacher</label>
+        </div> -->
 
         <input type="submit" name="submitbtn" 
                 style="width: 100%; padding: 12px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 20px;">

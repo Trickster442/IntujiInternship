@@ -1,6 +1,6 @@
 <?php
 
-namespace Config;
+namespace Grade_analyzer\Config;
 use Grade_analyzer\Model\MainModel;
 
 require ("../Model/MainModel.php");
