@@ -15,10 +15,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
     $email = $_POST["email"] ?? '';
     $password = $_POST["password"] ?? '';
     $subject = $_POST['subject'] ?? '';
-    // Instantiate and handle form submission
-    // $config = new Config();
-    // $form_submit = new FormHandling($config);
-    // $form_submit->register_teacher($f_name, $l_name, $phone, $class, $email, $password);
 }
 ?>
 

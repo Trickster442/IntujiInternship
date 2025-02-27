@@ -71,19 +71,6 @@ require_once '../Config/Config.php';
                    style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
         </div>
 
-        
-
-        <!-- <div class="mb-3">
-            <p>Select what is your role :</p>
-            <input id="Teacher" type="radio" name="role" value="Teacher"
-            style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
-            <label for="Teacher" style="font-size: 16px; font-weight: bold; color: #333;">Teacher</label>
-
-            <input id="ClassTeacher" type="radio" name="role" value="ClassTeacher"
-            style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
-            <label for="ClassTeacher" style="font-size: 16px; font-weight: bold; color: #333;">Class Teacher</label>
-        </div> -->
-
         <input type="submit" name="submitbtn" 
                 style="width: 100%; padding: 12px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 20px;">
     </form>
