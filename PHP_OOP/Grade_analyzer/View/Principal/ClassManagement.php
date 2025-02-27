@@ -1,7 +1,8 @@
 <?php declare(strict_types=1);
 use Grade_analyzer\Config\Config;
 
-require_once ('../Config/Config.php');
+require_once ('../../Config/Config.php');
+
 $config = new Config();
 $connection = $config->getConnection();
 

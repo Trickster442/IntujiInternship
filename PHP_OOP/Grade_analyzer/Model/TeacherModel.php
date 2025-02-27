@@ -17,7 +17,7 @@ class TeacherModel extends AbstractDatabase
             role ENUM('Teacher', 'ClassTeacher', 'Principal') DEFAULT 'Teacher',
             status ENUM('Pending', 'Active') DEFAULT 'Pending' , 
             class_id INT,
-            subject_id INT NOT NULL,
+            subject_id INT,
             email VARCHAR(255) NOT NULL UNIQUE,
             password VARCHAR(255) NOT NULL,
             PRIMARY KEY (id),

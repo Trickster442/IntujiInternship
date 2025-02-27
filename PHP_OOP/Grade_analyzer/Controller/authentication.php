@@ -4,7 +4,6 @@ require_once '../Config/Config.php';
 
 $username = $_POST['username'];
 $password = $_POST['password'];
-$role = $_POST['role'];
 
 $config = new Config();
 $config->getConnection();

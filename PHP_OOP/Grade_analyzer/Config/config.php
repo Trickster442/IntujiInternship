@@ -3,7 +3,8 @@
 namespace Grade_analyzer\Config;
 use Grade_analyzer\Model\MainModel;
 
-require ("../Model/MainModel.php");
+require_once "../Model/MainModel.php";
+
 use mysqli;
 class Config
 {
@@ -32,7 +33,7 @@ class Config
     }
 
     
-    public function getConnection(){
+    public function getConnection(): mysqli{
         return $this->conn;
     }
 
