@@ -18,8 +18,8 @@ class MarksModel extends AbstractDatabase
             subject_marks INT NOT NULL,
             PRIMARY KEY (id),
             FOREIGN KEY (class_id) REFERENCES class(id),
-            FOREIGN KEY (student_id) REFERENCES student(id),
-            FOREIGN KEY (subject_id) REFERENCES subject(id)
+            FOREIGN KEY (student_id) REFERENCES students(id),
+            FOREIGN KEY (subject_id) REFERENCES subjects(id)
         )";
         return $sql;
     }

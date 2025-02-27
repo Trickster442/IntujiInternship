@@ -34,25 +34,47 @@ class FormHandling
         return $student_scores;
     }
     public function register_student($fName, $lName, $rollNo, $phone, $class, $email, $password)
-    {
-        $rollNo = (int) $rollNo;
-        $class = (int) $class;
+{
+    $rollNo = (int) $rollNo;
+    $class = (int) $class;
 
-        $checkStmt = $this->config->prepare("SELECT RollNo FROM student WHERE RollNo = ?");
-        $checkStmt->bind_param('i', $rollNo);
-        $checkStmt->execute();
-        $checkStmt->store_result();
+    $stmt1 = $this->config->prepare("SELECT id FROM class WHERE id = ?");
+    $stmt1->bind_param("i", $class);
+    $stmt1->execute();
+    $stmt1->bind_result($class);
+    $stmt1->fetch();
+    $stmt1->close();
 
-        if ($checkStmt->num_rows > 0) {
-            echo "Error: Roll number already exists!";
-            return;
-        }
+    if (!$class) {
+        echo "Error: Invalid class ID!";
+        return;
+    }
 
-        // Insert new student if RollNo is not found
-        $stmt = $this->config->prepare("INSERT INTO student (FirstName, LastName, RollNo, PhoneNum, role, Class, email, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param('ssississ', $fName, $lName, $rollNo, $phone,$role, $class,$email, $password);
-        $stmt->execute();
-        $stmt->close();
+    // Check if roll number already exists
+    $checkStmt = $this->config->prepare("SELECT RollNo FROM student WHERE RollNo = ?");
+    $checkStmt->bind_param('i', $rollNo);
+    $checkStmt->execute();
+    $checkStmt->store_result();
+
+    if ($checkStmt->num_rows > 0) {
+        echo "Error: Roll number already exists!";
+        $checkStmt->close();
+        return;
+    }
+    $checkStmt->close();
+
+    // Insert new student
+    $stmt = $this->config->prepare("INSERT INTO student (FirstName, LastName, RollNo, PhoneNum, class_id, email, password) 
+                                    VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param('ssisiss', $fName, $lName, $rollNo, $phone, $classID, $email, $password);
+    
+    if ($stmt->execute()) {
+        echo "Student registered successfully!";
+    } else {
+        echo "Error: " . $stmt->error;
+    }
+    
+    $stmt->close();
     }
 
     public function register_teacher($fName, $lName, $phone, $class, $email, $password)
@@ -71,7 +93,7 @@ class FormHandling
 
         // Insert new student if RollNo is not found
         $stmt = $this->config->prepare("INSERT INTO student (FirstName, LastName, PhoneNum, role, Class, email, password) VALUES ( ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param('ssssiss', $fName, $lName, $phone,$role, $class,$email, $password);
+        $stmt->bind_param('ssssiss', $fName, $lName, $phone, $role, $class, $email, $password);
         $stmt->execute();
         $stmt->close();
     }
@@ -142,9 +164,8 @@ class FormHandling
             }
         }
     }
-    
+
     public function mark_summarize($class){
-        
     }
 
 

@@ -18,7 +18,7 @@ require_once '../Config/Config.php';
 //     $data = get_teacher_data($f_name, $l_name, $phone, $class, $email, $password, $subject); 
 
 // }
-// ?>
+?>
 
 <div class="container" style="max-width: 600px; margin: 50px auto; padding: 30px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
     <h2 class="text-center" style="margin-bottom: 20px; font-family: 'Arial', sans-serif;">Teacher Registration</h2>

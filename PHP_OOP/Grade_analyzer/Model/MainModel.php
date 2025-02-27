@@ -4,8 +4,8 @@ namespace Grade_analyzer\Model;
 require_once __DIR__ . '/ClassModel.php';
 require_once __DIR__ . '/StudentModel.php';
 require_once __DIR__ . '/SubjectModel.php';
-require_once __DIR__ . '/MarksModel.php';
 require_once __DIR__ . '/TeacherModel.php';
+require_once __DIR__ . '/MarksModel.php';
 
 class MainModel
 {
@@ -15,8 +15,8 @@ class MainModel
         $this->classDB = new ClassModel();
         $this->subjectDB = new SubjectModel();
         $this->studentDB = new StudentModel();
-        $this->marksDB = new MarksModel();
         $this->teacherDB = new TeacherModel();
+        $this->marksDB = new MarksModel();
     }
 
     public function main(): array{
@@ -24,8 +24,8 @@ class MainModel
             $this->classDB->createDatabase(), 
             $this->studentDB->createDatabase(), 
             $this->subjectDB->createDatabase(),
-            $this->marksDB->createDatabase(), 
-            $this->teacherDB->createDatabase()
+            $this->teacherDB->createDatabase(),
+            $this->marksDB->createDatabase()
         ];
     }
 }

@@ -8,7 +8,7 @@ class SubjectModel extends AbstractDatabase
 {
     public function createDatabase(): string
     {
-        $sql = "CREATE TABLE IF NOT EXISTS subject (
+        $sql = "CREATE TABLE IF NOT EXISTS subjects (
             id INT NOT NULL AUTO_INCREMENT,
             SubjectName VARCHAR(255) UNIQUE NOT NULL, 
             class_id INT NOT NULL,

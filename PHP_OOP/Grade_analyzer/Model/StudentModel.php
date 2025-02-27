@@ -8,7 +8,7 @@ class StudentModel extends AbstractDatabase
 {
     public function createDatabase(): string
     {
-        $sql = "CREATE TABLE IF NOT EXISTS student (
+        $sql = "CREATE TABLE IF NOT EXISTS students (
             id INT NOT NULL AUTO_INCREMENT,
             FirstName VARCHAR(255) NOT NULL,
             LastName VARCHAR(255) NOT NULL,
