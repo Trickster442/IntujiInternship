@@ -31,4 +31,8 @@ class UserAuthentication
         $this->config->close();
 
     }
+
+    public function authenticate_teacher() {
+        
+    }
 }

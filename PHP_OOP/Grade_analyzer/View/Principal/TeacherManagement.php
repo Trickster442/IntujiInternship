@@ -6,12 +6,14 @@ require_once '../../Config/Config.php';
 $config = new Config();
 $connection = $config->getConnection();
 
-$query = "SELECT c.class, c.id AS class_id, t.FirstName, t.LastName 
-          FROM class c 
-          LEFT JOIN teachers t ON c.id = t.class_id 
-          ORDER BY c.class ASC";
+$query = "SELECT t.id , t.FirstName, t.LastName, t.PhoneNum, t.role, t.status, t.email, t.password, c.class, s.SubjectName 
+          FROM teachers t
+          LEFT JOIN class c ON t.class_id = c.id 
+          LEFT JOIN subjects s ON t.subject_id = s.id
+          WHERE NOT role = 'Principal' ";
 
 $stmt = $connection->query($query);
+
 $result = $stmt->fetch_all(MYSQLI_ASSOC);
 
 
@@ -67,26 +69,39 @@ if (!empty($result)) {
     echo '<table>';
     echo '<tr>
             <th>S.N</th>
+            <th>Name</th>
+            <th>Phone Number</th>
+            <th>Role</th>      
+            <th>Status</th>
             <th>Class</th>
-            <th>Class Teacher</th>
-            <th>Edit</th>      
-            <th>Delete</th>
+            <th>Subject</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>EDIT</th>
         </tr>';
 
     foreach ($result as $data) {
         $count++;
 
-        $teacher_name = (!empty($data['FirstName']) && !empty($data['LastName']))
-            ? htmlspecialchars($data['FirstName'] . ' ' . $data['LastName'])
-            : 'Not declared';
+        $teacher_name = $data['FirstName'] . ' ' . $data['LastName'];
 
-        echo '<tr id="' . $data['class_id']. '">
+        echo '<tr id="' . $data['id']. '">
                 <td>' . $count . '</td>
-                <td>' . $data['class'] . '</td>
                 <td>' . $teacher_name . '</td>
-                <td><a href="edit.php?id=' . urlencode($data['class_id']) . '">EDIT</a></td>
-                <td><a href="delete.php?id=' . urlencode($data['class_id']) . '">DELETE</a></td>
+                <td>' . $data['PhoneNum'] . '</td>
+                <td>' . $data['role'] . '</td>
+                <td>' . $data['status'] . '</td>
+                <td>' . $data['class'] . '</td>
+                <td>' . $data['SubjectName'] . '</td>
+                <td>' . $data['email'] . '</td>
+                <td>' . $data['password'] . '</td>
+                <td>
+                <form method="post" action="sendData($data)">
+                    <button>Edit</button>
+                </form>
+                </td>
             </tr>';
+
     }
 
     echo '</table>';

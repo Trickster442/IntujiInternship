@@ -77,26 +77,44 @@ class FormHandling
     $stmt->close();
     }
 
-    public function register_teacher($fName, $lName, $phone, $class, $email, $password)
-    {
-        $class = (int) $class;
+    public function register_teacher($fName, $lName, $phone, $class, $subject, $email, $password){
+        $query1 = "SELECT c.id FROM class c WHERE c.class = ?";
+        $stmt1 = $this->config->prepare($query1);
+        $stmt1->bind_param('s', $class); 
+        $stmt1->execute();
+        $stmt1->bind_result($class_id);
 
-        $checkStmt = $this->config->prepare("SELECT RollNo FROM student WHERE RollNo = ?");
-        $checkStmt->bind_param('i', $rollNo);
-        $checkStmt->execute();
-        $checkStmt->store_result();
-
-        if ($checkStmt->num_rows > 0) {
-            echo "Error: Roll number already exists!";
+        if (!$stmt1->fetch()) {
+            echo "Class not found.";
+            $stmt1->close();
             return;
         }
+        $stmt1->close();
+    
+        $query2 = "SELECT s.id FROM subjects s WHERE s.SubjectName = ?";
+        $stmt2 = $this->config->prepare($query2);
+        $stmt2->bind_param('s', $subject);
+        $stmt2->execute();
+        $stmt2->bind_result($subject_id);
 
-        // Insert new student if RollNo is not found
-        $stmt = $this->config->prepare("INSERT INTO student (FirstName, LastName, PhoneNum, role, Class, email, password) VALUES ( ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param('ssssiss', $fName, $lName, $phone, $role, $class, $email, $password);
-        $stmt->execute();
-        $stmt->close();
+        if (!$stmt2->fetch()) {
+            echo "Subject not found.";
+            $stmt2->close();
+            return;
+        }
+        $stmt2->close();
+    
+        if ($class_id && $subject_id) {
+            $stmt = $this->config->prepare("INSERT INTO teachers (FirstName, LastName, PhoneNum, class_id, subject_id, email, password) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt->bind_param('sssiiss', $fName, $lName, $phone, $class_id, $subject_id, $email, $password);
+            $stmt->execute();
+            $stmt->close();
+            echo "Teacher form submitted successfully.";
+        } else {
+            echo "Class or Subject not found.";
+        }
     }
+    
     public function num_of_students_by_class($class): array
     {
         $stmt = "SELECT FirstName, LastName, RollNo FROM student WHERE Class = '$class'";

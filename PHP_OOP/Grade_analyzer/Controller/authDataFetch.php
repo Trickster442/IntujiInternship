@@ -14,3 +14,4 @@ $userAuth = new UserAuthentication($config);
 if ($_POST['role'] === 'Principal'){
     $userAuth->authenticate_principal($username, $password, $role);
 }
+

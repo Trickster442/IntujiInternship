@@ -1,4 +1,5 @@
 <?php
+
 namespace Grade_analyzer\Model;
 
 require_once __DIR__ . '/ClassModel.php';
