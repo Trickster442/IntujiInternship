@@ -1,42 +1,17 @@
 <?php
 use Grade_analyzer\Controller\FormHandling;
 use Grade_analyzer\Config\Config;
-require_once '../Controller/FormHandling.php';
-require_once '../Config/Config.php'; 
+require_once '../../Controller/FormHandling.php';
+require_once '../../Config/Config.php'; 
 
-$f_name = $l_name = $phone = $class = $email = $password = ""; 
+$config = new Config();
+$config = $config->getConnection();
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
-    $f_name = $_POST["firstname"] ?? ''; 
-    $l_name = $_POST["lastname"] ?? '';
-    $phone = $_POST["phone"] ?? '';
-    $class = $_POST["class"] ?? '';
-    $subject = $_POST["subject"] ?? '';
-    $email = $_POST["email"] ?? '';
-    $password = $_POST["password"] ?? '';
-    $subject = $_POST['subject'] ?? '';
-}
-?>
+$id =  $_POST['id'];
 
-<?php 
-    $f_name = $_POST["firstname"]; 
-    $l_name = $_POST["lastname"];
-    $phone = $_POST["phone"];
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $class = $_POST["class"];
-    $subject = $_POST['subject'];
-
-$data = [
-        'first_name' => $f_name, 
-        'last_name' => $l_name, 
-        'phone' => $phone, 
-        'class' => $class, 
-        'email' => $email, 
-        'password' => $password,
-        'subject' => $subject
-    ];
-
+$query = "SELECT * FROM teachers WHERE id = $id ";
+$stmt = $config->query($query);
+$data = $stmt->fetch_assoc();
 ?>
 
 
@@ -46,35 +21,35 @@ $data = [
         <div class="mb-3">
             <label for="firstname" style="font-size: 16px; font-weight: bold; color: #333;">First Name :</label>
             <input id="firstname" name="firstname" type="text" required onchange="validate_text(this)" oninput="capitalizeFirstLetter(event)" 
-                   value="<?php echo htmlspecialchars($data['first_name'] ?? ''); ?>" 
+                   value="<?php echo htmlspecialchars($data['FirstName'] ?? ''); ?>" 
                    style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
         </div>
 
         <div class="mb-3">
             <label for="lastname" style="font-size: 16px; font-weight: bold; color: #333;">Last Name :</label>
             <input type="text" id="lastname" name="lastname" required onchange="validate_text(this)" oninput="capitalizeFirstLetter(event)" 
-                   value="<?php echo htmlspecialchars($data['last_name'] ?? ''); ?>"
+                   value="<?php echo htmlspecialchars($data['LastName'] ?? ''); ?>"
                    style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
         </div>
 
         <div class="mb-3">
             <label for="phone" style="font-size: 16px; font-weight: bold; color: #333;">Phone Number :</label>
             <input id="phone" name="phone" type="text" maxlength="15" required 
-                   value="<?php echo htmlspecialchars($data['phone'] ?? ''); ?>"
+                   value="<?php echo htmlspecialchars($data['PhoneNum'] ?? ''); ?>"
                    style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
         </div>
 
         <div class="mb-3">
             <label for="class" style="font-size: 16px; font-weight: bold; color: #333;">Class :</label>
             <input id="class" type="number" min="1" max="10" name="class" required 
-                   value="<?php echo htmlspecialchars($data['class'] ?? ''); ?>"
+                   value="<?php echo htmlspecialchars($data['class_id'] ?? ''); ?>"
                    style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
         </div>
 
         <div class="mb-3">
             <label for="subject" style="font-size: 16px; font-weight: bold; color: #333;">Subject :</label>
             <input id="subject" type="text" name="subject" required 
-                   value="<?php echo htmlspecialchars($data['subject'] ?? ''); ?>"
+                   value="<?php echo htmlspecialchars($data['subject_id'] ?? ''); ?>"
                    style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
         </div>
         

@@ -96,7 +96,8 @@ if (!empty($result)) {
                 <td>' . $data['email'] . '</td>
                 <td>' . $data['password'] . '</td>
                 <td>
-                <form method="post" action="sendData($data)">
+                <form method="post" action="./AdminTeacherRegistration.php">
+                    <input name="id" value=' . $data['id'] . ' type="hidden" />
                     <button>Edit</button>
                 </form>
                 </td>
