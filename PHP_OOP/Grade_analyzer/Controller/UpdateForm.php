@@ -18,6 +18,10 @@ class UpdateForm
         $stmt = $this->config->prepare($query);
         $stmt->execute([$firstName, $lastName, $phone, $role, $status, $classID, $subjectID, $email, $password, $id]);
     }
+
+    public function updateClassForm(){
+        
+    }
     
 
     

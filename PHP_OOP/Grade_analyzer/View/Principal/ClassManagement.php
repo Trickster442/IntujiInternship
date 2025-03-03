@@ -9,7 +9,7 @@ $connection = $config->getConnection();
 $query = "SELECT c.class, c.id AS class_id, t.FirstName, t.LastName 
           FROM class c 
           LEFT JOIN teachers t ON c.id = t.class_id 
-          ORDER BY c.class ASC";
+          AND t.role = 'ClassTeacher' ";
 
 $stmt = $connection->query($query);
 $result = $stmt->fetch_all(MYSQLI_ASSOC);
@@ -77,7 +77,6 @@ if (!empty($result)) {
 
     foreach ($result as $data) {
         $count++;
-
         $teacher_name = (!empty($data['FirstName']) && !empty($data['LastName']))
             ? htmlspecialchars($data['FirstName'] . ' ' . $data['LastName'])
             : 'Not declared';
@@ -86,14 +85,18 @@ if (!empty($result)) {
                 <td>' . $count . '</td>
                 <td>' . $data['class'] . '</td>
                 <td>' . $teacher_name . '</td>
-                <form method="post" action="./AdminTeacherRegistration.php">
-                    <input name="id" value=' . $data['id'] . ' type="hidden" />
+                <td>
+                <form method="post" action="./ClassUpdateForm.php">
+                    <input name="id" value=' . $data['class_id'] . ' type="hidden" />
                     <button>Edit</button>
                 </form>
+                </td>
+                <td>
                 <form method="post" action="./AdminTeacherRegistration.php">
-                    <input name="id" value=' . $data['id'] . ' type="hidden" />
-                    <button>Edit</button>
+                    <input name="id" value=' . $data['class_id'] . ' type="hidden" />
+                    <button>Delete</button>
                 </form>
+                </td>
             </tr>';
     }
 
