@@ -21,7 +21,8 @@ class UserAuthentication
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         
         if ($result) {
-            echo "Successful login";
+            header('Location: ../View/Principal/PrincipalHomePage.php');
+            exit();
         } else {
             echo "No user found.";
         }
@@ -29,6 +30,7 @@ class UserAuthentication
         $stmt->close();
     
         $this->config->close();
+        exit();
 
     }
 

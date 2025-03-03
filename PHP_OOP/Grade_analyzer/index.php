@@ -89,12 +89,15 @@
                 <a href="./View/Login.php">
                     <li>Login</li>
                 </a>
+                <a href="./View/RegisterTeacher.php">
+                    <li>Sign Up</li>
+                </a>
                 <a href="#">
                     <li>About Us</li>
                 </a>
             </ul>
         </div>
-        <div class="box-container">
+        <!-- <div class="box-container">
             <a href="./View/RegisterStudent.php">
                 Register Student
             </a>
@@ -106,7 +109,7 @@
                 Create Records
             </a>
 
-        </div>
+        </div> -->
     </div>
 </body>
 

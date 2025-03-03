@@ -13,8 +13,7 @@ class FormHandling
     {
         $this->config = $conn->getConnection();
     }
-    public function get_score(): array
-    {
+    public function get_score(): array{
         $student_scores = [];
         $names = $_POST["name"];
 
@@ -33,8 +32,7 @@ class FormHandling
 
         return $student_scores;
     }
-    public function register_student($fName, $lName, $rollNo, $phone, $class, $email, $password)
-{
+    public function register_student($fName, $lName, $rollNo, $phone, $class, $email, $password){
     $rollNo = (int) $rollNo;
     $class = (int) $class;
 
@@ -109,21 +107,13 @@ class FormHandling
             $stmt->bind_param('sssiiss', $fName, $lName, $phone, $class_id, $subject_id, $email, $password);
             $stmt->execute();
             $stmt->close();
-            echo "Teacher form submitted successfully.";
+            // echo "Teacher form submitted successfully.";
+            header('Location: ../index.php');
         } else {
             echo "Class or Subject not found.";
         }
     }
     
-    public function num_of_students_by_class($class): array
-    {
-        $stmt = "SELECT FirstName, LastName, RollNo FROM student WHERE Class = '$class'";
-        $query = $this->config->query($stmt);
-        $result = $query->fetch_all(MYSQLI_ASSOC);
-
-        return $result;
-    }
-
     public function insert_student_data($math, $science, $english, $nepali, $social, $health)
     {
         $rollNos = array_keys($social);
@@ -182,10 +172,6 @@ class FormHandling
             }
         }
     }
-
-
-
-
 
 }
 

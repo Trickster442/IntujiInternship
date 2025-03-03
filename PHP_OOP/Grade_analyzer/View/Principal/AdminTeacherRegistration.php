@@ -1,8 +1,10 @@
 <?php
-use Grade_analyzer\Controller\FormHandling;
 use Grade_analyzer\Config\Config;
+use Grade_analyzer\Controller\UpdateForm;
+
 require_once '../../Controller/FormHandling.php';
 require_once '../../Config/Config.php'; 
+require_once '../../Controller/UpdateForm.php';
 
 $config = new Config();
 $config = $config->getConnection();
@@ -14,10 +16,10 @@ $stmt = $config->query($query);
 $data = $stmt->fetch_assoc();
 ?>
 
-
 <div class="container" style="max-width: 600px; margin: 50px auto; padding: 30px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
     <h2 class="text-center" style="margin-bottom: 20px; font-family: 'Arial', sans-serif;">Accept Teacher Registration</h2>
     <form method="POST">
+        <input type="hidden" name="id" value=<?php echo $id; ?>>
         <div class="mb-3">
             <label for="firstname" style="font-size: 16px; font-weight: bold; color: #333;">First Name :</label>
             <input id="firstname" name="firstname" type="text" required onchange="validate_text(this)" oninput="capitalizeFirstLetter(event)" 
@@ -79,10 +81,31 @@ $data = $stmt->fetch_assoc();
             <label for="ClassTeacher" style="font-size: 16px; font-weight: bold; color: #333;">Class Teacher</label>
         </div>
 
+        <div class="mb-3">
+            <p>Select Status :</p>
+            <select name="status">
+                <option value="Active">
+                    Active
+                </option>
+                <option value="Pending">
+                    Pending
+                </option>
+            </select>
+        </div>
+
         <input type="submit" name="submitbtn" 
                 style="width: 100%; padding: 12px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 20px;">
     </form>
 </div>
 
 
+<?php
+$con = new Config();
+$updateForm = new UpdateForm($con);
 
+if (isset($_POST['submitbtn'])){
+    $updateForm -> updateTeacherForm($_POST['id'], $_POST['firstname'], $_POST['lastname'], $_POST['phone'], $_POST['role'], $_POST['status'], $_POST['class'], $_POST['subject'], $_POST['email'], $_POST['password']);
+    if ($updateForm){
+        echo "Updated successfully";
+    }
+}

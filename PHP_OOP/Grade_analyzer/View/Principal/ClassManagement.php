@@ -63,6 +63,7 @@ if (!empty($result)) {
             td a:hover {
                 color: #0056b3;
             }
+                
         </style>';
 
     echo '<table>';
@@ -85,8 +86,14 @@ if (!empty($result)) {
                 <td>' . $count . '</td>
                 <td>' . $data['class'] . '</td>
                 <td>' . $teacher_name . '</td>
-                <td><a href="edit.php?id=' . urlencode($data['class_id']) . '">EDIT</a></td>
-                <td><a href="delete.php?id=' . urlencode($data['class_id']) . '">DELETE</a></td>
+                <form method="post" action="./AdminTeacherRegistration.php">
+                    <input name="id" value=' . $data['id'] . ' type="hidden" />
+                    <button>Edit</button>
+                </form>
+                <form method="post" action="./AdminTeacherRegistration.php">
+                    <input name="id" value=' . $data['id'] . ' type="hidden" />
+                    <button>Edit</button>
+                </form>
             </tr>';
     }
 

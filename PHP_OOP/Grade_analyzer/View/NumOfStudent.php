@@ -47,15 +47,15 @@ $config = new Config();
 $formHand = new FormHandling($config);
 if (isset($_GET['student_of_class']) || isset($_GET['file_upload'])) {
     if (isset($_GET['student_of_class']) && empty($_GET['file_upload'])) {
-        $student_class = $_GET['student_of_class'];
-        $get_data = $formHand -> num_of_students_by_class($student_class);
+        // $student_class = $_GET['student_of_class'];
+        // $get_data = $formHand -> num_of_students_by_class($student_class);
 
-        $try->grade_form_by_input($get_data);
+        // $try->grade_form_by_input($get_data);
 
-        if (isset($_POST['name']) && isset($_POST['science'])) {
-            $data_values = $formHand->get_score();
-            var_dump($data_values);
-        }
+        // if (isset($_POST['name']) && isset($_POST['science'])) {
+        //     $data_values = $formHand->get_score();
+        //     var_dump($data_values);
+        // }
     }
 
     if (isset($_GET['file_upload'])) {
