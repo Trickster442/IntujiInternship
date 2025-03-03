@@ -3,6 +3,7 @@ use Grade_analyzer\Config\Config;
 
 require_once '../../Config/Config.php';
 
+
 $config = new Config();
 $connection = $config->getConnection();
 

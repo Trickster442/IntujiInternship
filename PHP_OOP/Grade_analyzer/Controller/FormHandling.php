@@ -183,8 +183,7 @@ class FormHandling
         }
     }
 
-    public function mark_summarize($class){
-    }
+
 
 
 

@@ -31,6 +31,7 @@ if (!empty($result)) {
             }
             th {
                 background-color: #4CBB17;
+                font-size: 1.2rem;
             }
             tr:nth-child(even) {
                 background-color: #f9f9f9;

@@ -20,6 +20,9 @@
         }
 
         function loadTeacherManagement(){
+            document.getElementById('content-frame').src = './TeacherManagement.php';
+
+            document.getElementById('head-line').innerHTML = 'Teacher Management';
             
         }
     </script>
@@ -51,7 +54,7 @@
 
         <div class="right-container">
             <h1 id="head-line" style="text-align:center; "></h1>
-            <iframe id="content-frame" src="" width="100%" height="500px" style="border:none; overflow-y: hidden;"></iframe>
+            <iframe id="content-frame" src="" width="100%" height="500px" style="border:none; max-height: 400px;"></iframe>
         </div>
 
     </div>    
