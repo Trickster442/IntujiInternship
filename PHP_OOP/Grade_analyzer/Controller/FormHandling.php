@@ -107,7 +107,7 @@ class FormHandling
             $stmt->bind_param('sssiiss', $fName, $lName, $phone, $class_id, $subject_id, $email, $password);
             $stmt->execute();
             $stmt->close();
-            // echo "Teacher form submitted successfully.";
+            
             header('Location: ../index.php');
         } else {
             echo "Class or Subject not found.";
