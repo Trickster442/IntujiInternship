@@ -9,7 +9,10 @@ echo '<a href="./RegisterStudent.php"><button style="width:100px; height: 30px; 
 $config = new Config();
 $connection = $config->getConnection();
 
-$query = "SELECT * FROM students ";
+$query = "SELECT c.class, s.first_name, s.last_name, s.roll_no, s.phone_num, s.id
+          FROM classes c 
+          RIGHT JOIN students s ON c.id = s.class_id 
+          ";
 
 $stmt = $connection->query($query);
 $result = $stmt->fetch_all(MYSQLI_ASSOC);
@@ -68,31 +71,31 @@ if (!empty($result)) {
     echo '<table>';
     echo '<tr>
             <th>S.N</th>
+            <th>Name</th>
+            <th>Roll</th>
+            <th>Phone Num</th>
             <th>Class</th>
-            <th>Class Teacher</th>
             <th>Edit</th>      
             <th>Delete</th>
         </tr>';
 
     foreach ($result as $data) {
         $count++;
-        $teacher_name = (!empty($data['FirstName']) && !empty($data['LastName']))
-            ? htmlspecialchars($data['FirstName'] . ' ' . $data['LastName'])
-            : 'Not declared';
-
-        echo '<tr id="' . $data['class_id']. '">
+        echo '<tr id="' . $data['id']. '">
                 <td>' . $count . '</td>
+                <td>' . $data['first_name'] . ' ' . $data['last_name']  . '</td>
+                <td>' . $data['roll_no'] . '</td>
+                <td>' . $data['phone_num'] . '</td>
                 <td>' . $data['class'] . '</td>
-                <td>' . $teacher_name . '</td>
                 <td>
-                <form method="post" action="./ClassUpdateForm.php">
-                    <input name="id" value=' . $data['class_id'] . ' type="hidden" />
+                <form method="post" action="#">
+                    <input name="id" value=' . $data['id'] . ' type="hidden" />
                     <button>Edit</button>
                 </form>
                 </td>
                 <td>
                 <form method="post" action="./AdminTeacherRegistration.php">
-                    <input name="id" value=' . $data['class_id'] . ' type="hidden" />
+                    <input name="id" value=' . $data['id'] . ' type="hidden" />
                     <button>Delete</button>
                 </form>
                 </td>

@@ -21,6 +21,7 @@ class UserAuthentication
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         
         if ($result) {
+            $_SESSION['user'] = 'Principal';
             header('Location: ../View/Principal/PrincipalHomePage.php');
             exit();
         } else {

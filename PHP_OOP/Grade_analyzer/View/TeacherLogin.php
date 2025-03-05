@@ -69,7 +69,7 @@
 
     <div class="login-container" >
         <h2>Login</h2>
-        <form action="../Controller/authDataFetch.php" method="POST">
+        <form action="../Controller/TeacherAuthenticate.php" method="POST">
             <label for="username">Username:</label>
             <input type="text" id="username" name="username" placeholder="Enter your username..." required>
 
@@ -80,7 +80,7 @@
             <select name="role" id="role" required>
                 <option value="Teacher">Teacher</option>
                 <option value="Principal">Principal</option>
-                <option value="Student">Student</option>
+                <option value="Student">ClassTeacher</option>
             </select>
 
             <button type="submit">Login</button>

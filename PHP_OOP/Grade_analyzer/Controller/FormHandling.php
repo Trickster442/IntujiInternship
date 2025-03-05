@@ -68,6 +68,7 @@ class FormHandling
             $stmt2->close();
             return;
         }
+
         $stmt2->close();
     
         if ($class_id && $subject_id) {
@@ -75,8 +76,7 @@ class FormHandling
             $stmt->bind_param('sssiiss', $fName, $lName, $phone, $class_id, $subject_id, $email, $password);
             $stmt->execute();
             $stmt->close();
-            
-            header('Location: ../index.php');
+
         } else {
             echo "Class or Subject not found.";
         }
@@ -183,6 +183,7 @@ class FormHandling
         $stmt->close();
     }
 
+    
 }
 
 

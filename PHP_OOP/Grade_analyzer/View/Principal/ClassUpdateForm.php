@@ -11,11 +11,11 @@ $config = $config->getConnection();
 
 $id =  $_POST['id'];
 
-$query = "SELECT * FROM class WHERE id = $id ";
+$query = "SELECT * FROM classes WHERE id = $id ";
 $stmt = $config->query($query);
 $data = $stmt->fetch_assoc();
 
-$query2 = "SELECT id, FirstName, LastName FROM teachers WHERE NOT role = 'principal' AND status = 'Active' ";
+$query2 = "SELECT id, first_name, last_name FROM teachers WHERE NOT role = 'principal' AND status = 'Active' ";
 $stmt2 = $config->query($query2);
 $data2 = $stmt2->fetch_all();
 
