@@ -14,8 +14,8 @@ class MainModel
 
     public function __construct(){
         $this->classDB = new ClassModel();
-        $this->subjectDB = new SubjectModel();
         $this->studentDB = new StudentModel();
+        $this->subjectDB = new SubjectModel();
         $this->teacherDB = new TeacherModel();
         $this->marksDB = new MarksModel();
     }

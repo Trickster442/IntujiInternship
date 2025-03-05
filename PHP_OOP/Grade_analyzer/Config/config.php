@@ -39,5 +39,5 @@ class Config
 
 }
 
-// $try = new Config();
-// $try->getConnection();
+$try = new Config();
+$try->getConnection();

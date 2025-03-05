@@ -13,7 +13,7 @@ class SubjectModel extends AbstractDatabase
             subject_name VARCHAR(255) UNIQUE NOT NULL, 
             class_id INT NOT NULL,
             PRIMARY KEY (id),
-            FOREIGN KEY (class_id) REFERENCES class(id)
+            FOREIGN KEY (class_id) REFERENCES classes(id)
         )";
         return $sql;
     }

@@ -21,8 +21,8 @@ class TeacherModel extends AbstractDatabase
             email VARCHAR(255) NOT NULL UNIQUE,
             password VARCHAR(255) NOT NULL,
             PRIMARY KEY (id),
-            FOREIGN KEY (subject_id) REFERENCES subjects (id),
-            FOREIGN KEY (class_id) REFERENCES class(id)
+            FOREIGN KEY (subject_id) REFERENCES subjects(id),
+            FOREIGN KEY (class_id) REFERENCES classes(id)
         )";
         return $sql;
     }
