@@ -9,7 +9,7 @@ $config = new Config();
 $config->getConnection();
 
 // Use prepared statements to prevent SQL injection
-    $query = "SELECT * FROM student WHERE email = ? AND password = ?";
+    $query = "SELECT * FROM students WHERE email = ? AND password = ?";
     
     $stmt = $conn->prepare($query);
     $stmt->bind_param("sss", $username, $password, $role);
