@@ -6,17 +6,21 @@ require_once '../../Controller/FormHandling.php';
 require_once '../../Config/Config.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
-    $f_name = $_POST["firstname"]; 
-    $l_name = $_POST["lastname"];
+    $config = new Config();
+    $form_submit = new FormHandling($config);
+
+     
+    $firstName = $_POST["firstname"]; 
+    $lastName = $_POST["lastname"];
     $phone = $_POST["phone"];
     $roll = $_POST["rollno"];
     $email = $_POST['email'];
     $password = $_POST['password'];
     $student_class = $_POST["class"];
-    $config = new Config();
-    $form_submit = new FormHandling($config);
 
-    $form_submit->register_student($f_name, $l_name, $roll, $phone, $student_class, $email, $password);
+    
+
+    $form_submit->register_student($firstName, $lastName, $roll, $phone, $student_class, $email, $password);
 }
 ?>
 
@@ -76,5 +80,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
                 style="width: 100%; padding: 12px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 20px;">
     </form>
 </div>
-
 

@@ -4,12 +4,12 @@ use Grade_analyzer\Config\Config;
 require_once '../../Config/Config.php';
 
 
-echo '<a href="./RegisterStudent.php"><button style="width:100px; height: 30px; background-color:#4CAF50; color:black; border:1px solid black; border-radius:30px; cursor:pointer;">Add Student</button></a>';
+echo '<a href="./AddSubject.php"><button style="width:100px; height: 30px; background-color:#4CAF50; color:black; border:1px solid black; border-radius:30px; cursor:pointer;">Add Subject</button></a>';
 
 $config = new Config();
 $connection = $config->getConnection();
 
-$query = "SELECT * FROM students ";
+$query = "SELECT * FROM subjects ";
 
 $stmt = $connection->query($query);
 $result = $stmt->fetch_all(MYSQLI_ASSOC);
@@ -76,23 +76,23 @@ if (!empty($result)) {
 
     foreach ($result as $data) {
         $count++;
-        $teacher_name = (!empty($data['FirstName']) && !empty($data['LastName']))
-            ? htmlspecialchars($data['FirstName'] . ' ' . $data['LastName'])
-            : 'Not declared';
+        // $teacher_name = (!empty($data['FirstName']) && !empty($data['LastName']))
+        //     ? htmlspecialchars($data['FirstName'] . ' ' . $data['LastName'])
+        //     : 'Not declared';
 
-        echo '<tr id="' . $data['class_id']. '">
+        echo '<tr id="' . $data['id']. '">
                 <td>' . $count . '</td>
-                <td>' . $data['class'] . '</td>
-                <td>' . $teacher_name . '</td>
+                <td>' . $data['subject_name'] . '</td>
+                <td>' . $data['class_id'] . '</td>
                 <td>
-                <form method="post" action="./ClassUpdateForm.php">
-                    <input name="id" value=' . $data['class_id'] . ' type="hidden" />
+                <form method="post" action="./UpdateSubject.php">
+                    <input name="id" value=' . $data['id'] . ' type="hidden" />
                     <button>Edit</button>
                 </form>
                 </td>
                 <td>
-                <form method="post" action="./AdminTeacherRegistration.php">
-                    <input name="id" value=' . $data['class_id'] . ' type="hidden" />
+                <form method="post" action="#">
+                    <input name="id" value=' . $data['id'] . ' type="hidden" />
                     <button>Delete</button>
                 </form>
                 </td>

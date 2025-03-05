@@ -13,49 +13,36 @@ class FormHandling
     {
         $this->config = $conn->getConnection();
     }
-    public function register_student($fName, $lName, $rollNo, $phone, $class, $email, $password){
-    $rollNo = (int) $rollNo;
-    $class = (int) $class;
-
-    $stmt1 = $this->config->prepare("SELECT id FROM classes WHERE id = ?");
-    $stmt1->bind_param("i", $class);
-    $stmt1->execute();
-    $stmt1->bind_result($class);
-    $stmt1->fetch();
-    $stmt1->close();
-
-    if (!$class) {
-        echo "Error: Invalid class ID!";
-        return;
-    }
-
-    // Check if roll number already exists
-    $checkStmt = $this->config->prepare("SELECT roll_no FROM students WHERE roll_no = ?");
-    $checkStmt->bind_param('i', $rollNo);
-    $checkStmt->execute();
-    $checkStmt->store_result();
-
-    if ($checkStmt->num_rows > 0) {
-        echo "Error: Roll number already exists!";
-        $checkStmt->close();
-        return;
-    }
-    $checkStmt->close();
-
-    // Insert new student
-    $stmt = $this->config->prepare("INSERT INTO student (first_name, last_name, roll_no, phone_num, class_id, email, password) 
-                                    VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param('ssisiss', $fName, $lName, $rollNo, $phone, $classID, $email, $password);
+    public function register_student($fName, $lName, $rollNo, $phone, $class, $email, $password) {
+        $classID_query = "SELECT id FROM classes WHERE class = ?";
+        $stmt = $this->config->prepare($classID_query);
+        $stmt->bind_param('s', $class);
+        $stmt->execute();
+        $result = $stmt->get_result();
     
-    if ($stmt->execute()) {
-        echo "Student registered successfully!";
-    } else {
-        echo "Error: " . $stmt->error;
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $classID = $row['id'];
+        } else {
+            echo "Error: Class not found.";
+            return;
+        }
+        $stmt->close();
+    
+
+        $stmt = $this->config->prepare("INSERT INTO students (first_name, last_name, roll_no, phone_num, class_id, email, password) 
+                                        VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param('ssisiss', $fName, $lName, $rollNo, $phone, $classID, $email, $password);
+    
+        if ($stmt->execute()) {
+            echo "Student registered successfully!";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+    
+        $stmt->close();
     }
     
-    $stmt->close();
-    }
-
     public function register_teacher($fName, $lName, $phone, $class, $subject, $email, $password){
         $query1 = "SELECT c.id FROM classes c WHERE c.class = ?";
         $stmt1 = $this->config->prepare($query1);
@@ -152,6 +139,48 @@ class FormHandling
                 echo "No ID found for RollNo: $values<br>";
             }
         }
+    }
+
+    public function add_class($class)
+    {
+        $query = "INSERT INTO classes (class) VALUES (?)";
+        $stmt = $this->config->prepare($query);
+        $stmt->bind_param('s', $class);
+
+        $stmt->execute();
+
+        $stmt->close();
+
+    }    
+    
+    public function add_subject($subject, $class) {
+        $classID_query = "SELECT id FROM classes WHERE class = ?";
+        $stmt = $this->config->prepare($classID_query);
+        $stmt->bind_param('s', $class);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $classID = $row['id'];
+        } else {
+            echo "Error: Class not found.";
+            return;
+        }
+        $stmt->close();
+    
+        $subject_name = $subject . ' ' . $class;
+        $stmt = $this->config->prepare("INSERT INTO subjects (subject_name, class_id) 
+                                        VALUES (?, ?)");
+        $stmt->bind_param('ss', $subject_name, $classID);
+    
+        if ($stmt->execute()) {
+            echo "New subject added successfully!";
+        } else {
+            echo "Error: " . $stmt->error;
+        }
+    
+        $stmt->close();
     }
 
 }

@@ -3,11 +3,14 @@ use Grade_analyzer\Config\Config;
 
 require_once '../../Config/Config.php';
 
+echo '<a href="./AddClass.php"><button style="width:100px; height: 30px; background-color:#4CAF50; color:black; border:1px solid black; border-radius:30px; cursor:pointer;">Add Class</button></a>';
+
+
 $config = new Config();
 $connection = $config->getConnection();
 
-$query = "SELECT c.class, c.id AS class_id, t.FirstName, t.LastName 
-          FROM class c 
+$query = "SELECT c.class, c.id AS class_id, t.first_name, t.last_name 
+          FROM classes c 
           LEFT JOIN teachers t ON c.id = t.class_id 
           AND t.role = 'ClassTeacher' ";
 
@@ -77,8 +80,8 @@ if (!empty($result)) {
 
     foreach ($result as $data) {
         $count++;
-        $teacher_name = (!empty($data['FirstName']) && !empty($data['LastName']))
-            ? htmlspecialchars($data['FirstName'] . ' ' . $data['LastName'])
+        $teacher_name = (!empty($data['first_name']) && !empty($data['last_name']))
+            ? htmlspecialchars($data['first_name'] . ' ' . $data['last_name'])
             : 'Not declared';
 
         echo '<tr id="' . $data['class_id']. '">
