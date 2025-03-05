@@ -2,8 +2,8 @@
 session_start();
 use Grade_analyzer\Controller\FormHandling;
 use Grade_analyzer\Config\Config;
-require_once '../Controller/FormHandling.php';
-require_once '../Config/Config.php'; 
+require_once '../../Controller/FormHandling.php';
+require_once '../../Config/Config.php'; 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
     $f_name = $_POST["firstname"]; 
@@ -76,6 +76,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
                 style="width: 100%; padding: 12px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 20px;">
     </form>
 </div>
-
 
 

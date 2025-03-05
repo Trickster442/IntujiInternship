@@ -11,9 +11,9 @@ class TeacherModel extends AbstractDatabase
     {
         $sql = "CREATE TABLE IF NOT EXISTS teachers (
             id INT NOT NULL AUTO_INCREMENT,
-            FirstName VARCHAR(255) NOT NULL,
-            LastName VARCHAR(255) NOT NULL,
-            PhoneNum VARCHAR(20) NOT NULL UNIQUE,
+            first_name VARCHAR(255) NOT NULL,
+            last_name VARCHAR(255) NOT NULL,
+            phone_num VARCHAR(20) NOT NULL UNIQUE,
             role ENUM('Teacher', 'ClassTeacher', 'Principal') DEFAULT 'Teacher',
             status ENUM('Pending', 'Active') DEFAULT 'Pending' , 
             class_id INT,

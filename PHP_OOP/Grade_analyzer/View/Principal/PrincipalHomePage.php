@@ -25,6 +25,12 @@
             document.getElementById('head-line').innerHTML = 'Teacher Management';
             
         }
+
+        function loadStudentManagement() {
+            document.getElementById('content-frame').src = './StudentManagement.php';
+
+            document.getElementById('head-line').innerHTML = 'Student Management';
+        }
     </script>
 </head>
 <body>
@@ -37,7 +43,7 @@
             <div class="upper-navigation">
                 <ul>
                     <li onclick="loadProfile()" style="cursor:pointer;">Profile</li>
-                    <li>Dashboard</li>
+                    <li onclick="loadStudentManagement()" style="cursor:pointer;">Students</li>
                     <li onclick="loadClassManagement()" style="cursor:pointer;">Classes</li>
                     <li onclick="loadTeacherManagement()" style="cursor:pointer;">Teachers</li>
                 </ul>

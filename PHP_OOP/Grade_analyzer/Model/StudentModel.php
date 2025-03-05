@@ -10,15 +10,16 @@ class StudentModel extends AbstractDatabase
     {
         $sql = "CREATE TABLE IF NOT EXISTS students (
             id INT NOT NULL AUTO_INCREMENT,
-            FirstName VARCHAR(255) NOT NULL,
-            LastName VARCHAR(255) NOT NULL,
-            RollNo INT NOT NULL UNIQUE,
-            PhoneNum VARCHAR(20) NOT NULL UNIQUE,
+            first_name VARCHAR(255) NOT NULL,
+            last_name VARCHAR(255) NOT NULL,
+            roll_no INT NOT NULL UNIQUE,
+            phone_num VARCHAR(20) NOT NULL UNIQUE,
             class_id INT NOT NULL,
             email VARCHAR(255) NOT NULL UNIQUE,
             password VARCHAR(255) NOT NULL,
             PRIMARY KEY (id),
-            FOREIGN KEY (class_id) REFERENCES class(id)
+            FOREIGN KEY (class_id) REFERENCES class(id),
+            UNIQUE KEY (class_id, roll_no)
         )";
         return $sql;
     }
