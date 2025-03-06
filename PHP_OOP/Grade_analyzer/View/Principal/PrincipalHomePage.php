@@ -3,11 +3,10 @@ session_start();
 
 include '../../Controller/UserAuthenticate.php';
 
-if (!isset($_SESSION['user']) || $_SESSION['user'] !== 'hello') {
+if (!isset($_SESSION['user']) || $_SESSION['user'] !== 'Principal') {
     header('Location: ../TeacherLogin.php');
     exit(); 
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -18,8 +17,8 @@ if (!isset($_SESSION['user']) || $_SESSION['user'] !== 'hello') {
     <link rel="stylesheet" href="PrincipalHomePage.css" />
     <title>Principal Home Page</title>
     <script>
-        function loadClassManagement() {
-            
+
+        function loadClassManagement() { 
             document.getElementById('content-frame').src = './ClassManagement.php';
 
             document.getElementById('head-line').innerHTML = 'Class Management';

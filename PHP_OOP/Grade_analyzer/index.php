@@ -33,7 +33,7 @@
             justify-content: center;
             list-style-type: none;
         }
-
+s
         .header-container ul li {
             margin: 0 20px;
             font-size: 18px;
@@ -89,6 +89,9 @@
                 <a href="./View/Login.php">
                     <li>Login</li>
                 </a>
+                <a href="./View/TeacherLogin.php">
+                    <li>TeacherLogin</li>
+                </a>
                 <a href="./View/RegisterTeacher.php">
                     <li>Sign Up</li>
                 </a>
@@ -97,19 +100,6 @@
                 </a>
             </ul>
         </div>
-        <!-- <div class="box-container">
-            <a href="./View/RegisterStudent.php">
-                Register Student
-            </a>
-            <br>
-            <a href="./View/RegisterTeacher.php">
-                Register Teacher
-            </a>
-            <a href="./View/NumOfStudent.php">
-                Create Records
-            </a>
-
-        </div> -->
     </div>
 </body>
 

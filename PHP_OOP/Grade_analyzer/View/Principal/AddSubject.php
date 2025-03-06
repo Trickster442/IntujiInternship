@@ -9,10 +9,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
     $config = new Config();
     $form_submit = new FormHandling($config);
 
-    $form_submit->add_subject($_POST['subject'],$_POST['class']);
+    $form_submit->addSubject($_POST['subject'],$_POST['class']);
 }
 ?>
-
 
 <div class="container"
     style="max-width: 600px; margin: 50px auto; padding: 30px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">

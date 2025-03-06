@@ -13,7 +13,7 @@ class UpdateForm
 
     public function updateTeacherForm($id, $firstName, $lastName, $phone, $role, $status, $classID, $subjectID, $email, $password) {
         $query = "UPDATE teachers 
-                  SET FirstName = ?, LastName = ?, PhoneNum = ?, role = ?, status = ?, class_id = ?, subject_id = ?, email = ?, password = ?
+                  SET first_name = ?, last_name = ?, phone_num = ?, role = ?, status = ?, class_id = ?, subject_id = ?, email = ?, password = ?
                   WHERE id = ?";
         $stmt = $this->config->prepare($query);
         $stmt->execute([$firstName, $lastName, $phone, $role, $status, $classID, $subjectID, $email, $password, $id]);

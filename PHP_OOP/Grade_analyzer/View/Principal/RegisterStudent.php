@@ -20,7 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
 
     
 
-    $form_submit->register_student($firstName, $lastName, $roll, $phone, $student_class, $email, $password);
+    $form_submit->registerStudent($firstName, $lastName, $roll, $phone, $student_class, $email, $password);
 }
 ?>
 

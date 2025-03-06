@@ -16,7 +16,7 @@ $email = $_POST['email'];
 $password = $_POST['password'];
 
 
-$formHand->register_teacher($firstName, $lastName, $phone, $class, $subject, $email, $password);
+$formHand->registerTeacher($firstName, $lastName, $phone, $class, $subject, $email, $password);
 
 
 

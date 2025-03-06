@@ -13,7 +13,7 @@ class FormHandling
     {
         $this->config = $conn->getConnection();
     }
-    public function register_student($fName, $lName, $rollNo, $phone, $class, $email, $password) {
+    public function registerStudent($fName, $lName, $rollNo, $phone, $class, $email, $password) {
         $classID_query = "SELECT id FROM classes WHERE class = ?";
         $stmt = $this->config->prepare($classID_query);
         $stmt->bind_param('s', $class);
@@ -43,7 +43,7 @@ class FormHandling
         $stmt->close();
     }
     
-    public function register_teacher($fName, $lName, $phone, $class, $subject, $email, $password){
+    public function registerTeacher($fName, $lName, $phone, $class, $subject, $email, $password){
         $query1 = "SELECT c.id FROM classes c WHERE c.class = ?";
         $stmt1 = $this->config->prepare($query1);
         $stmt1->bind_param('s', $class); 
@@ -81,67 +81,8 @@ class FormHandling
             echo "Class or Subject not found.";
         }
     }
-    
-    public function insert_student_data($math, $science, $english, $nepali, $social, $health)
-    {
-        $rollNos = array_keys($social);
 
-        foreach ($rollNos as $values) {
-            $stmt = $this->config->prepare("SELECT id FROM students WHERE roll_no = ?");
-            $stmt->bind_param("i", $values);
-            $stmt->execute();
-            $result = $stmt->get_result();
-
-
-            $id_fetch = $result->fetch_assoc();
-
-            if ($id_fetch) {
-                $id = (int) $id_fetch['id'];
-
-                //check if result already exists
-                $checkStmt = $this->config->prepare("SELECT student_id FROM subjectMarks WHERE student_id = ?");
-                $checkStmt->bind_param("i", $id);
-                $checkStmt->execute();
-                $checkStmt->store_result();
-
-                if ($checkStmt->num_rows > 0) {
-                    echo "Error: Score already exists!";
-                    return;
-                }
-
-                $stmt2 = $this->config->prepare("INSERT INTO subjectMarks (Math, Science, English, Nepali, Social, Health, student_id) 
-                                                 VALUES (?, ?, ?, ?, ?, ?, ?)");
-
-                if ($stmt2) {
-                    $stmt2->bind_param(
-                        "ddddddi",
-                        $math[$values],
-                        $science[$values],
-                        $english[$values],
-                        $nepali[$values],
-                        $social[$values],
-                        $health[$values],
-                        $id
-                    );
-
-                    if ($stmt2->execute()) {
-                        echo "Marks inserted successfully for RollNo: $values<br>";
-                    } else {
-                        echo "Error inserting marks for RollNo: $values - " . $stmt2->error . "<br>";
-                    }
-
-                    $stmt2->close();
-                } else {
-                    echo "Error preparing INSERT statement.<br>";
-                }
-
-            } else {
-                echo "No ID found for RollNo: $values<br>";
-            }
-        }
-    }
-
-    public function add_class($class)
+    public function addClass($class)
     {
         $query = "INSERT INTO classes (class) VALUES (?)";
         $stmt = $this->config->prepare($query);
@@ -153,7 +94,7 @@ class FormHandling
 
     }    
     
-    public function add_subject($subject, $class) {
+    public function addSubject($subject, $class) {
         $classID_query = "SELECT id FROM classes WHERE class = ?";
         $stmt = $this->config->prepare($classID_query);
         $stmt->bind_param('s', $class);

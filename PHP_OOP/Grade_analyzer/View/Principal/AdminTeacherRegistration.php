@@ -23,21 +23,21 @@ $data = $stmt->fetch_assoc();
         <div class="mb-3">
             <label for="firstname" style="font-size: 16px; font-weight: bold; color: #333;">First Name :</label>
             <input id="firstname" name="firstname" type="text" required onchange="validate_text(this)" oninput="capitalizeFirstLetter(event)" 
-                   value="<?php echo htmlspecialchars($data['FirstName'] ?? ''); ?>" 
+                   value="<?php echo htmlspecialchars($data['first_name'] ?? ''); ?>" 
                    style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
         </div>
 
         <div class="mb-3">
             <label for="lastname" style="font-size: 16px; font-weight: bold; color: #333;">Last Name :</label>
             <input type="text" id="lastname" name="lastname" required onchange="validate_text(this)" oninput="capitalizeFirstLetter(event)" 
-                   value="<?php echo htmlspecialchars($data['LastName'] ?? ''); ?>"
+                   value="<?php echo htmlspecialchars($data['last_name'] ?? ''); ?>"
                    style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
         </div>
 
         <div class="mb-3">
             <label for="phone" style="font-size: 16px; font-weight: bold; color: #333;">Phone Number :</label>
             <input id="phone" name="phone" type="text" maxlength="15" required 
-                   value="<?php echo htmlspecialchars($data['PhoneNum'] ?? ''); ?>"
+                   value="<?php echo htmlspecialchars($data['phone_num'] ?? ''); ?>"
                    style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
         </div>
 
@@ -72,13 +72,14 @@ $data = $stmt->fetch_assoc();
         
         <div class="mb-3">
             <p>Select role for Teacher :</p>
-            <input id="Teacher" type="radio" name="role" value="Teacher"
-            style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
-            <label for="Teacher" style="font-size: 16px; font-weight: bold; color: #333;">Teacher</label>
-        
-            <input id="ClassTeacher" type="radio" name="role" value="ClassTeacher"
-            style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
-            <label for="ClassTeacher" style="font-size: 16px; font-weight: bold; color: #333;">Class Teacher</label>
+            <select name="role">
+                <option value="Teacher">
+                    Teacher
+                </option>
+                <option value="ClassTeacher">
+                    Class Teacher
+                </option>
+            </select>
         </div>
 
         <div class="mb-3">

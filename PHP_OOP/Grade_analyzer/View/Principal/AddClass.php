@@ -1,5 +1,4 @@
 <?php
-session_start();
 use Grade_analyzer\Controller\FormHandling;
 use Grade_analyzer\Config\Config;
 require_once '../../Controller/FormHandling.php';
@@ -9,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
     $config = new Config();
     $form_submit = new FormHandling($config);
 
-    $form_submit->add_class($_POST['class']);
+    $form_submit->addClass($_POST['class']);
 }
 ?>
 
@@ -19,7 +18,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
     <form method="POST">
         <div class="mb-3">
             <label for="class" style="font-size: 16px; font-weight: bold; color: #333;">Class :</label>
-            <input id="class" type="number" step="0" min="1" name="class" required 
+            <input id="class" type="text" step="0" min="1" name="class" required 
                    style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;"
                    value="<?php echo isset($_POST['class']) ? htmlspecialchars($_POST['class']) : '' ?>">
         </div>
