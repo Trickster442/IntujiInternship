@@ -83,7 +83,6 @@ if (!empty($result)) {
             <th>Name</th>
             <th>Roll</th>
             <th>Phone Num</th>
-            <th>Class</th>
             <th>Edit</th>      
             <th>Delete</th>
         </tr>';
@@ -95,7 +94,6 @@ if (!empty($result)) {
                 <td>' . $data['first_name'] . ' ' . $data['last_name']  . '</td>
                 <td>' . $data['roll_no'] . '</td>
                 <td>' . $data['phone_num'] . '</td>
-                <td>' . $data['class_id'] . '</td>
                 <td>
                 <form method="post" action="#">
                     <input name="id" value=' . $data['id'] . ' type="hidden" />

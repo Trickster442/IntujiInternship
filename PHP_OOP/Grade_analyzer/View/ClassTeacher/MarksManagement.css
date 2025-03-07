@@ -1,0 +1,67 @@
+.main-container {
+    width: 70%;
+    margin: auto;
+    background-color: rgb(105, 104, 104);
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+h2 {
+    text-align: center;
+    color: wheat;
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+form {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+h3 {
+    color: white;
+    margin-bottom: 5px;
+}
+
+label {
+    font-size: 16px;
+    color: white;
+    font-weight: bold;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    background-color: rgb(200, 150, 50);
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: rgb(180, 130, 40);
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: white;
+    margin: 15px 0;
+}

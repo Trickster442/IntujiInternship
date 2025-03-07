@@ -147,6 +147,18 @@ class FormHandling
     
     }
 
+    public function getSubjectByClass($class_id) {
+        $query = 'SELECT id, subject_name FROM subjects WHERE class_id = ?';
+        
+        $stmt = $this->config->prepare($query);
+        $stmt->bind_param("i", $class_id);  
+        $stmt->execute();
+        
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        
+        return $result;
+    }
+    
     
 }
 

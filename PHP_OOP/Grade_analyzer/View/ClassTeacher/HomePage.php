@@ -18,37 +18,22 @@ if (!isset($_SESSION['user']) || $_SESSION['user'] !== 'ClassTeacher') {
     <link rel="stylesheet" href="HomePage.css" />
     <title>Home Page</title>
     <script>
+        function loadProfile() {
+            document.getElementById('content-frame').src = './Profile.php';
 
-        // function loadClassManagement() { 
-        //     document.getElementById('content-frame').src = './ClassManagement.php';
+            document.getElementById('head-line').innerHTML = 'Profile';
+        }
 
-        //     document.getElementById('head-line').innerHTML = 'Class Management';
-        // }
+        function loadMarkManagement(){
+            document.getElementById('content-frame').src = './MarksManagement.php';
 
-        // function loadProfile() {
-        //     document.getElementById('content-frame').src = './Profile.php';
-
-        //     document.getElementById('head-line').innerHTML = 'Profile';
-        // }
-
-        // function loadTeacherManagement(){
-        //     document.getElementById('content-frame').src = './TeacherManagement.php';
-
-        //     document.getElementById('head-line').innerHTML = 'Teacher Management';
-            
-        // }
+        }
 
         function loadStudentManagement() {
             document.getElementById('content-frame').src = './StudentManagement.php';
 
             document.getElementById('head-line').innerHTML = 'Student Management';
         }
-
-        // function loadSubjectManagement() {
-        //     document.getElementById('content-frame').src = './SubjectManagement.php';
-
-        //     document.getElementById('head-line').innerHTML = 'Subject Management';
-        // }
     </script>
 </head>
 <body>
@@ -62,9 +47,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user'] !== 'ClassTeacher') {
                 <ul>
                     <li onclick="loadProfile()" style="cursor:pointer;">Profile</li>
                     <li onclick="loadStudentManagement()" style="cursor:pointer;">Students</li>
-                    <li onclick="loadClassManagement()" style="cursor:pointer;">Classes</li>
-                    <li onclick="loadTeacherManagement()" style="cursor:pointer;">Teachers</li>
-                    <li onclick="loadSubjectManagement()" style="cursor:pointer;">Subjects</li>
+                    <li onclick="loadMarkManagement()" style="cursor:pointer;">Marks</li>
                 </ul>
             </div>
 
