@@ -140,16 +140,15 @@ class FormHandling
         }
         $stmt->close();
 
-        $query = "SELECT * from students WHERE class_id = $classID";
+        $query = "SELECT s.id, s.first_name, s.last_name, s.roll_no, s.phone_num, s.class_id from students s WHERE class_id = $classID";
         $stmt2 = $this->config->query($query);
-        $result2 = $stmt2->fetch_all();
-        print_r($result2);
+        $result2 = $stmt2->fetch_all(MYSQLI_ASSOC);
+        return($result2);
     
     }
 
     
 }
-
 
 
 

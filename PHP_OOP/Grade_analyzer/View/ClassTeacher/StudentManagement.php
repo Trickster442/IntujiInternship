@@ -1,21 +1,30 @@
 <?php
+session_start();
+
+include '../../Controller/UserAuthenticate.php';
+
+if (!isset($_SESSION['user']) || $_SESSION['user'] !== 'ClassTeacher') {
+    header('Location: ../TeacherLogin.php');
+    exit(); 
+}
+$class_id = $_SESSION['class_id']
+?>
+
+
+<?php
 use Grade_analyzer\Config\Config;
-
+use Grade_analyzer\Controller\FormHandling;
 require_once '../../Config/Config.php';
+require_once '../../Controller/FormHandling.php';
 
-
-echo '<a href="./RegisterStudent.php"><button style="width:100px; height: 30px; background-color:#4CAF50; color:black; border:1px solid black; border-radius:30px; cursor:pointer;">Add Student</button></a>';
 
 $config = new Config();
 $connection = $config->getConnection();
 
-$query = "SELECT c.class, s.first_name, s.last_name, s.roll_no, s.phone_num, s.id
-          FROM classes c 
-          RIGHT JOIN students s ON c.id = s.class_id 
-          ";
+$formHand = new FormHandling($config);
 
-$stmt = $connection->query($query);
-$result = $stmt->fetch_all(MYSQLI_ASSOC);
+$result = $formHand->getStudentByClass($class_id);
+
 
 if (!empty($result)) {
     $count = 0;
@@ -86,7 +95,7 @@ if (!empty($result)) {
                 <td>' . $data['first_name'] . ' ' . $data['last_name']  . '</td>
                 <td>' . $data['roll_no'] . '</td>
                 <td>' . $data['phone_num'] . '</td>
-                <td>' . $data['class'] . '</td>
+                <td>' . $data['class_id'] . '</td>
                 <td>
                 <form method="post" action="#">
                     <input name="id" value=' . $data['id'] . ' type="hidden" />

@@ -7,6 +7,7 @@ if (!isset($_SESSION['user']) || $_SESSION['user'] !== 'ClassTeacher') {
     header('Location: ../TeacherLogin.php');
     exit(); 
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -18,17 +19,17 @@ if (!isset($_SESSION['user']) || $_SESSION['user'] !== 'ClassTeacher') {
     <title>Home Page</title>
     <script>
 
-        function loadClassManagement() { 
-            document.getElementById('content-frame').src = './ClassManagement.php';
+        // function loadClassManagement() { 
+        //     document.getElementById('content-frame').src = './ClassManagement.php';
 
-            document.getElementById('head-line').innerHTML = 'Class Management';
-        }
+        //     document.getElementById('head-line').innerHTML = 'Class Management';
+        // }
 
-        function loadProfile() {
-            document.getElementById('content-frame').src = './Profile.php';
+        // function loadProfile() {
+        //     document.getElementById('content-frame').src = './Profile.php';
 
-            document.getElementById('head-line').innerHTML = 'Profile';
-        }
+        //     document.getElementById('head-line').innerHTML = 'Profile';
+        // }
 
         // function loadTeacherManagement(){
         //     document.getElementById('content-frame').src = './TeacherManagement.php';
@@ -37,11 +38,11 @@ if (!isset($_SESSION['user']) || $_SESSION['user'] !== 'ClassTeacher') {
             
         // }
 
-        // function loadStudentManagement() {
-        //     document.getElementById('content-frame').src = './StudentManagement.php';
+        function loadStudentManagement() {
+            document.getElementById('content-frame').src = './StudentManagement.php';
 
-        //     document.getElementById('head-line').innerHTML = 'Student Management';
-        // }
+            document.getElementById('head-line').innerHTML = 'Student Management';
+        }
 
         // function loadSubjectManagement() {
         //     document.getElementById('content-frame').src = './SubjectManagement.php';
