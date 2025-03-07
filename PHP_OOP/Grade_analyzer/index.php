@@ -8,7 +8,7 @@
     <style>
         * {
             margin: 0;
-            padding: 0;
+            padding: 0;  
             box-sizing: border-box;
         }
 
@@ -33,7 +33,6 @@
             justify-content: center;
             list-style-type: none;
         }
-s
         .header-container ul li {
             margin: 0 20px;
             font-size: 18px;

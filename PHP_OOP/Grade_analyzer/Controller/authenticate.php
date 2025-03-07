@@ -13,7 +13,7 @@ if (isset($_POST['username'], $_POST['password'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
     $role = isset($_POST['role']) ? $_POST['role'] : 'None' ;
-    
+
     $config = new Config();
     $userAuth = new UserAuthentication($config);
     
@@ -25,16 +25,16 @@ if (isset($_POST['username'], $_POST['password'])) {
     if ($role === 'Principal') {
         $userAuth->authenticatePrincipal($username, $password, $role);
     }
+    
+    if ($role === 'ClassTeacher') {
+        $userAuth->authenticateClassTeacher($username, $password, $role);
+    }
 
 
 
 
     // if ($role === 'Teacher') {
     //     $userAuth->authenticate_teacher($username, $password, $role);
-    // }
-
-    // if ($role === 'ClassTeacher') {
-    //     $userAuth->authenticate_class_teacher($username, $password, $role);
     // }
 
     

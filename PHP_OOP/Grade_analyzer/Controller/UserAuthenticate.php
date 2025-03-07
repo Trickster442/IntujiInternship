@@ -18,7 +18,7 @@ class UserAuthentication
         $stmt->execute();
         
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        
+
         if ($result) {
             $_SESSION['user'] = 'Principal';
             header('Location: ../View/Principal/PrincipalHomePage.php');
@@ -53,14 +53,32 @@ class UserAuthentication
     $stmt->close();
     }
 
+    public function authenticateClassTeacher($username, $password, $role){
+        $query = "SELECT password FROM teachers WHERE email = ? AND password = ? AND role = 'ClassTeacher' AND status = 'Active'";
 
+        $stmt = $this->config->prepare($query);
+        if (!$stmt) {
+            echo "Database query error.";
+            return;
+        }
+    
+        $stmt->bind_param("ss", $username, $password);
+        $stmt->execute();
+    
+        if ($stmt->fetch()) {
+            $_SESSION['user'] = 'ClassTeacher';
+            header('Location: ../View/ClassTeacher/HomePage.php');
+            exit();
+        } else {
+            header('Location: ../View/TeacherLogin.php');
+        }
 
+        $stmt->close();
+    
+        $this->config->close();
+        exit();
 
-
-
-
-
-
-
-
+    }
+    
+    
 }

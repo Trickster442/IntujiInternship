@@ -124,6 +124,29 @@ class FormHandling
         $stmt->close();
     }
 
+    public function getStudentByClass($class){
+        $classID_query = "SELECT id FROM classes WHERE class = ?";
+        $stmt = $this->config->prepare($classID_query);
+        $stmt->bind_param('s', $class);
+        $stmt->execute();
+        $result = $stmt->get_result();
+    
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            $classID = $row['id'];
+        } else {
+            echo "Error: Class not found.";
+            return;
+        }
+        $stmt->close();
+
+        $query = "SELECT * from students WHERE class_id = $classID";
+        $stmt2 = $this->config->query($query);
+        $result2 = $stmt2->fetch_all();
+        print_r($result2);
+    
+    }
+
     
 }
 

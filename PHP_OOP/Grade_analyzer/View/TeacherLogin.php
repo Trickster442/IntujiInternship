@@ -77,10 +77,11 @@
             <input type="password" id="password" name="password" placeholder="Enter your password..." required>
 
             <label for="role">Role:</label>
+
             <select name="role" id="role" required>
                 <option value="Teacher">Teacher</option>
                 <option value="Principal">Principal</option>
-                <option value="Student">ClassTeacher</option>
+                <option value="ClassTeacher">ClassTeacher</option>
             </select>
 
             <button type="submit">Login</button>

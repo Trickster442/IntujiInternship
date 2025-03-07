@@ -3,22 +3,19 @@ use Grade_analyzer\Config\Config;
 
 require_once '../../Config/Config.php';
 
-echo '<a href="../RegisterTeacher.php"><button style="width:100px; height: 30px; background-color:#4CAF50; color:black; border:1px solid black; border-radius:30px; cursor:pointer;">Add Teacher</button></a>';
 
+echo '<a href="./RegisterStudent.php"><button style="width:100px; height: 30px; background-color:#4CAF50; color:black; border:1px solid black; border-radius:30px; cursor:pointer;">Add Student</button></a>';
 
 $config = new Config();
 $connection = $config->getConnection();
 
-$query = "SELECT t.id , t.first_name, t.last_name, t.phone_num, t.role, t.status, t.email, t.password, c.class, s.subject_name 
-          FROM teachers t
-          LEFT JOIN classes c ON t.class_id = c.id 
-          LEFT JOIN subjects s ON t.subject_id = s.id
-          WHERE NOT role = 'Principal' ";
+$query = "SELECT c.class, s.first_name, s.last_name, s.roll_no, s.phone_num, s.id
+          FROM classes c 
+          RIGHT JOIN students s ON c.id = s.class_id 
+          ";
 
 $stmt = $connection->query($query);
-
 $result = $stmt->fetch_all(MYSQLI_ASSOC);
-
 
 if (!empty($result)) {
     $count = 0;
@@ -36,6 +33,7 @@ if (!empty($result)) {
             }
             th {
                 background-color: #4CBB17;
+                font-size: 1.2rem;
             }
             tr:nth-child(even) {
                 background-color: #f9f9f9;
@@ -67,44 +65,45 @@ if (!empty($result)) {
             td a:hover {
                 color: #0056b3;
             }
+                
         </style>';
 
     echo '<table>';
     echo '<tr>
             <th>S.N</th>
             <th>Name</th>
-            <th>Phone Number</th>
-            <th>Role</th>      
-            <th>Status</th>
+            <th>Roll</th>
+            <th>Phone Num</th>
             <th>Class</th>
-            <th>Subject</th>
-            <th>EDIT</th>
+            <th>Edit</th>      
+            <th>Delete</th>
         </tr>';
 
     foreach ($result as $data) {
         $count++;
-
-        $teacher_name = $data['first_name'] . ' ' . $data['last_name'];
-
         echo '<tr id="' . $data['id']. '">
                 <td>' . $count . '</td>
-                <td>' . $teacher_name . '</td>
+                <td>' . $data['first_name'] . ' ' . $data['last_name']  . '</td>
+                <td>' . $data['roll_no'] . '</td>
                 <td>' . $data['phone_num'] . '</td>
-                <td>' . $data['role'] . '</td>
-                <td>' . $data['status'] . '</td>
                 <td>' . $data['class'] . '</td>
-                <td>' . $data['subject_name'] . '</td>
                 <td>
-                <form method="post" action="./AdminTeacherRegistration.php">
+                <form method="post" action="#">
                     <input name="id" value=' . $data['id'] . ' type="hidden" />
                     <button>Edit</button>
                 </form>
                 </td>
+                <td>
+                <form method="post" action="./AdminTeacherRegistration.php">
+                    <input name="id" value=' . $data['id'] . ' type="hidden" />
+                    <button>Delete</button>
+                </form>
+                </td>
             </tr>';
-
     }
 
     echo '</table>';
 } else {
     echo "<p style='color:white;'>No records found.</p>";
 }
+
