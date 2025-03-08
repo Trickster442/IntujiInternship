@@ -65,12 +65,11 @@ class UserAuthentication
         $stmt->bind_param("ss", $username, $password);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_assoc();
-
         if ($result) {
             
             $_SESSION['user'] = 'ClassTeacher';
-            $_SESSION['class_id'] = $result['id'];
-
+            $_SESSION['class_id'] = $result['class_id'];
+            
             header('Location: ../View/ClassTeacher/HomePage.php');
             exit();
         } else {

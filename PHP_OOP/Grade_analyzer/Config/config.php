@@ -38,6 +38,3 @@ class Config
     }
 
 }
-
-$try = new Config();
-$try->getConnection();

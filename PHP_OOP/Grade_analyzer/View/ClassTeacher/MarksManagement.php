@@ -49,7 +49,7 @@ $subjects = $formHand->getSubjectByClass($class_id);
                 foreach ($subjects as $subject) {
                     echo '<label>' . htmlspecialchars($subject['subject_name']) . '</label>';
                     echo '<input type="hidden" name="subject_id[' . $data['id'] . '][]" value="' . $subject['id'] . '">';
-                    echo '<input type="number" name="subject_mark[' . $data['id'] . '][]" required>';
+                    echo '<input type="number" name="subject_mark[' . $data['id'] . '][]" max="100" min="1" step="0.01" required>';
                     echo '<br>';
                 }
                 echo '<hr>';
