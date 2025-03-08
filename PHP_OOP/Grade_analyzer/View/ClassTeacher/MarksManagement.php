@@ -1,4 +1,7 @@
 <?php
+
+use Grade_analyzer\Controller\MarksHandling;
+
 session_start();
 include '../../Controller/UserAuthenticate.php';
 
@@ -15,13 +18,17 @@ $class_id = $_SESSION['class_id'];
 
 use Grade_analyzer\Config\Config;
 use Grade_analyzer\Controller\FormHandling;
+
+
 require_once '../../Config/Config.php';
 require_once '../../Controller/FormHandling.php';
+require_once '../../Controller/MarksHandling.php';
 
 $config = new Config();
 $connection = $config->getConnection();
 
 $formHand = new FormHandling($config);
+$markHand = new MarksHandling($config);
 
 $result = $formHand->getStudentByClass($class_id);
 $subjects = $formHand->getSubjectByClass($class_id);
@@ -39,13 +46,15 @@ $subjects = $formHand->getSubjectByClass($class_id);
 <body>
     <div class="main-container">
         <h2>Marking Students</h2>
-        <form method="post" action="processMarks.php"> 
+        <form method="post"> 
+            <label for="semester">Semester</label>
+            <input type="text" name="semester" id="semester" required>
+
             <?php
             foreach ($result as $data) {
-
                 echo '<h3>' . htmlspecialchars($data['first_name']) . ' ' . htmlspecialchars($data['last_name']) . '</h3>';
                 echo '<input type="hidden" name="student_id[]" value="' . $data['id'] . '">';
-                
+
                 foreach ($subjects as $subject) {
                     echo '<label>' . htmlspecialchars($subject['subject_name']) . '</label>';
                     echo '<input type="hidden" name="subject_id[' . $data['id'] . '][]" value="' . $subject['id'] . '">';
@@ -60,3 +69,25 @@ $subjects = $formHand->getSubjectByClass($class_id);
     </div>
 </body>
 </html>
+
+<?php
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['student_id'])) {
+    $studentsMarksData = [
+        'class_id' => $class_id,
+        'semester' => htmlspecialchars($_POST['semester']),
+        'marks_data' => []
+    ];
+
+    foreach ($_POST['student_id'] as $student_id) {
+        foreach ($_POST['subject_id'][$student_id] as $index => $subject_id) {
+            $studentsMarksData['marks_data'][] = [
+                'student_id' => $student_id,
+                'subject_id' => $subject_id,
+                'subject_mark' => $_POST['subject_mark'][$student_id][$index]
+            ];
+        }
+    }
+
+    $markHand->insertStudentMarks($studentsMarksData);
+}
+?>

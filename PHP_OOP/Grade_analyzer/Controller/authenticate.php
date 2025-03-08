@@ -29,13 +29,5 @@ if (isset($_POST['username'], $_POST['password'])) {
     if ($role === 'ClassTeacher') {
         $userAuth->authenticateClassTeacher($username, $password, $role);
     }
-
-
-
-
-    // if ($role === 'Teacher') {
-    //     $userAuth->authenticate_teacher($username, $password, $role);
-    // }
-
     
 }
