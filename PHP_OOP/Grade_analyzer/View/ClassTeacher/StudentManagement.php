@@ -101,7 +101,7 @@ if (!empty($result)) {
                 </form>
                 </td>
                 <td>
-                <form method="post" action="./AdminTeacherRegistration.php">
+                <form method="post" action="#">
                     <input name="id" value=' . $data['id'] . ' type="hidden" />
                     <button>Delete</button>
                 </form>
