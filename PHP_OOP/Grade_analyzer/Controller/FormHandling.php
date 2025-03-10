@@ -125,22 +125,7 @@ class FormHandling
     }
 
     public function getStudentByClass($class){
-        $classID_query = "SELECT id FROM classes WHERE class = ?";
-        $stmt = $this->config->prepare($classID_query);
-        $stmt->bind_param('s', $class);
-        $stmt->execute();
-        $result = $stmt->get_result();
-    
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            $classID = $row['id'];
-        } else {
-            echo "Error: Class not found.";
-            return;
-        }
-        $stmt->close();
-
-        $query = "SELECT s.id, s.first_name, s.last_name, s.roll_no, s.phone_num, s.class_id from students s WHERE class_id = $classID";
+        $query = "SELECT s.id, s.first_name, s.last_name, s.roll_no, s.phone_num, s.class_id from students s WHERE class_id = $class";
         $stmt2 = $this->config->query($query);
         $result2 = $stmt2->fetch_all(MYSQLI_ASSOC);
         return($result2);
