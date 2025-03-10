@@ -26,47 +26,33 @@ if (!empty($result)) {
                 border: 1px solid #ddd;
             }
             th {
-                background-color: #4CBB17;
+                background-color: rgb(150, 158, 206);
                 font-size: 1.2rem;
             }
-            tr:nth-child(even) {
+
+            tr {
                 background-color: #f9f9f9;
                 color:black;
             }
 
-            tr:nth-child(even):hover {
-                background-color: #4CBB17;
-                color:white;
-            }
-            tr:nth-child(odd) {
-                background-color: #4CBB17;
-                color:white;
-            }
-                tr:nth-child(odd):hover {
-                background-color: #f1f1f1;
-                color:black;
-            }
-                
             tr:hover {
-                background-color: #f1f1f1;
+                background-color: rgb(150, 158, 206);
+                color:white;
             }
 
             td a {
                 text-decoration: none;
                 color: #007BFF;
             }
-                
-            td a:hover {
-                color: #0056b3;
-            }
+
                 
         </style>';
 
     echo '<table>';
     echo '<tr>
             <th>S.N</th>
-            <th>Class</th>
-            <th>Class Teacher</th>
+            <th>Subject Name</th>
+            <th>Class ID</th>
             <th>Edit</th>      
             <th>Delete</th>
         </tr>';
@@ -79,7 +65,7 @@ if (!empty($result)) {
                 <td>' . $data['subject_name'] . '</td>
                 <td>' . $data['class_id'] . '</td>
                 <td>
-                <form method="post" action="./UpdateSubject.php">
+                <form method="post" action="#">
                     <input name="id" value=' . $data['id'] . ' type="hidden" />
                     <button>Edit</button>
                 </form>

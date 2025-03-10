@@ -206,6 +206,18 @@ class FormHandling
           
           $this->config->close();
     }
+
+    public function getStudentById($user_id){
+        $query = "SELECT * FROM students WHERE id = ?";
+
+        $stmt = $this->config->prepare($query);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+
+        $result = $stmt->get_result()->fetch_assoc();
+        
+        return $result;
+    }
     
 }
 

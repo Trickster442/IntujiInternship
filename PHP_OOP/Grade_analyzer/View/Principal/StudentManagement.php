@@ -28,31 +28,19 @@ if (!empty($result)) {
                 border: 1px solid #ddd;
             }
             th {
-                background-color: #4CBB17;
+                background-color: rgb(150, 158, 206);
                 font-size: 1.2rem;
             }
-            tr:nth-child(even) {
+            tr {
                 background-color: #f9f9f9;
                 color:black;
             }
 
-            tr:nth-child(even):hover {
-                background-color: #4CBB17;
+            tr:hover {
+                background-color: rgb(150, 158, 206);
                 color:white;
-            }
-            tr:nth-child(odd) {
-                background-color: #4CBB17;
-                color:white;
-            }
-                tr:nth-child(odd):hover {
-                background-color: #f1f1f1;
-                color:black;
             }
                 
-            tr:hover {
-                background-color: #f1f1f1;
-            }
-
             td a {
                 text-decoration: none;
                 color: #007BFF;
@@ -84,9 +72,9 @@ if (!empty($result)) {
                 <td>' . $data['phone_num'] . '</td>
                 <td>' . $data['class'] . '</td>
                 <td>
-                <form method="post" action="#">
+                <form method="post" action="./UpdateStudent.php">
                     <input name="id" value=' . $data['id'] . ' type="hidden" />
-                    <button>Edit</button>
+                    <button type="submit">Edit</button>
                 </form>
                 </td>
                 <td>

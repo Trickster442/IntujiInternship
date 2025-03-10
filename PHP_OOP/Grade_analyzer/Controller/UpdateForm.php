@@ -38,5 +38,22 @@ class UpdateForm
             $stmt->execute([ $class_id]);
         }
     }
+
+    public function updateStudentForm($id, $firstName, $lastName, $rollNo, $phoneNum, $class, $email, $password) {
+        $classQuery = "SELECT c.id FROM classes c WHERE class = ?";
+        $classStmt = $this->config->prepare($classQuery);
+        $classStmt->bind_param("s", $class);
+        $classStmt->execute();
+        $classResult = $classStmt->get_result();
+        $classID = $classResult->fetch_assoc();
+        $classIDValue = $classID['id'];
+        
+        $query = "UPDATE students
+                  SET first_name = ?, last_name = ?, roll_no = ?, phone_num = ?, class_id = ?, email = ?, password = ?
+                  WHERE id = ?";    
+        $stmt = $this->config->prepare($query);
+        
+        $stmt->execute([$firstName, $lastName, $rollNo, $phoneNum, $classIDValue, $email, $password, $id]);
+    }
     
 }

@@ -43,7 +43,7 @@ $data2 = $stmt2->fetch_all();
     </select>
 </div>
         <input type="submit" name="submitbtn" 
-                style="width: 100%; padding: 12px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 20px;">
+                style="width: 100%; padding: 12px; background-color: rgb(150, 158, 206); color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 20px;">
     </form>
 </div>
 

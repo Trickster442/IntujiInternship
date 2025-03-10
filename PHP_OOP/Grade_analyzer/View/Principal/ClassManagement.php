@@ -32,30 +32,18 @@ if (!empty($result)) {
                 border: 1px solid #ddd;
             }
             th {
-                background-color: #4CBB17;
+                background-color: rgb(150, 158, 206);
                 font-size: 1.2rem;
             }
-            tr:nth-child(even) {
+            tr {
                 background-color: #f9f9f9;
                 color:black;
             }
 
-            tr:nth-child(even):hover {
-                background-color: #4CBB17;
-                color:white;
-            }
-            tr:nth-child(odd) {
-                background-color: #4CBB17;
-                color:white;
-            }
-                tr:nth-child(odd):hover {
-                background-color: #f1f1f1;
-                color:black;
-            }
-                
             tr:hover {
-                background-color: #f1f1f1;
-            }
+                background-color: rgb(150, 158, 206);
+                color:white;
+            }  
 
             td a {
                 text-decoration: none;
