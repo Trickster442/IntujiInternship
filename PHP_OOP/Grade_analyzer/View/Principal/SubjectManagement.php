@@ -76,10 +76,7 @@ if (!empty($result)) {
 
     foreach ($result as $data) {
         $count++;
-        // $teacher_name = (!empty($data['FirstName']) && !empty($data['LastName']))
-        //     ? htmlspecialchars($data['FirstName'] . ' ' . $data['LastName'])
-        //     : 'Not declared';
-
+        
         echo '<tr id="' . $data['id']. '">
                 <td>' . $count . '</td>
                 <td>' . $data['subject_name'] . '</td>

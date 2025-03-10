@@ -17,36 +17,9 @@ if (!isset($_SESSION['user']) || $_SESSION['user'] !== 'Principal') {
     <link rel="stylesheet" href="PrincipalHomePage.css" />
     <title>Principal Home Page</title>
     <script>
-
-        function loadClassManagement() { 
-            document.getElementById('content-frame').src = './ClassManagement.php';
-
-            document.getElementById('head-line').innerHTML = 'Class Management';
-        }
-
-        function loadProfile() {
-            document.getElementById('content-frame').src = './Profile.php';
-
-            document.getElementById('head-line').innerHTML = 'Profile';
-        }
-
-        function loadTeacherManagement(){
-            document.getElementById('content-frame').src = './TeacherManagement.php';
-
-            document.getElementById('head-line').innerHTML = 'Teacher Management';
-            
-        }
-
-        function loadStudentManagement() {
-            document.getElementById('content-frame').src = './StudentManagement.php';
-
-            document.getElementById('head-line').innerHTML = 'Student Management';
-        }
-
-        function loadSubjectManagement() {
-            document.getElementById('content-frame').src = './SubjectManagement.php';
-
-            document.getElementById('head-line').innerHTML = 'Subject Management';
+        function loadPage(page, title) { 
+            document.getElementById('content-frame').src = './' + page + '.php';
+            document.getElementById('head-line').innerHTML = title;
         }
     </script>
 </head>
@@ -59,11 +32,11 @@ if (!isset($_SESSION['user']) || $_SESSION['user'] !== 'Principal') {
 
             <div class="upper-navigation">
                 <ul>
-                    <li onclick="loadProfile()" style="cursor:pointer;">Profile</li>
-                    <li onclick="loadStudentManagement()" style="cursor:pointer;">Students</li>
-                    <li onclick="loadClassManagement()" style="cursor:pointer;">Classes</li>
-                    <li onclick="loadTeacherManagement()" style="cursor:pointer;">Teachers</li>
-                    <li onclick="loadSubjectManagement()" style="cursor:pointer;">Subjects</li>
+                    <li onclick="loadPage('Profile', 'Profile')" style="cursor:pointer;">Profile</li>
+                    <li onclick="loadPage('StudentManagement', 'Student Management')" style="cursor:pointer;">Students</li>
+                    <li onclick="loadPage('ClassManagement', 'Class Management')" style="cursor:pointer;">Classes</li>
+                    <li onclick="loadPage('TeacherManagement', 'Teacher Management')" style="cursor:pointer;">Teachers</li>
+                    <li onclick="loadPage('SubjectManagement', 'Subject Management')" style="cursor:pointer;">Subjects</li>
                 </ul>
             </div>
 
@@ -71,14 +44,15 @@ if (!isset($_SESSION['user']) || $_SESSION['user'] !== 'Principal') {
                 <ul>
                     <li>Contact Support</li>
                     <li>Settings</li>
-                    <li>Logout</li>
+                    <li onclick="window.location.href='../../Controller/Logout.php'" style="cursor:pointer;">Logout</li>
                 </ul>
             </div>
+            
         </div>
 
         <div class="right-container">
-            <h1 id="head-line" style="text-align:center; "></h1>
-            <iframe id="content-frame" src="" width="100%" height="500px" style="border:none; max-height: 400px;"></iframe>
+            <h1 id="head-line" style="text-align:center;"></h1>
+            <iframe id="content-frame" src="" width="100%" height="500px" style="border:none; min-height: 500px;"></iframe>
         </div>
 
     </div>    

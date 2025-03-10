@@ -17,10 +17,12 @@ class UserAuthentication
         $stmt->bind_param("sss", $username, $password, $role);
         $stmt->execute();
         
-        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $result = $stmt->get_result()->fetch_assoc();
 
         if ($result) {
             $_SESSION['user'] = 'Principal';
+            $_SESSION['user_id'] = $result['id'];
+
             header('Location: ../View/Principal/PrincipalHomePage.php');
             exit();
         } else {

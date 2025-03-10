@@ -159,6 +159,17 @@ class FormHandling
         return $result;
     }
     
+    public function getUserByID($user_id){
+        $query = "SELECT * FROM teachers WHERE id = ?";
+
+        $stmt = $this->config->prepare($query);
+        $stmt->bind_param("i", $user_id);
+        $stmt->execute();
+
+        $result = $stmt->get_result()->fetch_assoc();
+        
+        return $result;
+    }
     
 }
 
