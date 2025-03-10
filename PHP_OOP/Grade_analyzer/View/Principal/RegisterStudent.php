@@ -1,15 +1,8 @@
 <?php
-session_start();
-use Grade_analyzer\Controller\FormHandling;
-use Grade_analyzer\Config\Config;
-require_once '../../Controller/FormHandling.php';
-require_once '../../Config/Config.php'; 
+include('./import.php');
+include('./authorization.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
-    $config = new Config();
-    $form_submit = new FormHandling($config);
-
-     
     $firstName = $_POST["firstname"]; 
     $lastName = $_POST["lastname"];
     $phone = $_POST["phone"];
@@ -18,9 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
     $password = $_POST['password'];
     $student_class = $_POST["class"];
 
-    
-
-    $form_submit->registerStudent($firstName, $lastName, $roll, $phone, $student_class, $email, $password);
+    $formHand->registerStudent($firstName, $lastName, $roll, $phone, $student_class, $email, $password);
 }
 ?>
 

@@ -16,10 +16,11 @@ class MarksModel extends AbstractDatabase
             student_id INT NOT NULL,
             subject_id INT NOT NULL,
             subject_marks INT NOT NULL,
+            semester varchar(50) NOT NULL,
             PRIMARY KEY (id),
-            FOREIGN KEY (class_id) REFERENCES classes(id),
-            FOREIGN KEY (student_id) REFERENCES students(id),
-            FOREIGN KEY (subject_id) REFERENCES subjects(id)
+            FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE,
+            FOREIGN KEY (student_id) REFERENCES students(id) ON DELETE CASCADE,
+            FOREIGN KEY (subject_id) REFERENCES subjects(id) ON DELETE CASCADE
         )";
         return $sql;
     }

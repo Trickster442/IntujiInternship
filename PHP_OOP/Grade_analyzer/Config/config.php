@@ -21,7 +21,7 @@ class Config
 
         if ($this->conn->connect_error) {
             die("Connection failed: " . $this->conn->connect_error);
-        }
+        }   
 
         $model = new MainModel();
         $model = ($model->main());
@@ -38,3 +38,6 @@ class Config
     }
 
 }
+
+$config = new Config();
+$config->getConnection();

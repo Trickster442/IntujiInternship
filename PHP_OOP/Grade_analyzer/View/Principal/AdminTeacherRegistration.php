@@ -1,12 +1,7 @@
 <?php
-use Grade_analyzer\Config\Config;
-use Grade_analyzer\Controller\UpdateForm;
+include('./import.php');
+include('./authorization.php');
 
-require_once '../../Controller/FormHandling.php';
-require_once '../../Config/Config.php'; 
-require_once '../../Controller/UpdateForm.php';
-
-$config = new Config();
 $config = $config->getConnection();
 
 $id =  $_POST['id'];
@@ -101,8 +96,6 @@ $data = $stmt->fetch_assoc();
 
 
 <?php
-$con = new Config();
-$updateForm = new UpdateForm($con);
 
 if (isset($_POST['submitbtn'])){
     $updateForm -> updateTeacherForm($_POST['id'], $_POST['firstname'], $_POST['lastname'], $_POST['phone'], $_POST['role'], $_POST['status'], $_POST['class'], $_POST['subject'], $_POST['email'], $_POST['password']);

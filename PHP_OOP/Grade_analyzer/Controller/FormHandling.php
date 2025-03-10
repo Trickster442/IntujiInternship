@@ -170,7 +170,30 @@ class FormHandling
         
         return $result;
     }
+
+    public function deleteClass($class_id){
+    $query = "DELETE FROM classes WHERE id = $class_id ";
+
+    if ($this->config->query($query) === TRUE) {
+        echo "Record deleted successfully";
+      } else {
+        echo "Error deleting record: " . $this->config->error;
+      }
+      
+      $this->config->close();
+    }
+
+    public function deleteStudent($student_id){
+        $query = "DELETE FROM students WHERE id = $student_id ";
     
+        if ($this->config->query($query) === TRUE) {
+            echo "Record deleted successfully";
+          } else {
+            echo "Error deleting record: " . $this->config->error;
+          }
+          
+          $this->config->close();
+    }
 }
 
 

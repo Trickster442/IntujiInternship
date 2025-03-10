@@ -15,11 +15,10 @@ class StudentModel extends AbstractDatabase
             roll_no INT NOT NULL UNIQUE,
             phone_num VARCHAR(20) NOT NULL UNIQUE,
             class_id INT NOT NULL,
-            semester varchar(100) NOT NULL,
             email VARCHAR(255) NOT NULL UNIQUE,
             password VARCHAR(255) NOT NULL,
             PRIMARY KEY (id),
-            FOREIGN KEY (class_id) REFERENCES classes(id),
+            FOREIGN KEY (class_id) REFERENCES classes(id) ON DELETE CASCADE,
             UNIQUE KEY (class_id, roll_no)
         )";
         return $sql;

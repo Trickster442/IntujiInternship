@@ -1,23 +1,9 @@
 <?php
-session_start();
-
-include '../../Controller/UserAuthenticate.php';
-
-if (!isset($_SESSION['user']) || $_SESSION['user'] !== 'Principal' || !isset($_SESSION['user_id'])) {
-    header('Location: ../TeacherLogin.php');
-    exit();
-}
+include('./authorization.php');
+include('./import.php');
 
 $user_id = $_SESSION['user_id'];
 
-use Grade_analyzer\Controller\FormHandling;
-use Grade_analyzer\Config\Config;
-
-include '../../Controller/FormHandling.php';
-include '../../Config/Config.php';
-
-$config = new Config();
-$formHand = new FormHandling($config);
 $user_data = $formHand->getUserByID($user_id);
 
 ?>

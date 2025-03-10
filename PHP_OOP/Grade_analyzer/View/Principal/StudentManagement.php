@@ -1,12 +1,8 @@
 <?php
-use Grade_analyzer\Config\Config;
-
-require_once '../../Config/Config.php';
-
+include('./import.php');
 
 echo '<a href="./RegisterStudent.php"><button style="width:100px; height: 30px; background-color:#4CAF50; color:black; border:1px solid black; border-radius:30px; cursor:pointer;">Add Student</button></a>';
 
-$config = new Config();
 $connection = $config->getConnection();
 
 $query = "SELECT c.class, s.first_name, s.last_name, s.roll_no, s.phone_num, s.id
@@ -94,9 +90,9 @@ if (!empty($result)) {
                 </form>
                 </td>
                 <td>
-                <form method="post" action="./AdminTeacherRegistration.php">
+                <form method="post">
                     <input name="id" value=' . $data['id'] . ' type="hidden" />
-                    <button>Delete</button>
+                    <button name="delete" type="submit"> Delete </button>
                 </form>
                 </td>
             </tr>';
@@ -105,5 +101,9 @@ if (!empty($result)) {
     echo '</table>';
 } else {
     echo "<p style='color:white;'>No records found.</p>";
+}
+
+if(isset($_POST['delete'])){
+    $formHand->deleteStudent($_POST['id']);
 }
 

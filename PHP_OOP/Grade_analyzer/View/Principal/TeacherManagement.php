@@ -1,12 +1,8 @@
 <?php
-use Grade_analyzer\Config\Config;
-
-require_once '../../Config/Config.php';
+include('./import.php');
 
 echo '<a href="../RegisterTeacher.php"><button style="width:100px; height: 30px; background-color:#4CAF50; color:black; border:1px solid black; border-radius:30px; cursor:pointer;">Add Teacher</button></a>';
 
-
-$config = new Config();
 $connection = $config->getConnection();
 
 $query = "SELECT t.id , t.first_name, t.last_name, t.phone_num, t.role, t.status, t.email, t.password, c.class, s.subject_name 

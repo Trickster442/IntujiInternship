@@ -1,12 +1,11 @@
+<?php declare(strict_types=1);
+include('./authorization.php');
+include('./import.php');
+?>
+
 <?php
-use Grade_analyzer\Config\Config;
-
-require_once '../../Config/Config.php';
-
 echo '<a href="./AddClass.php"><button style="width:100px; height: 30px; background-color:#4CAF50; color:black; border:1px solid black; border-radius:30px; cursor:pointer;">Add Class</button></a>';
 
-
-$config = new Config();
 $connection = $config->getConnection();
 
 $query = "SELECT c.class, c.id AS class_id, t.first_name, t.last_name 
@@ -95,9 +94,9 @@ if (!empty($result)) {
                 </form>
                 </td>
                 <td>
-                <form method="post" action="./AdminTeacherRegistration.php">
+                <form method="post">
                     <input name="id" value=' . $data['class_id'] . ' type="hidden" />
-                    <button>Delete</button>
+                    <button type="submit" name="delete">Delete</button>
                 </form>
                 </td>
             </tr>';
@@ -106,4 +105,10 @@ if (!empty($result)) {
     echo '</table>';
 } else {
     echo "<p>No records found.</p>";
+}
+
+
+
+if(isset($_POST['delete'])){
+    $formHand->deleteClass($_POST['id']);
 }

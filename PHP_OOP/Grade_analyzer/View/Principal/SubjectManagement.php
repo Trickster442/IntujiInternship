@@ -1,12 +1,9 @@
 <?php
-use Grade_analyzer\Config\Config;
-
-require_once '../../Config/Config.php';
-
+include('./import.php');
+include('./authorization.php');
 
 echo '<a href="./AddSubject.php"><button style="width:100px; height: 30px; background-color:#4CAF50; color:black; border:1px solid black; border-radius:30px; cursor:pointer;">Add Subject</button></a>';
 
-$config = new Config();
 $connection = $config->getConnection();
 
 $query = "SELECT * FROM subjects ";

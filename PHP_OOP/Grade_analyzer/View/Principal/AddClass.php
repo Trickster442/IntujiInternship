@@ -1,20 +1,15 @@
 <?php
-use Grade_analyzer\Controller\FormHandling;
-use Grade_analyzer\Config\Config;
-require_once '../../Controller/FormHandling.php';
-require_once '../../Config/Config.php'; 
+include('./import.php');
+include('./authorization.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
-    $config = new Config();
-    $form_submit = new FormHandling($config);
-
-    $form_submit->addClass($_POST['class']);
+    $formHand->addClass($_POST['class']);
 }
 ?>
 
 
 <div class="container" style="max-width: 600px; margin: 50px auto; padding: 30px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
-    <h2 class="text-center" style="margin-bottom: 20px; font-family: 'Arial', sans-serif;">Student Registration</h2>
+    <h2 class="text-center" style="margin-bottom: 20px; font-family: 'Arial', sans-serif;">Class Registration</h2>
     <form method="POST">
         <div class="mb-3">
             <label for="class" style="font-size: 16px; font-weight: bold; color: #333;">Class :</label>

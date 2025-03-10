@@ -1,15 +1,9 @@
 <?php
-session_start();
-use Grade_analyzer\Controller\FormHandling;
-use Grade_analyzer\Config\Config;
-require_once '../../Controller/FormHandling.php';
-require_once '../../Config/Config.php';
+include('./authorization.php');
+include('./import.php');
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
-    $config = new Config();
-    $form_submit = new FormHandling($config);
-
-    $form_submit->addSubject($_POST['subject'],$_POST['class']);
+    $formHand->addSubject($_POST['subject'],$_POST['class']);
 }
 ?>
 
