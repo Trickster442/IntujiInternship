@@ -38,7 +38,6 @@ class MarksHandling
     
         $stmt->close();
         $this->config->close();
-
     }
     
 }

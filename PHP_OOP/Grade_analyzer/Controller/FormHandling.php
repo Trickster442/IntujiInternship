@@ -194,6 +194,19 @@ class FormHandling
           
           $this->config->close();
     }
+
+    public function deleteSubject($subject_id){
+        $query = "DELETE FROM subjects WHERE id = $subject_id ";
+    
+        if ($this->config->query($query) === TRUE) {
+            echo "Record deleted successfully";
+          } else {
+            echo "Error deleting record: " . $this->config->error;
+          }
+          
+          $this->config->close();
+    }
+    
 }
 
 

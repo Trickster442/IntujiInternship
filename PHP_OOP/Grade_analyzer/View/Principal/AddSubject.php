@@ -16,7 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
             <label for="subject" style="font-size: 16px; font-weight: bold; color: #333;">Subject :</label>
             <input id="subject" type="text" name="subject" required
                 style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;"
-                value="<?php echo isset($_POST['subject']) ? htmlspecialchars($_POST['subject']) : '' ?>">
+                value="<?php echo isset($_POST['subject']) ? htmlspecialchars($_POST['subject']) : '' ?>"
+                oninput="capitalizeFirstLetter(this)">
         </div>
 
         <div class="mb-3">
@@ -30,3 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submitbtn"])) {
             style="width: 100%; padding: 12px; background-color: #4CAF50; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 20px;">
     </form>
 </div>
+
+<script>
+    function capitalizeFirstLetter(input) {
+        let value = input.value;
+        if (value.length > 0) {
+            input.value = value.charAt(0).toUpperCase() + value.slice(1);
+        }
+    }
+</script>

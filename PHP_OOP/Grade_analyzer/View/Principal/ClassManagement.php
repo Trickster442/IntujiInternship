@@ -108,7 +108,7 @@ if (!empty($result)) {
 }
 
 
-
+// DELETE
 if(isset($_POST['delete'])){
     $formHand->deleteClass($_POST['id']);
 }

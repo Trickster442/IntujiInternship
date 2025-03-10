@@ -1,5 +1,12 @@
 <?php
 include('./authorization.php');
+
+if(isset($_GET['logout']) && $_GET['logout'] == 'true') {
+    unset($_SESSION);  
+    session_destroy();
+    header("Location:../../index.php"); 
+    exit(); 
+}
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +44,7 @@ include('./authorization.php');
                 <ul>
                     <li>Contact Support</li>
                     <li>Settings</li>
-                    <li onclick="window.location.href='../../Controller/Logout.php'" style="cursor:pointer;">Logout</li>
+                    <li><a href="?logout=true" style="cursor:pointer;text-decoration:none;color:white">Logout</a></li>
                 </ul>
             </div>
             

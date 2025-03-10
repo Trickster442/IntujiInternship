@@ -85,9 +85,9 @@ if (!empty($result)) {
                 </form>
                 </td>
                 <td>
-                <form method="post" action="#">
+                <form method="post">
                     <input name="id" value=' . $data['id'] . ' type="hidden" />
-                    <button>Delete</button>
+                    <button name="delete" type="submit">Delete</button>
                 </form>
                 </td>
             </tr>';
@@ -98,3 +98,7 @@ if (!empty($result)) {
     echo "<p style='color:white;'>No records found.</p>";
 }
 
+//DELETE
+if(isset($_POST['delete'])){
+    $formHand->deleteSubject($_POST['id']);
+}
