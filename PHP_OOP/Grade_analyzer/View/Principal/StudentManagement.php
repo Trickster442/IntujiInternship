@@ -1,7 +1,20 @@
 <?php
 include('./import.php');
 
-echo '<a href="./RegisterStudent.php"><button style="width:100px; height: 30px; background-color:#4CAF50; color:black; border:1px solid black; border-radius:30px; cursor:pointer;">Add Student</button></a>';
+echo '<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+    <link href="studentManagement.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="./RegisterStudent.php" class="add-btn">Add Student</a>
+        </div>
+        <div class="cards-container">';
 
 $connection = $config->getConnection();
 
@@ -16,82 +29,49 @@ $result = $stmt->fetch_all(MYSQLI_ASSOC);
 if (!empty($result)) {
     $count = 0;
 
-    echo '<style>
-            table {
-                width: 100%;
-                border-collapse: collapse;
-                margin: 20px 0;
-            }
-            th, td {
-                padding: 12px;
-                text-align: left;
-                border: 1px solid #ddd;
-            }
-            th {
-                background-color: rgb(150, 158, 206);
-                font-size: 1.2rem;
-            }
-            tr {
-                background-color: #f9f9f9;
-                color:black;
-            }
-
-            tr:hover {
-                background-color: rgb(150, 158, 206);
-                color:white;
-            }
-                
-            td a {
-                text-decoration: none;
-                color: #007BFF;
-            }
-                
-            td a:hover {
-                color: #0056b3;
-            }
-                
-        </style>';
-
-    echo '<table>';
-    echo '<tr>
-            <th>S.N</th>
-            <th>Name</th>
-            <th>Roll</th>
-            <th>Phone Num</th>
-            <th>Class</th>
-            <th>Edit</th>      
-            <th>Delete</th>
-        </tr>';
-
     foreach ($result as $data) {
         $count++;
-        echo '<tr id="' . $data['id']. '">
-                <td>' . $count . '</td>
-                <td>' . $data['first_name'] . ' ' . $data['last_name']  . '</td>
-                <td>' . $data['roll_no'] . '</td>
-                <td>' . $data['phone_num'] . '</td>
-                <td>' . $data['class'] . '</td>
-                <td>
-                <form method="post" action="./UpdateStudent.php">
-                    <input name="id" value=' . $data['id'] . ' type="hidden" />
-                    <button type="submit">Edit</button>
-                </form>
-                </td>
-                <td>
-                <form method="post">
-                    <input name="id" value=' . $data['id'] . ' type="hidden" />
-                    <button name="delete" type="submit"> Delete </button>
-                </form>
-                </td>
-            </tr>';
+        echo '<div class="card" id="' . $data['id'] . '">
+                <div class="card-header">Student #' . $count . '</div>
+                <div class="card-content">
+                    <div class="card-field">
+                        <label>Name:</label>
+                        <span>' . $data['first_name'] . ' ' . $data['last_name'] . '</span>
+                    </div>
+                    <div class="card-field">
+                        <label>Roll:</label>
+                        <span>' . $data['roll_no'] . '</span>
+                    </div>
+                    <div class="card-field">
+                        <label>Phone:</label>
+                        <span>' . $data['phone_num'] . '</span>
+                    </div>
+                    <div class="card-field">
+                        <label>Class:</label>
+                        <span>' . $data['class'] . '</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <form method="post" action="./UpdateStudent.php">
+                        <input name="id" value="' . $data['id'] . '" type="hidden" />
+                        <button type="submit">Edit</button>
+                    </form>
+                    <form method="post">
+                        <input name="id" value="' . $data['id'] . '" type="hidden" />
+                        <button name="delete" type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>';
     }
-
-    echo '</table>';
 } else {
-    echo "<p style='color:white;'>No records found.</p>";
+    echo '<p class="no-records">No records found.</p>';
 }
+
+echo '    </div>
+    </div>
+</body>
+</html>';
 
 if(isset($_POST['delete'])){
     $formHand->deleteStudent($_POST['id']);
 }
-

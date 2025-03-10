@@ -218,6 +218,30 @@ class FormHandling
         
         return $result;
     }
+
+    public function getSubjectByID($id){
+        $query = "SELECT * FROM subjects WHERE id = ?";
+
+        $stmt = $this->config->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+
+        $result = $stmt->get_result()->fetch_assoc();
+        
+        return $result;
+    }
+
+    public function getClassByID($id){
+        $query = "SELECT * FROM classes WHERE id = ?";
+
+        $stmt = $this->config->prepare($query);
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+
+        $result = $stmt->get_result()->fetch_assoc();
+        
+        return $result;
+    }
     
 }
 

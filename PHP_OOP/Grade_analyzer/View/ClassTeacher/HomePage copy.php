@@ -1,12 +1,13 @@
 <?php
-include('./authorization.php');
+session_start();
 
-if(isset($_GET['logout']) && $_GET['logout'] == 'true') {
-    unset($_SESSION);  
-    session_destroy();
-    header("Location:../../index.php"); 
+include '../../Controller/UserAuthenticate.php';
+
+if (!isset($_SESSION['user']) || $_SESSION['user'] !== 'ClassTeacher') {
+    header('Location: ../TeacherLogin.php');
     exit(); 
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -19,12 +20,13 @@ if(isset($_GET['logout']) && $_GET['logout'] == 'true') {
     <script>
         function loadProfile() {
             document.getElementById('content-frame').src = './Profile.php';
+
             document.getElementById('head-line').innerHTML = 'Profile';
         }
 
         function loadMarkManagement(){
             document.getElementById('content-frame').src = './MarksManagement.php';
-
+            
         }
 
         function loadStudentManagement() {
@@ -53,7 +55,7 @@ if(isset($_GET['logout']) && $_GET['logout'] == 'true') {
                 <ul>
                     <li>Contact Support</li>
                     <li>Settings</li>
-                    <li><a href="?logout=true" style="cursor:pointer;text-decoration:none;color:white">Logout</a></li>
+                    <li>Logout</li>
                 </ul>
             </div>
         </div>

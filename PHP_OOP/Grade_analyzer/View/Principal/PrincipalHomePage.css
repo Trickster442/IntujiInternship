@@ -1,73 +1,75 @@
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
-body {
+body{
     background-color: rgba(0, 0, 0, 0.864);
     color: white;
-    font-family: Arial, sans-serif;
 }
 
-.main-container {
+.main-container{
     width: 100%;
     display: flex;
     flex-direction: row;
+    gap: 1%;
     height: 100vh;
 }
 
-.left-container {
+.left-container{
     width: 20%;
     display: flex;
     flex-direction: column;
-    padding: 2%;
-    position: relative;
+    padding: 1% 2%;
+    
 }
 
-.left-container .logo {
-    text-align: center;
+.left-container .logo{
+    margin-left: 10%;
 }
 
-.left-container .upper-navigation {
-    margin-top: 5%;
+.left-container .upper-navigation{
+    margin-top: 3%;
 }
 
-.left-container ul {
-    list-style: none;
-    padding: 0;
+.left-container .upper-navigation li{
+    padding: 3%;
+    margin-bottom: 2%;
+    border-radius: 20px;
+    gap: 2%;
 }
-
-.left-container li {
-    padding: 10px;
-    margin: 5px 0;
-    border-radius: 10px;
-    transition: all 0.3s ease;
-}
-
-.left-container li:hover {
+.left-container .upper-navigation li:hover{
     background-color: gray;
     border: 1px white solid;
-    cursor: pointer;
 }
 
 .left-container .lower-navigation {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
+    margin-top: 95%;
 }
 
-.right-container {
-    width: 80%;
+.left-container .lower-navigation li{
+    padding: 3%;
+    margin-bottom: 2%;
+    border-radius: 20px;
+    gap: 2%;
+}
+
+.left-container .lower-navigation li:hover{
+    background-color: gray;
+    border: 1px white solid;
+}
+
+ul{
+    list-style: none;
+}
+
+.right-container{
+    width: 74%;
     background-color: rgb(51, 50, 50);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-content: center;
 }
 
-#content-frame {
-    overflow-y: auto;
-    width: 100%;
-    border: none;
+#content-frame{
+    overflow-y: hidden;
 }

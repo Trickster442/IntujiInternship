@@ -71,7 +71,7 @@ class UserAuthentication
             
             $_SESSION['user'] = 'ClassTeacher';
             $_SESSION['class_id'] = $result['class_id'];
-            
+            $_SESSION['user_id'] = $result['id'];
             header('Location: ../View/ClassTeacher/HomePage.php');
             exit();
         } else {

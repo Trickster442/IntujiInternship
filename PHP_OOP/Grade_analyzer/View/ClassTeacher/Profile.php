@@ -4,6 +4,9 @@ include('./import.php');
 
 $user_id = $_SESSION['user_id'];
 $user_data = $formHand->getUserByID($user_id);
+
+$subjectData = $formHand->getSubjectByID($user_data['subject_id']);
+$classData = $formHand->getClassByID($user_data['class_id'])
 ?>
 
 <!DOCTYPE html>
@@ -44,13 +47,13 @@ $user_data = $formHand->getUserByID($user_id);
             <div class="detail-item">
                 <span class="label">Class:</span>
                 <span class="value">
-                    <?php echo ($user_data['class_id'] === null) ? 'Not Assigned' : $user_data['class_id']; ?>
+                    <?php echo ($classData['class'] === null) ? 'Not Assigned' : $classData['class']; ?>
                 </span>
             </div>
             <div class="detail-item">
                 <span class="label">Subject:</span>
                 <span class="value">
-                    <?php echo ($user_data['subject_id'] === null) ? 'Not Assigned' : $user_data['subject_id']; ?>
+                    <?php echo ($subjectData['subject_name'] === null) ? 'Not Assigned' : $subjectData['subject_name']; ?>
                 </span>
             </div>
         </div>
