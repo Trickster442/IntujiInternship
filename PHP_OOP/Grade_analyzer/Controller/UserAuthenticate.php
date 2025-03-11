@@ -11,12 +11,13 @@ class UserAuthentication
         $this->config = $conn->getConnection();
     }
 
-    public function authenticatePrincipal($username, $password, $role){
+    public function authenticatePrincipal($username, $password, $role)
+    {
         $query = "SELECT * FROM teachers WHERE email = ? AND password = ? AND role = ? ";
         $stmt = $this->config->prepare($query);
         $stmt->bind_param("sss", $username, $password, $role);
         $stmt->execute();
-        
+
         $result = $stmt->get_result()->fetch_assoc();
 
         if ($result) {
@@ -28,34 +29,36 @@ class UserAuthentication
         } else {
             echo "No user found.";
         }
-        
+
         $stmt->close();
-    
+
         $this->config->close();
         exit();
 
     }
 
-    public function authenticateStudent($username, $password){
-    $query = "SELECT * FROM students WHERE email = ? AND password = ?";
-    
-    $stmt = $this->config->prepare($query);
-    $stmt->bind_param("ss", $username, $password);
-    $stmt->execute();
-    
-    $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-    
-    if ($result) {
-        $_SESSION['user'] = 'Student';
-        header('Location:../View/StudentHomePage.php');
-    } else {
-        echo "No user found.";
-    }
-    
-    $stmt->close();
+    public function authenticateStudent($username, $password)
+    {
+        $query = "SELECT * FROM students WHERE email = ? AND password = ?";
+
+        $stmt = $this->config->prepare($query);
+        $stmt->bind_param("ss", $username, $password);
+        $stmt->execute();
+
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+
+        if ($result) {
+            $_SESSION['user'] = 'Student';
+            header('Location:../View/StudentHomePage.php');
+        } else {
+            echo "No user found.";
+        }
+
+        $stmt->close();
     }
 
-    public function authenticateClassTeacher($username, $password, $role){
+    public function authenticateClassTeacher($username, $password, $role)
+    {
         $query = "SELECT * FROM teachers WHERE email = ? AND password = ? AND role = 'ClassTeacher' AND status = 'Active'";
 
         $stmt = $this->config->prepare($query);
@@ -63,12 +66,12 @@ class UserAuthentication
             echo "Database query error.";
             return;
         }
-    
+
         $stmt->bind_param("ss", $username, $password);
         $stmt->execute();
         $result = $stmt->get_result()->fetch_assoc();
         if ($result) {
-            
+
             $_SESSION['user'] = 'ClassTeacher';
             $_SESSION['class_id'] = $result['class_id'];
             $_SESSION['user_id'] = $result['id'];
@@ -79,11 +82,10 @@ class UserAuthentication
         }
 
         $stmt->close();
-    
+
         $this->config->close();
         exit();
 
     }
-    
-    
+
 }

@@ -13,13 +13,14 @@ class FormHandling
     {
         $this->config = $conn->getConnection();
     }
-    public function registerStudent($fName, $lName, $rollNo, $phone, $class, $email, $password) {
+    public function registerStudent($fName, $lName, $rollNo, $phone, $class, $email, $password)
+    {
         $classID_query = "SELECT id FROM classes WHERE class = ?";
         $stmt = $this->config->prepare($classID_query);
         $stmt->bind_param('s', $class);
         $stmt->execute();
         $result = $stmt->get_result();
-    
+
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $classID = $row['id'];
@@ -28,25 +29,26 @@ class FormHandling
             return;
         }
         $stmt->close();
-    
+
 
         $stmt = $this->config->prepare("INSERT INTO students (first_name, last_name, roll_no, phone_num, class_id, email, password) 
                                         VALUES (?, ?, ?, ?, ?, ?, ?)");
         $stmt->bind_param('ssisiss', $fName, $lName, $rollNo, $phone, $classID, $email, $password);
-    
+
         if ($stmt->execute()) {
             echo "Student registered successfully!";
         } else {
             echo "Error: " . $stmt->error;
         }
-    
+
         $stmt->close();
     }
-    
-    public function registerTeacher($fName, $lName, $phone, $class, $subject, $email, $password){
+
+    public function registerTeacher($fName, $lName, $phone, $class, $subject, $email, $password)
+    {
         $query1 = "SELECT c.id FROM classes c WHERE c.class = ?";
         $stmt1 = $this->config->prepare($query1);
-        $stmt1->bind_param('s', $class); 
+        $stmt1->bind_param('s', $class);
         $stmt1->execute();
         $stmt1->bind_result($class_id);
 
@@ -56,7 +58,7 @@ class FormHandling
             return;
         }
         $stmt1->close();
-    
+
         $query2 = "SELECT s.id FROM subjects s WHERE s.subject_name = ?";
         $stmt2 = $this->config->prepare($query2);
         $stmt2->bind_param('s', $subject);
@@ -70,7 +72,7 @@ class FormHandling
         }
 
         $stmt2->close();
-    
+
         if ($class_id && $subject_id) {
             $stmt = $this->config->prepare("INSERT INTO teachers (first_name, last_name, phone_num, class_id, subject_id, email, password) VALUES (?, ?, ?, ?, ?, ?, ?)");
             $stmt->bind_param('sssiiss', $fName, $lName, $phone, $class_id, $subject_id, $email, $password);
@@ -92,15 +94,16 @@ class FormHandling
 
         $stmt->close();
 
-    }    
-    
-    public function addSubject($subject, $class) {
+    }
+
+    public function addSubject($subject, $class)
+    {
         $classID_query = "SELECT id FROM classes WHERE class = ?";
         $stmt = $this->config->prepare($classID_query);
         $stmt->bind_param('s', $class);
         $stmt->execute();
         $result = $stmt->get_result();
-    
+
         if ($result->num_rows > 0) {
             $row = $result->fetch_assoc();
             $classID = $row['id'];
@@ -109,42 +112,45 @@ class FormHandling
             return;
         }
         $stmt->close();
-    
+
         $subject_name = $subject . ' ' . $class;
         $stmt = $this->config->prepare("INSERT INTO subjects (subject_name, class_id) 
                                         VALUES (?, ?)");
         $stmt->bind_param('ss', $subject_name, $classID);
-    
+
         if ($stmt->execute()) {
             echo "New subject added successfully!";
         } else {
             echo "Error: " . $stmt->error;
         }
-    
+
         $stmt->close();
     }
 
-    public function getStudentByClass($class){
+    public function getStudentByClass($class)
+    {
         $query = "SELECT s.id, s.first_name, s.last_name, s.roll_no, s.phone_num, s.class_id from students s WHERE class_id = $class";
         $stmt2 = $this->config->query($query);
         $result2 = $stmt2->fetch_all(MYSQLI_ASSOC);
-        return($result2);
-    
+        return ($result2);
+
     }
 
-    public function getSubjectByClass($class_id) {
+    public function getSubjectByClass($class_id)
+    {
         $query = 'SELECT id, subject_name FROM subjects WHERE class_id = ?';
-        
+
         $stmt = $this->config->prepare($query);
-        $stmt->bind_param("i", $class_id);  
+        $stmt->bind_param("i", $class_id);
         $stmt->execute();
-        
+
         $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
-        
+
         return $result;
     }
-    
-    public function getUserByID($user_id){
+
+    public function getUserByID($user_id)
+    {
         $query = "SELECT * FROM teachers WHERE id = ?";
 
         $stmt = $this->config->prepare($query);
@@ -152,47 +158,51 @@ class FormHandling
         $stmt->execute();
 
         $result = $stmt->get_result()->fetch_assoc();
-        
+
         return $result;
     }
 
-    public function deleteClass($class_id){
-    $query = "DELETE FROM classes WHERE id = $class_id ";
+    public function deleteClass($class_id)
+    {
+        $query = "DELETE FROM classes WHERE id = $class_id ";
 
-    if ($this->config->query($query) === TRUE) {
-        echo "Record deleted successfully";
-      } else {
-        echo "Error deleting record: " . $this->config->error;
-      }
-      
-      $this->config->close();
+        if ($this->config->query($query) === TRUE) {
+            echo "Record deleted successfully";
+        } else {
+            echo "Error deleting record: " . $this->config->error;
+        }
+
+        $this->config->close();
     }
 
-    public function deleteStudent($student_id){
+    public function deleteStudent($student_id)
+    {
         $query = "DELETE FROM students WHERE id = $student_id ";
-    
+
         if ($this->config->query($query) === TRUE) {
             echo "Record deleted successfully";
-          } else {
+        } else {
             echo "Error deleting record: " . $this->config->error;
-          }
-          
-          $this->config->close();
+        }
+
+        $this->config->close();
     }
 
-    public function deleteSubject($subject_id){
+    public function deleteSubject($subject_id)
+    {
         $query = "DELETE FROM subjects WHERE id = $subject_id ";
-    
+
         if ($this->config->query($query) === TRUE) {
             echo "Record deleted successfully";
-          } else {
+        } else {
             echo "Error deleting record: " . $this->config->error;
-          }
-          
-          $this->config->close();
+        }
+
+        $this->config->close();
     }
 
-    public function getStudentById($user_id){
+    public function getStudentById($user_id)
+    {
         $query = "SELECT * FROM students WHERE id = ?";
 
         $stmt = $this->config->prepare($query);
@@ -200,11 +210,12 @@ class FormHandling
         $stmt->execute();
 
         $result = $stmt->get_result()->fetch_assoc();
-        
+
         return $result;
     }
 
-    public function getSubjectByID($id){
+    public function getSubjectByID($id)
+    {
         $query = "SELECT * FROM subjects WHERE id = ?";
 
         $stmt = $this->config->prepare($query);
@@ -212,11 +223,12 @@ class FormHandling
         $stmt->execute();
 
         $result = $stmt->get_result()->fetch_assoc();
-        
+
         return $result;
     }
 
-    public function getClassByID($id){
+    public function getClassByID($id)
+    {
         $query = "SELECT * FROM classes WHERE id = ?";
 
         $stmt = $this->config->prepare($query);
@@ -224,10 +236,11 @@ class FormHandling
         $stmt->execute();
 
         $result = $stmt->get_result()->fetch_assoc();
-        
+
         return $result;
     }
-    
+
+
 }
 
 

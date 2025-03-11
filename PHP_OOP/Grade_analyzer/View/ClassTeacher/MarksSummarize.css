@@ -1,0 +1,114 @@
+#semester {
+  text-align: center;
+  background-color: rgba(40, 40, 40, 0.95);
+  border: 1px solid #66bb6a; /* Slightly lighter green for better visibility */
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+  margin: 20px auto;
+  max-width: 500px;
+}
+
+#semester label {
+  color: #ffffff;
+  font-size: 20px;
+}
+
+#semester input {
+  width: 60%;
+  height: 25px;
+  padding: 5px;
+  margin-bottom: 10px;
+  background-color: white;
+  border: 1px solid #66bb6a;
+  border-radius: 5px;
+}
+
+#semester button {
+  background-color: #66bb6a;
+  color: #ffffff;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+#semester button:hover {
+  background-color: #558b2f; /* Darker green on hover */
+}
+
+.main-container {
+  background-color: rgba(40, 40, 40, 0.95);
+  border: 1px solid #66bb6a;
+  border-radius: 15px;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 1000px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+}
+
+.main-container h2 {
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.main-container h3 {
+  color: #66bb6a;
+  margin: 20px 0 10px;
+  border-bottom: 1px solid #66bb6a;
+  padding-bottom: 5px;
+}
+
+.summary-table {
+  border-collapse: collapse;
+  margin: 20px 0;
+  width: 100%;
+  background-color: rgba(60, 60, 60, 0.95);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.summary-table th,
+.summary-table td {
+  border: 1px solid #66bb6a;
+  padding: 12px;
+  text-align: left;
+  color: #ffffff; /* White text for better contrast */
+}
+
+.summary-table th {
+  background-color: #66bb6a; /* Solid green header background */
+  color: #ffffff; /* White text for maximum contrast */
+  font-weight: bold;
+}
+
+.summary-table tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.summary-table tr:hover {
+  background-color: rgba(102, 187, 106, 0.2); /* Matching green tint on hover */
+  transition: background-color 0.3s;
+}
+
+.main-container p {
+  color: #ffffff;
+  text-align: center;
+  padding: 10px;
+}
+.summary-table {
+  border-collapse: collapse;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.summary-table th {
+  background-color: #558b2f;
+}
+.summary-table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+}

@@ -14,6 +14,7 @@ if (!empty($result)) {
                 color: #ffffff; 
                 padding: 20px;
             }
+
             table {
                 width: 100%;
                 border-collapse: collapse;
@@ -22,6 +23,7 @@ if (!empty($result)) {
                 border-radius: 8px;
                 overflow: hidden;
             }
+                
             th, td {
                 padding: 12px;
                 text-align: left;

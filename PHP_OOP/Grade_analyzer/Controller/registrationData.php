@@ -1,6 +1,6 @@
 <?php
 use Grade_analyzer\Config\Config;
-use Grade_analyzer\Controller\FormHandling; 
+use Grade_analyzer\Controller\FormHandling;
 require_once '../Config/Config.php';
 require_once './FormHandling.php';
 

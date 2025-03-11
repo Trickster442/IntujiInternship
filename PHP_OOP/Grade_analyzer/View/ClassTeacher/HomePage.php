@@ -1,16 +1,17 @@
 <?php
 include('./authorization.php');
 
-if(isset($_GET['logout']) && $_GET['logout'] == 'true') {
-    unset($_SESSION);  
+if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
+    unset($_SESSION);
     session_destroy();
-    header("Location:../../index.php"); 
-    exit(); 
+    header("Location:../../index.php");
+    exit();
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,9 +23,11 @@ if(isset($_GET['logout']) && $_GET['logout'] == 'true') {
             document.getElementById('head-line').innerHTML = 'Profile';
         }
 
-        function loadMarkManagement(){
+        function loadMarkManagement() {
             document.getElementById('content-frame').src = './MarksManagement.php';
-            
+
+            document.getElementById('head-line').innerHTML = 'Marks Management';
+
         }
 
         function loadStudentManagement() {
@@ -34,6 +37,7 @@ if(isset($_GET['logout']) && $_GET['logout'] == 'true') {
         }
     </script>
 </head>
+
 <body>
     <div class="main-container">
         <div class="left-container">
@@ -60,10 +64,11 @@ if(isset($_GET['logout']) && $_GET['logout'] == 'true') {
 
         <div class="right-container">
             <h1 id="head-line" style="text-align:center; "></h1>
-            <iframe id="content-frame" src="" width="100%" height="500px" style="border:none; max-height: 400px;"></iframe>
+            <iframe id="content-frame" src="" width="100%" height="500px"
+                style="border:none; max-height: 1200px;"></iframe>
         </div>
 
-    </div>    
+    </div>
 </body>
-</html>
 
+</html>
