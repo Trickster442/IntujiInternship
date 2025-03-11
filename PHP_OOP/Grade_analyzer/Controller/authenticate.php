@@ -30,4 +30,5 @@ if (isset($_POST['username'], $_POST['password'])) {
         $userAuth->authenticateClassTeacher($username, $password, $role);
     }
     
+    echo "Not found";
 }

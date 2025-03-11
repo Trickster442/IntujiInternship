@@ -3,21 +3,21 @@
     <form method="POST" action="../Controller/registrationData.php">
         <div class="mb-3">
             <label for="firstname" style="font-size: 16px; font-weight: bold; color: #333;">First Name :</label>
-            <input id="firstname" name="firstname" type="text" required onchange="validate_text(this)" oninput="capitalizeFirstLetter(event)" 
+            <input id="firstname" name="firstname" type="text" required  oninput="capitalizeFirstLetter(this)" 
                    value="<?php echo isset($_POST['firstname']) ? htmlspecialchars($_POST['firstname']) : '' ?>" 
                    style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;">
         </div>
 
         <div class="mb-3">
             <label for="lastname" style="font-size: 16px; font-weight: bold; color: #333;">Last Name :</label>
-            <input type="text" id="lastname" name="lastname" required onchange="validate_text(this)" oninput="capitalizeFirstLetter(event)" 
+            <input type="text" id="lastname" name="lastname" required oninput="capitalizeFirstLetter(this)" 
                    style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;"
                    value="<?php echo isset($_POST['lastname']) ? htmlspecialchars($_POST['lastname']) : '' ?>">
         </div>
 
         <div class="mb-3">
             <label for="phone" style="font-size: 16px; font-weight: bold; color: #333;">Phone Number :</label>
-            <input id="phone" name="phone" type="text" step="0" maxlength="15" required 
+            <input id="phone" name="phone" type="text" step="0" minlength="8" maxlength="15" required 
                    style="width: 100%; padding: 10px; margin-top: 8px; border-radius: 5px; border: 1px solid #ccc; font-size: 14px;"
                    value="<?php echo isset($_POST['phone']) ? htmlspecialchars($_POST['phone']) : '' ?>">
         </div>
@@ -54,5 +54,13 @@
     </form>
 </div>
 
+<script>
+    function capitalizeFirstLetter(input) {
+        let value = input.value;
+        if (value.length > 0) {
+            input.value = value.charAt(0).toUpperCase() + value.slice(1);
+        }
+    }
+</script>
 
 

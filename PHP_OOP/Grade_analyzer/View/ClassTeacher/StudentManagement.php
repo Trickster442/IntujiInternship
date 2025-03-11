@@ -32,26 +32,16 @@ if (!empty($result)) {
                 color: #ffffff; 
                 font-size: 1.2rem;
             }
-            tr:nth-child(even) {
+            tr {
                 background-color: rgba(40, 40, 40, 0.95); 
                 color: #ffffff; 
             }
-            tr:nth-child(even):hover {
-                background-color: rgba(162, 207, 254, 0.7); 
-                color: white; 
-            }
-            tr:nth-child(odd) {
-                background-color: #4CAF50; 
-                color: white; 
-            }
-            tr:nth-child(odd):hover {
-                background-color: rgba(162, 207, 254, 0.7); 
-                color: white; 
-            }
+
             tr:hover {
                 background-color: rgba(162, 207, 254, 0.7); 
                 color: white; 
             }
+
             td a {
                 text-decoration: none;
                 color: #007BFF; 
@@ -80,8 +70,6 @@ if (!empty($result)) {
             <th>Name</th>
             <th>Roll</th>
             <th>Phone Num</th>
-            <th>Edit</th>      
-            <th>Delete</th>
         </tr>';
 
     foreach ($result as $data) {
@@ -91,18 +79,6 @@ if (!empty($result)) {
                 <td>' . htmlspecialchars($data['first_name'] . ' ' . $data['last_name']) . '</td>
                 <td>' . htmlspecialchars($data['roll_no']) . '</td>
                 <td>' . htmlspecialchars($data['phone_num']) . '</td>
-                <td>
-                <form method="post" action="#">
-                    <input name="id" value="' . $data['id'] . '" type="hidden" />
-                    <button>Edit</button>
-                </form>
-                </td>
-                <td>
-                <form method="post" action="#">
-                    <input name="id" value="' . $data['id'] . '" type="hidden" />
-                    <button>Delete</button>
-                </form>
-                </td>
             </tr>';
     }
 

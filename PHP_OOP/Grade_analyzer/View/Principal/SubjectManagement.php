@@ -6,7 +6,8 @@ echo '<a href="./AddSubject.php"><button style="width:150px; height: 30px; backg
 
 $connection = $config->getConnection();
 
-$query = "SELECT * FROM subjects ";
+$query = "SELECT s.id, s.subject_name, c.class FROM subjects s
+          INNER JOIN classes c ON s.class_id = c.id"; 
 
 $stmt = $connection->query($query);
 $result = $stmt->fetch_all(MYSQLI_ASSOC);
@@ -73,7 +74,7 @@ if (!empty($result)) {
     echo '<tr>
             <th>S.N</th>
             <th>Subject Name</th>
-            <th>Class ID</th>    
+            <th>Class</th>    
             <th>Delete</th>
         </tr>';
 
@@ -83,7 +84,7 @@ if (!empty($result)) {
         echo '<tr id="' . $data['id'] . '">
                 <td>' . $count . '</td>
                 <td>' . htmlspecialchars($data['subject_name']) . '</td>
-                <td>' . htmlspecialchars($data['class_id']) . '</td>
+                <td>' . htmlspecialchars($data['class']) . '</td>
                 <td>
                 <form method="post">
                     <input name="id" value="' . $data['id'] . '" type="hidden" />

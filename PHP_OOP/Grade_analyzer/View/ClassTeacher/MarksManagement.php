@@ -51,6 +51,7 @@ $subjects = $formHand->getSubjectByClass($class_id);
 </body>
 </html>
 
+
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['student_id'])) {
     $studentsMarksData = [
@@ -68,7 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['student_id'])) {
             ];
         }
     }
-
+    
     $markHand->insertStudentMarks($studentsMarksData);
 }
-?>

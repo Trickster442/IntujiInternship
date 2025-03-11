@@ -24,7 +24,7 @@ if(isset($_GET['logout']) && $_GET['logout'] == 'true') {
 
         function loadMarkManagement(){
             document.getElementById('content-frame').src = './MarksManagement.php';
-
+            
         }
 
         function loadStudentManagement() {
