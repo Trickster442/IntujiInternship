@@ -1,6 +1,7 @@
 <?php
 include('authorization.php');
 include('import.php');
+
 $class_id = $_SESSION['class_id'];
 
 $result = $formHand->getStudentByClass($class_id);
@@ -9,54 +10,54 @@ if (!empty($result)) {
     $count = 0;
     echo '<style>
             body {
-                background: linear-gradient(to bottom, #1a1a1a 0%, #2d2d2d 100%); /* Dark gradient */
-                color: #ffffff; /* White text for better contrast */
+                background: linear-gradient(to bottom, #1a1a1a 0%, #2d2d2d 100%); 
+                color: #ffffff; 
                 padding: 20px;
             }
             table {
                 width: 100%;
                 border-collapse: collapse;
                 margin: 20px 0;
-                background: rgba(40, 40, 40, 0.95); /* Darker table background */
+                background: rgba(40, 40, 40, 0.95); 
                 border-radius: 8px;
                 overflow: hidden;
             }
             th, td {
                 padding: 12px;
                 text-align: left;
-                border: 1px solid #4CAF50; /* Green border */
+                border: 1px solid #4CAF50; 
             }
             th {
-                background-color: #4CAF50; /* Green header */
-                color: #ffffff; /* White text */
+                background-color: #4CAF50; 
+                color: #ffffff; 
                 font-size: 1.2rem;
             }
             tr:nth-child(even) {
-                background-color: rgba(40, 40, 40, 0.95); /* Darker row background */
-                color: #ffffff; /* White text */
+                background-color: rgba(40, 40, 40, 0.95); 
+                color: #ffffff; 
             }
             tr:nth-child(even):hover {
-                background-color: rgba(162, 207, 254, 0.7); /* Light sky blue on hover */
-                color: white; /* White text on hover */
+                background-color: rgba(162, 207, 254, 0.7); 
+                color: white; 
             }
             tr:nth-child(odd) {
-                background-color: #4CAF50; /* Green for odd rows */
-                color: white; /* White text */
+                background-color: #4CAF50; 
+                color: white; 
             }
             tr:nth-child(odd):hover {
-                background-color: rgba(162, 207, 254, 0.7); /* Light sky blue on hover */
-                color: white; /* White text on hover */
+                background-color: rgba(162, 207, 254, 0.7); 
+                color: white; 
             }
             tr:hover {
-                background-color: rgba(162, 207, 254, 0.7); /* Light sky blue on hover */
-                color: white; /* White text on hover */
+                background-color: rgba(162, 207, 254, 0.7); 
+                color: white; 
             }
             td a {
                 text-decoration: none;
-                color: #007BFF; /* Blue link color */
+                color: #007BFF; 
             }
             td a:hover {
-                color: #0056b3; /* Darker blue on hover */
+                color: #0056b3; 
             }
             button {
                 padding: 5px 15px;
@@ -65,7 +66,7 @@ if (!empty($result)) {
                 cursor: pointer;
                 transition: opacity 0.3s, box-shadow 0.3s;
                 color: white;
-                background: #ffb4a2; /* Soft coral for Edit and Delete buttons */
+                background: #ffb4a2; 
             }
             button:hover {
                 opacity: 0.8;
