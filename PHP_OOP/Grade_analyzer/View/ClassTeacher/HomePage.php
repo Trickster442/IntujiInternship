@@ -25,16 +25,15 @@ if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
 
         function loadMarkManagement() {
             document.getElementById('content-frame').src = './MarksManagement.php';
-
             document.getElementById('head-line').innerHTML = 'Marks Management';
 
         }
 
         function loadStudentManagement() {
             document.getElementById('content-frame').src = './StudentManagement.php';
-
             document.getElementById('head-line').innerHTML = 'Student Management';
         }
+
     </script>
 </head>
 
@@ -65,7 +64,7 @@ if (isset($_GET['logout']) && $_GET['logout'] == 'true') {
         <div class="right-container">
             <h1 id="head-line" style="text-align:center; "></h1>
             <iframe id="content-frame" src="" width="100%" height="500px"
-                style="border:none; max-height: 1200px;"></iframe>
+                style="border:none; max-height: 1200px; min-height: 700px;"></iframe>
         </div>
 
     </div>

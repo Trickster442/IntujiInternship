@@ -16,6 +16,7 @@ $class_id = $_SESSION['class_id'];
 </form>
 
 <?php
+
 require('./summary.php');
 ?>
 

@@ -71,6 +71,26 @@ class MarksHandling
 
         return $result;
     }
+
+    public function searchMarks($name, $class_id)
+    {
+        $query = "SELECT m.semester, m.subject_marks, c.class, s.first_name, s.last_name, sub.subject_name
+              FROM marks m
+              INNER JOIN classes c ON m.class_id = c.id
+              INNER JOIN students s ON m.student_id = s.id
+              INNER JOIN subjects sub ON m.subject_id = sub.id
+              WHERE CONCAT(s.first_name, ' ', s.last_name) LIKE ? 
+              AND m.class_id = ?";
+
+        $stmt = $this->config->prepare($query);
+        $name = "%$name%";
+        $stmt->bind_param("si", $name, $class_id);
+        $stmt->execute();
+        $result = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        return $result;
+    }
+
+
 }
 
 

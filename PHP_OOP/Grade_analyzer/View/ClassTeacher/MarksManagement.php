@@ -27,7 +27,7 @@ $marks = $markHand->getMarksByClass($class_id);
         <div class="header">
             <a href="./AddMarks.php" class="add-btn">Add Marks</a>
             <a href="./MarksSummarize.php" class="add-btn">Summarize</a>
-            <a href="./AddClass.php" class="add-btn">Search</a>
+            <a href="./SearchResult.php" class="add-btn">Search</a>
         </div>
         <?php if (!empty($marks)): ?>
             <table>
