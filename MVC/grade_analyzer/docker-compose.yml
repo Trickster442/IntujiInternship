@@ -1,0 +1,64 @@
+services:
+  php-apache:
+    image: php:8.2-apache
+    container_name: php-apache2
+    ports:
+      - "8090:80"
+    volumes:
+      - .:/var/www/html
+      - ./docker/apache/site.conf:/etc/apache2/sites-available/000-default.conf
+    networks:
+      - php_network
+    depends_on:
+      - mysql
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_DATABASE=grade_analyzer
+      - MYSQL_USER=my_user
+      - MYSQL_PASSWORD=my_pass
+    command: >
+      /bin/bash -c "
+        apt-get update &&
+        apt-get install -y default-mysql-client &&
+        docker-php-ext-install mysqli &&
+        docker-php-ext-enable mysqli &&
+        a2enmod rewrite &&
+        chown -R www-data:www-data /var/www/html &&
+        chmod -R 755 /var/www/html &&
+        apache2-foreground
+      "
+
+  mysql:
+    image: mysql:5.7
+    container_name: mysql2
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: grade_analyzer
+      MYSQL_USER: my_user
+      MYSQL_PASSWORD: my_pass
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - php_network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin2
+    environment:
+      PMA_HOST: mysql
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8091:80"
+    depends_on:
+      - mysql
+    networks:
+      - php_network
+
+networks:
+  php_network:
+    driver: bridge
+
+volumes:
+  mysql_data:
