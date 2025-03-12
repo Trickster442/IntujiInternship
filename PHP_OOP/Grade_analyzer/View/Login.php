@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,7 +41,8 @@
             color: #555;
         }
 
-        input, select {
+        input,
+        select {
             width: 100%;
             padding: 10px;
             margin: 5px 0 15px;
@@ -65,6 +67,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <div class="login-container">
@@ -81,4 +84,5 @@
     </div>
 
 </body>
+
 </html>

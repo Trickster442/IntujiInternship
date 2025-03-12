@@ -1,5 +1,5 @@
 <?php
-if (($_SERVER['REQUEST_METHOD'] == 'POST') && (isset($_POST['search']))) {
+if (isset($_POST['search'])) {
     $marksData = $markHand->searchMarks($_POST['search'], $class_id);
     $dataByName = [];
 
@@ -17,5 +17,4 @@ if (($_SERVER['REQUEST_METHOD'] == 'POST') && (isset($_POST['search']))) {
             $dataByName[$studentName][$semester][$mark['subject_name']] = $mark['subject_marks'];
         }
     }
-    // print_r($dataByName);
 }

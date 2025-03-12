@@ -39,23 +39,89 @@
   background-color: #558b2f;
 }
 
+ul {
+  text-align: center;
+  padding: 0;
+}
+
 ul li {
   list-style: none;
-  color: white;
+  margin: 10px 0;
 }
 
-.name-search {
-  text-align: center;
-}
-
-.name-search input {
+.name-search button {
   background-color: #66bb6a;
   height: 40px;
   width: 200px;
-  border: 1px solid #66bb6a;
+  border: none;
   border-radius: 30px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.name-search input:hover {
+.name-search button:hover {
   background-color: #558b2f;
+}
+
+/* Report Section */
+.report-container {
+  text-align: center;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #2e2e2e;
+  border-radius: 15px;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+  color: white;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+h2 {
+  color: #66bb6a;
+  font-size: 24px;
+}
+
+.semester-block {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #3a3a3a;
+  border-radius: 10px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.semester-block h3 {
+  color: #66bb6a;
+  margin-bottom: 10px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #444;
+  color: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+table th,
+table td {
+  padding: 10px;
+  border: 1px solid #66bb6a;
+  text-align: center;
+}
+
+table th {
+  background-color: #66bb6a;
+  color: black;
+  font-weight: bold;
+}
+
+.no-result {
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  margin-top: 20px;
 }
