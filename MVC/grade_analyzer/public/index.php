@@ -26,7 +26,8 @@ function loadController()
     if (file_exists($filename)) {
         require_once $filename;
     } else {
-        echo "Controller not found";
+        $filename = __DIR__ . "/../app/Controllers/_404.php";
+        require_once $filename;
     }
 }
 
