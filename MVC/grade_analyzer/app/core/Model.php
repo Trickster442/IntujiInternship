@@ -45,7 +45,7 @@ class Model extends Database
     {
         $keys = array_keys($data);
         $keys_not = array_keys($data_not);
-        $query = "SELECT * FROM $this->table WHERE"; // Changed 'where' to 'WHERE'
+        $query = "SELECT * FROM $this->table WHERE";
 
         // Concatenate for all where clause
         foreach ($keys as $key) {
@@ -89,12 +89,37 @@ class Model extends Database
     // update record based on id and data send
     public function update($id, $data, $id_column = 'id')
     {
+        $keys = array_keys($data);
+
+        $query = "UPDATE $this->table SET";
+
+        // Concatenate for all where clause
+        foreach ($keys as $key) {
+            $query .= " $key = :$key ,";
+        }
+        $query = rtrim($query, " ,");
+
+
+        $query .= " WHERE $id_column = :$id_column";
+
+        $data[$id_column] = $id;
+
+        $this->query($query, $data);
+
+        return false;
+
+
 
     }
 
     // delete record based on id, delete based on column record
     public function delete($id, $id_column = 'id')
     {
+        $data[$id_column] = $id;
+        $query = "DELETE FROM $this->table where $id_column = :$id_column ";
 
+        $this->query($query, $data);
+
+        return false;
     }
 }
