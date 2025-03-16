@@ -19,7 +19,7 @@ class Database
 
         if ($check) {
             $result = $stm->fetchAll(PDO::FETCH_OBJ);
-            if (is_array($check) && count($check)) {
+            if (is_array($result)) {
                 return $result;
             }
         }
@@ -27,5 +27,22 @@ class Database
         return false;
     }
 
+    public function get_row($query, $data = [])
+    {
+        $con = $this->connection();
+
+        $stm = $con->prepare($query);
+
+        $check = $stm->execute($data);
+
+        if ($check) {
+            $result = $stm->fetchAll(PDO::FETCH_OBJ);
+            if (is_array($result)) {
+                return $result[0];
+            }
+        }
+
+        return false;
+    }
 
 }

@@ -7,22 +7,8 @@ class Admin extends Controller
         echo "This is the admin controller";
     }
 
-    public function edit($a = '', $b = '', $c = '')
-    {
-        echo "This is the edit function";
-    }
-
-    public function delete($a = '', $b = '', $c = '')
-    {
-        echo "This is the delete function";
-    }
-
-    public function update($a = '', $b = '', $c = '')
-    {
-        echo "This is the update function";
-    }
-
 }
+
 
 // $admin = new Admin;
 
