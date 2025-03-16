@@ -34,8 +34,8 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: grade_analyzer
-      MYSQL_USER: my_user
-      MYSQL_PASSWORD: my_pass
+      MYSQL_USER: root
+      MYSQL_PASSWORD: root
     ports:
       - "3307:3306"
     volumes:
