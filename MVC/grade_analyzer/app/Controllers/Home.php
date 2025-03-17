@@ -2,7 +2,7 @@
 class Home extends Controller
 {
     use Model;
-    public function index()
+    public function index($a = '', $b = '', $c = '')
     {
         //$model = new Model;
         // $arr['name'] = 'abc';
@@ -20,12 +20,37 @@ class Home extends Controller
         // $arr['age'] = 21;
         // $model->update(1, $arr);
 
-        $user = new User;
-        $arr['name'] = 'Subrace';
-        $arr['age'] = 24;
+        // $user = new User;
+        // $arr['name'] = 'Subrace';
+        // $arr['age'] = 24;
 
-        $user->insert($arr);
+        // $user->insert($arr);
+
+        //show($a);
+        //show($b);
+        //show($c);
+
+        // show('This is index');
 
         $this->view('home');
     }
+
+    // public function edit($a = '', $b = '', $c = '')
+    // {
+    //     show("This is edit");
+    //     $this->view('home');
+    // }
+
+    // public function delete($a = '', $b = '', $c = '')
+    // {
+    //     show("This is delete");
+    //     $this->view('home');
+    // }
+
+    // public function insert($a = '', $b = '', $c = '')
+    // {
+    //     show("This is insert");
+    //     $this->view('home');
+    // }
+
 }

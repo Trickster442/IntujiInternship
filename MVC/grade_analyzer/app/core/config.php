@@ -21,3 +21,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 
     define('ROOT', 'https://www.yourwebsite.com');
 }
+
+// constant to show error when appeared
+// false will not show error
+define('DEBUG', true);
