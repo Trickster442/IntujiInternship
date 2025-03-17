@@ -1,6 +1,6 @@
 <?php
 
-class Database
+trait Database
 {
     private function connection()
     {

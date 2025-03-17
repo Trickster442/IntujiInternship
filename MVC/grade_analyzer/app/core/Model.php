@@ -1,8 +1,9 @@
 <?php
 
-class Model extends Database
+trait Model
 {
-    protected $table = 'users'; //which model
+    use Database;
+    //protected $table = 'users'; //which model
     protected $offset = 0;  // for offset
     protected $limit = 10;  // limit in query
 
@@ -13,7 +14,7 @@ class Model extends Database
     public function where($data, $data_not = [])
     {
         $keys = array_keys($data);
-        $keys_not = array_keys($data_not);
+        $keysNot = array_keys($data_not);
         $query = "SELECT * FROM $this->table WHERE"; // Changed 'where' to 'WHERE'
 
         // Concatenate for all where clause
@@ -22,7 +23,7 @@ class Model extends Database
         }
 
         // Concatenate for not equal conditions
-        foreach ($keys_not as $key) {
+        foreach ($keysNot as $key) {
             $query .= " $key != :$key AND";
         }
 
@@ -76,6 +77,15 @@ class Model extends Database
     // create new record
     public function insert($data)
     {
+        // remove any data that is not in allowedColumn of model
+        if (!empty($this->allowedColumns)) {
+            foreach ($data as $key => $value) {
+                if (!in_array($key, $this->allowedColumns)) {
+                    unset($data[$key]);
+                }
+            }
+        }
+
         $keys = array_keys($data);
 
         $query = "INSERT into $this->table (" . implode(",", $keys) . ") values (:" . implode(",:", $keys) . ")";
@@ -89,6 +99,15 @@ class Model extends Database
     // update record based on id and data send
     public function update($id, $data, $id_column = 'id')
     {
+        // remove any data that is not in allowedColumn of model
+        if (!empty($this->allowedColumns)) {
+            foreach ($data as $key => $value) {
+                if (!in_array($key, $this->allowedColumns)) {
+                    unset($data[$key]);
+                }
+            }
+        }
+
         $keys = array_keys($data);
 
         $query = "UPDATE $this->table SET";
