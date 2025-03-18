@@ -49,3 +49,10 @@ Route::get('/admin-about/{name}', function ($name) {
     return view('admin.about', ['name' => $name]);
 
 });
+
+
+
+Route::view('user-form', 'user-form');
+
+
+Route::post('adduser', [UserController::class, 'addUser']);

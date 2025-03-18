@@ -20,4 +20,9 @@ class UserController extends Controller
     {
         return view('admin.login');
     }
+
+    function addUser(Request $request)
+    {
+        echo $request->name;
+    }
 }
