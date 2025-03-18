@@ -56,3 +56,9 @@ Route::view('user-form', 'user-form');
 
 
 Route::post('adduser', [UserController::class, 'addUser']);
+
+Route::get('/form', function () {
+    return view('second-form');
+});
+
+Route::post('/add-new-user', [UserController::class, 'addNewUser']);
