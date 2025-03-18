@@ -25,6 +25,10 @@ Route::get('/home', function () {
 // Route::view('/home', 'home');
 
 
+//redirect welcome to /
+Route::redirect('/welcome', '/');
+
+
 // passing parameter with url and checking
 Route::get('/about/{param}', function ($param) {
     // echo $param . '<br>';
