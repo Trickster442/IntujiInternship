@@ -4,6 +4,7 @@
 // else with your domain
 
 if ($_SERVER['SERVER_NAME'] == 'localhost') {
+
     /**Database config **/
     define('DBNAME', 'grade_analyzer');
     define('DBHOST', 'mysql');
@@ -13,6 +14,7 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 
     define('ROOT', 'http://localhost:8090/public');
 } else {
+
     /**Database config **/
     define('DBNAME', 'grade_analyzer');
     define('DBHOST', 'mysql');
