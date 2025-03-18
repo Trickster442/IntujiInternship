@@ -62,3 +62,7 @@ Route::get('/form', function () {
 });
 
 Route::post('/add-new-user', [UserController::class, 'addNewUser']);
+
+
+Route::view('/validate-form', 'third-form');
+Route::post('/validate-user', [UserController::class, 'validateUser']);

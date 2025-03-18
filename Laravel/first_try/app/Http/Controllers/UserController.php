@@ -34,4 +34,16 @@ class UserController extends Controller
         echo "<br>";
         echo $request->city;
     }
+
+    function validateUser(Request $request)
+    {
+        // required validation for form
+        $request->validate([
+            'username' => 'required',
+            'email' => 'required',
+            'password' => 'required'
+        ]);
+
+        return $request;
+    }
 }
