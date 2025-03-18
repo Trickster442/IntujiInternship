@@ -21,3 +21,13 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home');
 });
+
+// Route::view('/home', 'home');
+
+
+// passing parameter with url and checking
+Route::get('/about/{param}', function ($param) {
+    // echo $param . '<br>';
+    // return view('about');
+    return view('about', ['param' => $param]);
+});
