@@ -41,3 +41,11 @@ Route::get('/about/{param}', function ($param) {
 Route::get('/user', [UserController::class, 'getUser']);
 
 Route::get('/user/{name}', [UserController::class, 'getUserName']);
+
+Route::get('admin', [UserController::class, 'adminLogin']);
+
+Route::get('/admin-about/{name}', function ($name) {
+
+    return view('admin.about', ['name' => $name]);
+
+});

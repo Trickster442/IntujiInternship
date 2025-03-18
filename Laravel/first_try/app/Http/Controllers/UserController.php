@@ -8,6 +8,16 @@ class UserController extends Controller
 {
     function getUser()
     {
-        return "Hello";
+        return view('user');
+    }
+
+    function getUserName($name)
+    {
+        return "Hello " . $name;
+    }
+
+    function adminLogin()
+    {
+        return view('admin.login');
     }
 }
