@@ -39,3 +39,5 @@ Route::get('/about/{param}', function ($param) {
 
 
 Route::get('/user', [UserController::class, 'getUser']);
+
+Route::get('/user/{name}', [UserController::class, 'getUserName']);
