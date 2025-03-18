@@ -8,7 +8,6 @@ trait Database
         $con = new PDO($dsn, DBUSER, DBPASS);
         return $con;
     }
-
     public function query($query, $data = [])
     {
         $con = $this->connection();

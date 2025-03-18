@@ -10,5 +10,6 @@ require 'config.php';
 require 'functions.php';
 require 'Database.php';
 require 'Model.php';
+require 'Table.php';
 require 'Controller.php';
 require 'App.php';

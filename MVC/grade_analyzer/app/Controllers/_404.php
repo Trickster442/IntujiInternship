@@ -5,4 +5,5 @@ class _404 extends Controller
     {
         echo "Page not found";
     }
+
 }
