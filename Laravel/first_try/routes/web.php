@@ -66,3 +66,9 @@ Route::post('/add-new-user', [UserController::class, 'addNewUser']);
 
 Route::view('/validate-form', 'third-form');
 Route::post('/validate-user', [UserController::class, 'validateUser']);
+
+//Route::view('/home/profile/user', 'try-user')->name('try');
+Route::view('/home/profile/{name}', 'try-user')->name('try');
+
+
+Route::get('try', [UserController::class, 'show']);

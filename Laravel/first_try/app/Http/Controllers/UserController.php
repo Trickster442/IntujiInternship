@@ -46,4 +46,9 @@ class UserController extends Controller
 
         return $request;
     }
+
+    function show($name)
+    {
+        return view('try-user', ['name' => $name]);
+    }
 }
