@@ -204,7 +204,6 @@ if (isset($_POST['num_of_students_submit'])) {
         send_email($_POST['parent_email'], $_SESSION['report'], $_SESSION['recommendation']);
     }
     
-    
     ?>
 </div>
 

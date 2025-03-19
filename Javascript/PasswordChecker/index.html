@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Checker</title>
+</head>
+<body>
+    <form onsubmit="return analyzePassword(event)">
+        <label for="password">Password:</label>
+        <input id="password" name="password" type="password" placeholder="Enter your password" oninput="password_requirement()">
+        <br>
+        <span id="error-message" style="color: red;"></span>
+        <br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        function password_requirement() {
+            let password = document.getElementById('password').value;
+            let errorMessage = document.getElementById('error-message');
+            let errors = [];
+    
+            if (!password.match(/[A-Z]/)) {
+                errors.push("Password must contain at least one uppercase letter.");
+            } 
+            if (!password.match(/[0-9]/)) {
+                errors.push("Password must contain at least one number.");
+            }
+            if (!password.match(/[!@#$%^&*()_+\-=\[\]{};':\"\\|,.<>\/?]/)) {
+                errors.push("Password must contain at least one special character.");
+            }
+            errorMessage.innerHTML = errors.length > 0 ? errors.join("<br>") : "";
+        }
+
+        function analyzePassword(event) {
+            let password = document.getElementById('password').value;
+            let specialCharCount = (password.match(/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/g) || []).length;
+            let numberCount = (password.match(/[0-9]/g) || []).length;
+            let upperCaseCount = (password.match(/[A-Z]/g) || []).length;
+
+            
+            if (specialCharCount < 1 || numberCount < 1 || upperCaseCount < 1) {
+                event.preventDefault(); // Prevent form submission if invalid
+                alert("Password is invalid. Please fulfill all requirements.");
+            } else if (specialCharCount === 1 && numberCount === 1 && upperCaseCount === 1) {
+                alert("Password is weak.");
+            } else if (specialCharCount === 2 || numberCount === 2 || upperCaseCount === 2) {
+                alert("Password is moderate.");
+            } else if (specialCharCount > 2 || numberCount > 2 || upperCaseCount > 2) {
+                alert("Password is strong.");
+            }
+
+            return true;
+        }
+    </script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     function getUser()
@@ -50,5 +50,10 @@ class UserController extends Controller
     function show($name)
     {
         return view('try-user', ['name' => $name]);
+    }
+
+    function getUsers()
+    {
+        return DB::select('SELECT * FROM users');
     }
 }

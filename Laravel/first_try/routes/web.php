@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\AgeCheck;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -109,3 +110,8 @@ Route::prefix('group')->group(function () {
 
 
 Route::view('/age-check', 'age-check')->middleware('check');
+
+// direct single middleware for rout
+Route::view('/age-d-check', 'age-check')->middleware(AgeCheck::class);
+
+Route::get('/getUsers', [UserController::class, 'getUsers']);

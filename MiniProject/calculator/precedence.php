@@ -79,7 +79,7 @@ function perform_calculation(string $op, float $left, float $right): float {
         case '-': return $left - $right;
         case '*': return $left * $right;
         case '/':
-            if ($right == 0) {
+            if ($right == 0) { 
                 throw new Exception("Division by zero is not allowed.");
             }
             return $left / $right;

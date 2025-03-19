@@ -14,7 +14,7 @@ include './helper.php';
     <div class="calculator">
         <h2>PHP Calculator</h2> 
         <form method="POST">
-            <input type="text" name="display" value="<?= htmlspecialchars($displayValue) ?>" readonly>
+            <input type="text" name="display" value="#" readonly>
             <div class="button-row">
                 <button type="submit" name="digit" value="1">1</button>
                 <button type="submit" name="digit" value="2">2</button>
