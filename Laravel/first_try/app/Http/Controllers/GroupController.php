@@ -21,4 +21,9 @@ class GroupController extends Controller
     {
         return 'This is edit function';
     }
+
+    function about($name)
+    {
+        return $name;
+    }
 }

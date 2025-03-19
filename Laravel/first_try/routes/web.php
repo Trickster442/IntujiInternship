@@ -101,5 +101,11 @@ Route::prefix('group')->group(function () {
         Route::get('/first', 'show');
         Route::get('/second', 'add');
         Route::get('/third', 'third');
+
+        // passing param
+        Route::get('/fourth/{name}', 'about');
     });
 });
+
+
+Route::view('/age-check', 'age-check');
