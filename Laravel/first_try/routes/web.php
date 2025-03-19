@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -72,3 +73,33 @@ Route::view('/home/profile/{name}', 'try-user')->name('try');
 
 
 Route::get('try', [UserController::class, 'show']);
+
+// Route::get('/group/first', [GroupController::class, 'show']);
+// Route::get('/group/second', [GroupController::class, 'add']);
+// Route::get('/group/third', [GroupController::class, 'third']);
+
+
+//group by prefix
+// Route::prefix('/group')->group(function () {
+//     Route::get('/first', [GroupController::class, 'show']);
+//     Route::get('/second', [GroupController::class, 'add']);
+//     Route::get('/third', [GroupController::class, 'third']);
+// });
+
+
+//group by controller
+// Route::controller(GroupController::class)->group(function () {
+//     Route::get('/first', 'show');
+//     Route::get('/second', 'add');
+//     Route::get('/third', 'third');
+// });
+
+
+//group by prefix and then controller
+Route::prefix('group')->group(function () {
+    Route::controller(GroupController::class)->group(function () {
+        Route::get('/first', 'show');
+        Route::get('/second', 'add');
+        Route::get('/third', 'third');
+    });
+});
