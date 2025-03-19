@@ -108,4 +108,4 @@ Route::prefix('group')->group(function () {
 });
 
 
-Route::view('/age-check', 'age-check');
+Route::view('/age-check', 'age-check')->middleware('check');

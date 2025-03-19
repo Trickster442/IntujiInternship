@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 
-class AgeCheck
+class CityCheck
 {
     /**
      * Handle an incoming request.
@@ -16,8 +16,8 @@ class AgeCheck
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->age < 20) {
-            die("Age less than 20 cannot visit this page");
+        if ($request->city != 'Kathmandu') {
+            die("You cannot visit this page outside Kathmandu");
         }
         return $next($request);
     }
