@@ -67,5 +67,12 @@ class StudentController extends Controller
         echo '<br>';
         print_r($request->collect());
 
+        if ($request->isMethod('post')) {
+            echo 'Only for post method';
+        } else {
+            echo "Not post method";
+        }
+
+
     }
 }
