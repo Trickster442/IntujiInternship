@@ -114,4 +114,6 @@ Route::view('/age-check', 'age-check')->middleware('check');
 // direct single middleware for rout
 Route::view('/age-d-check', 'age-check')->middleware(AgeCheck::class);
 
+// Route::get('/getUsers', [UserController::class, 'getUsers']);
+
 Route::get('/getUsers', [UserController::class, 'getUsers']);
