@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AgeCheck;
 use Illuminate\Support\Facades\Route;
@@ -117,3 +118,5 @@ Route::view('/age-d-check', 'age-check')->middleware(AgeCheck::class);
 // Route::get('/getUsers', [UserController::class, 'getUsers']);
 
 Route::get('/getUsers', [UserController::class, 'getUsers']);
+
+Route::get('/get-students', [StudentController::class, 'getStudents']);
