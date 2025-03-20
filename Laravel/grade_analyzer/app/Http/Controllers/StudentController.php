@@ -50,4 +50,22 @@ class StudentController extends Controller
     {
         return "This is group 2 method";
     }
+
+    function httpRequest(Request $request)
+    {
+        //$name = $request->name;
+        //return view('httpRequest', ['name' => $name]);
+        echo $request->method();
+        echo '<br>';
+        echo $request->path();
+        echo '<br>';
+        echo $request->url();
+        echo '<br>';
+        echo 'The name from input is : ' . $request->input('name');
+        echo '<br>';
+        print_r($request->input());
+        echo '<br>';
+        print_r($request->collect());
+
+    }
 }

@@ -20,3 +20,6 @@ Route::delete('/student-page', [StudentController::class, 'any']);
 //Route::match(['post', 'get'], '/student-page', [StudentController::class, 'group1']);
 //Route::match(['put', 'deletes'], '/student-page', [StudentController::class, 'group2']);
 
+Route::post('/http', [StudentController::class, 'httpRequest']);
+
+Route::view('/login', 'form');
