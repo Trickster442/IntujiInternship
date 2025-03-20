@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StudentController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,3 +24,10 @@ Route::delete('/student-page', [StudentController::class, 'any']);
 Route::post('/http', [StudentController::class, 'httpRequest']);
 
 Route::view('/login', 'form');
+
+// for session
+
+Route::view('/session-form', 'Session.login');
+Route::post('/session-form', [SessionController::class, 'login']);
+Route::view('/session-profile', 'Session.profile');
+Route::get('/session-logout', [SessionController::class, 'logout']);
