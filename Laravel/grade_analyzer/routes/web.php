@@ -26,8 +26,11 @@ Route::post('/http', [StudentController::class, 'httpRequest']);
 Route::view('/login', 'form');
 
 // for session
-
 Route::view('/session-form', 'Session.login');
 Route::post('/session-form', [SessionController::class, 'login']);
 Route::view('/session-profile', 'Session.profile');
 Route::get('/session-logout', [SessionController::class, 'logout']);
+
+// flash session
+Route::view('/flash-session-form', 'Session.flashLogin');
+Route::post('/flash-session-form', [SessionController::class, 'flashLogin']);

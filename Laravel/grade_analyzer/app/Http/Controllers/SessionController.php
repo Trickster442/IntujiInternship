@@ -19,4 +19,11 @@ class SessionController extends Controller
         session()->pull('user');
         return redirect('/session-profile');
     }
+
+    public function flashLogin(Request $request)
+    {
+        $request->session()->flash('message', 'User has been added successfully');
+        return redirect('flash-session-form');
+    }
+
 }
