@@ -120,3 +120,5 @@ Route::view('/age-d-check', 'age-check')->middleware(AgeCheck::class);
 Route::get('/getUsers', [UserController::class, 'getUsers']);
 
 Route::get('/get-students', [StudentController::class, 'getStudents']);
+
+Route::get('/student-query', [StudentController::class, 'queries']);
