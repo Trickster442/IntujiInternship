@@ -41,3 +41,6 @@ Route::view('/upload', 'Upload.upload');
 Route::post('/upload', [UploadController::class, 'upload']);
 
 Route::view('/display', 'Upload.display');
+
+// for localization
+Route::view('/about', 'about');
