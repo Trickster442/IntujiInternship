@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DatabaseController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UploadController;
@@ -44,3 +45,10 @@ Route::view('/display', 'Upload.display');
 
 // for localization
 Route::view('/about', 'about');
+
+// database query
+Route::view('/teacher/add', 'Database.addTeacher');
+Route::post('/teacher/add', [DatabaseController::class, 'addTeacher']);
+
+
+Route::view('/teacher/update', 'Database.updateTeacher');
