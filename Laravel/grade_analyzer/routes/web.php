@@ -52,3 +52,11 @@ Route::post('/teacher/add', [DatabaseController::class, 'addTeacher']);
 
 
 Route::view('/teacher/update', 'Database.updateTeacher');
+
+Route::get('/teacher/get', [DatabaseController::class, 'getTeachers']);
+
+Route::get('/teacher/delete/{id}', [DatabaseController::class, 'deleteTeacher']);
+
+Route::get('/teacher/edit/{id}', [DatabaseController::class, 'updateTeacher']);
+
+Route::put('/teacher/update/{id}', [DatabaseController::class, 'update']);

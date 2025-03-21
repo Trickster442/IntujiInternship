@@ -19,13 +19,44 @@ class DatabaseController extends Controller
 
         if ($teacher) {
             echo "New teacher added successfully";
+
         } else {
             echo "Operation failed";
         }
     }
-
-    function updateTeacher()
+    public function getTeachers()
     {
+        $teacherList = Teacher::all();
+        //return ($teacherList);
+        return view('Database.getTeacher', ['teachers' => $teacherList]);
+    }
 
+    function deleteTeacher($id)
+    {
+        $isDeleted = Teacher::destroy($id);
+        if ($isDeleted) {
+            return redirect('/teacher/get');
+        }
+        return "Error deleting";
+    }
+    function updateTeacher($id)
+    {
+        $teacher = Teacher::find($id);
+        return view('Database.updateTeacher', ['teacher' => $teacher]);
+
+    }
+
+    function update(Request $request, $id)
+    {
+        $teacher = Teacher::find($id);
+        $teacher->name = $request->name;
+        $teacher->email = $request->email;
+        $teacher->batch = $request->batch;
+        $isUpdated = $teacher->save();
+        if ($isUpdated) {
+            return redirect('/teacher/get');
+        } else {
+            return "Error updating";
+        }
     }
 }
