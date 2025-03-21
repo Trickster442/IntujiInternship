@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -34,3 +35,9 @@ Route::get('/session-logout', [SessionController::class, 'logout']);
 // flash session
 Route::view('/flash-session-form', 'Session.flashLogin');
 Route::post('/flash-session-form', [SessionController::class, 'flashLogin']);
+
+// file upload part
+Route::view('/upload', 'Upload.upload');
+Route::post('/upload', [UploadController::class, 'upload']);
+
+Route::view('/display', 'Upload.display');
