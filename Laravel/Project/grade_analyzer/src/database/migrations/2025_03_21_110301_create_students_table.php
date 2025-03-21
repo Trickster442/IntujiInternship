@@ -10,13 +10,12 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('teachers', function (Blueprint $table) {
+        Schema::create('students', function (Blueprint $table) {
             $table->id()->primary()->unique()->autoIncrement();
             $table->string('first_name', 100);
             $table->string('last_name', 100);
             $table->string('phone_num', 20);
-            $table->enum('role', ['Teacher', 'ClassTeacher', 'Principal'])->default('Teacher');
-            $table->enum('status', ['Pending', 'Active'])->default('Pending');
+            $table->integer('roll_no');
             $table->string('email', 30)->unique();
             $table->string('password', 40)->unique();
             $table->timestamps();
@@ -28,6 +27,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('teachers');
+        Schema::dropIfExists('students');
     }
 };
