@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration {
     /**
@@ -10,17 +9,20 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('teachers', function (Blueprint $table) {
-            $table->id()->primary()->unique()->autoIncrement();
-            $table->string('first_name', 100);
-            $table->string('last_name', 100);
-            $table->string('phone_num', 20);
-            $table->enum('role', ['Teacher', 'ClassTeacher', 'Principal'])->default('Teacher');
-            $table->enum('status', ['Pending', 'Active'])->default('Pending');
-            $table->string('email', 30)->unique();
-            $table->string('password', 40)->unique();
-            $table->timestamps();
-        });
+        DB::statement("
+            CREATE TABLE teachers (
+                id BIGSERIAL PRIMARY KEY,
+                first_name VARCHAR(100) NOT NULL,
+                last_name VARCHAR(100) NOT NULL,
+                phone_num VARCHAR(20) NOT NULL,
+                role VARCHAR(20) NOT NULL DEFAULT 'Teacher' CHECK (role IN ('Teacher', 'ClassTeacher', 'Principal')),
+                status VARCHAR(10) NOT NULL DEFAULT 'Pending' CHECK (status IN ('Pending', 'Active')),
+                email VARCHAR(30) NOT NULL UNIQUE,
+                password VARCHAR(40) NOT NULL UNIQUE,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
+        ");
     }
 
     /**
@@ -28,6 +30,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('teachers');
+        DB::statement("DROP TABLE IF EXISTS teachers");
     }
 };

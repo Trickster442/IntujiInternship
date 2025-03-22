@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration {
     /**
@@ -10,16 +9,19 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('students', function (Blueprint $table) {
-            $table->id()->primary()->unique()->autoIncrement();
-            $table->string('first_name', 100);
-            $table->string('last_name', 100);
-            $table->string('phone_num', 20);
-            $table->integer('roll_no');
-            $table->string('email', 30)->unique();
-            $table->string('password', 40)->unique();
-            $table->timestamps();
-        });
+        DB::statement("
+            CREATE TABLE students (
+                id serial PRIMARY KEY,
+                first_name VARCHAR(100) NOT NULL,
+                last_name VARCHAR(100) NOT NULL,
+                phone_num VARCHAR(20) NOT NULL,
+                roll_no INTEGER NOT NULL,
+                email VARCHAR(30) NOT NULL UNIQUE,
+                password VARCHAR(40) NOT NULL UNIQUE,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP 
+            )
+        ");
     }
 
     /**
@@ -27,6 +29,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('students');
+        DB::statement("DROP TABLE IF EXISTS students");
     }
 };

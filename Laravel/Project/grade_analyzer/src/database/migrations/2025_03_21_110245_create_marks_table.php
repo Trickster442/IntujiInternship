@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration {
     /**
@@ -10,12 +9,15 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('marks', function (Blueprint $table) {
-            $table->id()->unique()->primary()->autoIncrement();
-            $table->integer('student_marks');
-            $table->string('semester', 50);
-            $table->timestamps();
-        });
+        DB::statement("
+        CREATE TABLE marks (
+        id serial PRIMARY KEY,
+        student_marks integer NOT NULL,
+        semester varchar(200),
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+        ");
     }
 
     /**
@@ -23,6 +25,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('marks');
+        DB::statement("DROP TABLE IF EXISTS marks");
     }
 };
