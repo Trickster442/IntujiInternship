@@ -85,6 +85,30 @@
             background-color: #1b6f79;
         }
 
+        a {
+            text-decoration: none;
+            text-align: center;
+            color: white;
+            width: 80%;
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: none;
+            background-color: #2B92A0;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            margin-top: 15px;
+        }
+
+        .left-container select {
+            padding: 10px;
+            font-size: 1rem;
+            border-radius: 5px;
+            border: none;
+            width: 100%;
+        }
+
         p {
             text-align: center;
             color: #fff;
@@ -104,8 +128,14 @@
             <form action="#" method="post">
                 <input type="text" name="username" placeholder="Username" required>
                 <input type="password" name="password" placeholder="Password" required>
+                <select name="role" required>
+                    <option value="Student">Student</option>
+                    <option value="Teacher">Teacher</option>
+                </select>
                 <button type="submit">Login</button>
             </form>
+            <a href="/register">Register</a>
+
 
             <p>
                 School Management System

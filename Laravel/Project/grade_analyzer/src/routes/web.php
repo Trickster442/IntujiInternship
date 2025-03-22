@@ -7,3 +7,4 @@ Route::get('/', function () {
 });
 
 Route::view('/principal/home', 'Principal.home');
+Route::view('/register', 'register');
