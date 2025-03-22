@@ -114,6 +114,10 @@
             transition: background-color 0.3s;
             margin-top: 15px;
         }
+
+        h1 {
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 
@@ -123,10 +127,12 @@
             Welcome
         </div>
         <div class="left-container">
+            <h1>Register</h1>
             <form action="#" method="post">
                 <select name="role" required>
                     <option value="Student">Student</option>
                     <option value="Teacher">Teacher</option>
+                    <option value="ClassTeacher">Class Teacher</option>
                 </select>
                 <input type="text" name="name" placeholder="Enter your name" required>
                 <input type="password" name="password" placeholder="Password" required>

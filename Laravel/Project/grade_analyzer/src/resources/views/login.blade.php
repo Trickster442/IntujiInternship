@@ -109,6 +109,10 @@
             width: 100%;
         }
 
+        h1 {
+            margin-bottom: 15px;
+        }
+
         p {
             text-align: center;
             color: #fff;
@@ -124,13 +128,16 @@
             Welcome
         </div>
         <div class="left-container">
-
-            <form action="#" method="post">
+            <h1>Login</h1>
+            <form action="/login-data" method="post">
+                @csrf
                 <input type="text" name="username" placeholder="Username" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <select name="role" required>
                     <option value="Student">Student</option>
                     <option value="Teacher">Teacher</option>
+                    <option value="Principal">Principal</option>
+                    <option value="ClassTeacher">Class Teacher</option>
                 </select>
                 <button type="submit">Login</button>
             </form>
