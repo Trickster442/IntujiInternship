@@ -26,8 +26,10 @@ class DatabaseController extends Controller
     }
     public function getTeachers()
     {
-        $teacherList = Teacher::all();
+        //$teacherList = Teacher::all();
         //return ($teacherList);
+        $teacherList = Teacher::paginate(5); //5 data per page
+
         return view('Database.getTeacher', ['teachers' => $teacherList]);
     }
 
@@ -58,5 +60,11 @@ class DatabaseController extends Controller
         } else {
             return "Error updating";
         }
+    }
+
+    function searchTeacher(Request $request)
+    {
+        $teacher = Teacher::where('name', 'like', "%$request->search%")->get();
+        return view('Database.getTeacher', ['teachers' => $teacher, 'search' => $request->search]);
     }
 }

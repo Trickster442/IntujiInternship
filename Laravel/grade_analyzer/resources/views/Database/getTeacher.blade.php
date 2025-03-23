@@ -1,6 +1,10 @@
 <div>
     <!-- Simplicity is an acquired taste. - Katharine Gerould -->
     <h1>Teacher List</h1>
+    <form action="/teacher/search" method="get">
+        <input type="text" name="search" placeholder="Search by name" value="{{ @$search }}">
+        <button>Search</button>
+    </form>
     <table border="1">
         <tr>
             <th>Name</th>
@@ -21,4 +25,11 @@
             </tr>
         @endforeach
     </table>
+    {{ $teachers->links() }}
 </div>
+
+<style>
+    .w-5.h-5 {
+        width: 20px;
+    }
+</style>

@@ -60,3 +60,5 @@ Route::get('/teacher/delete/{id}', [DatabaseController::class, 'deleteTeacher'])
 Route::get('/teacher/edit/{id}', [DatabaseController::class, 'updateTeacher']);
 
 Route::put('/teacher/update/{id}', [DatabaseController::class, 'update']);
+
+Route::get('/teacher/search', [DatabaseController::class, 'searchTeacher']);
