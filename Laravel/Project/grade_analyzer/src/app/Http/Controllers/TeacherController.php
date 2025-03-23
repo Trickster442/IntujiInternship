@@ -17,11 +17,15 @@ class TeacherController extends Controller
             ->where('email', $request->username)
             ->where('password', $request->password)
             ->where('role', $request->role)
-            ->get();
+            ->first();
 
         if ($result) {
+            session(['user_id' => $result->id]);
+            session(['role' => $result->role]);
             return view(($request->role) . '.home');
         }
+
+        return "Credential not match";
     }
 
 }
