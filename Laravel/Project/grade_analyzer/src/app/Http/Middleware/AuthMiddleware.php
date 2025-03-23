@@ -19,7 +19,7 @@ class AuthMiddleware
         // Check if user_id and role are present in session
         if (!session()->has('user_id') || !session()->has('role')) {
             // Return a JSON response with error message
-            return response()->json(['error' => 'Not logged in'], 401);
+            return redirect('/');
         }
 
         // Proceed with the next request if logged in
