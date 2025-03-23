@@ -16,3 +16,5 @@ Route::get('/test', function () {
 // Api try
 Route::get('/teachers', [ApiController::class, 'list']);
 Route::post('/add-teacher', [ApiController::class, 'add']);
+Route::put('/update-teacher', [ApiController::class, 'update']);
+Route::delete('/delete-teacher/{id}', [ApiController::class, 'delete']);

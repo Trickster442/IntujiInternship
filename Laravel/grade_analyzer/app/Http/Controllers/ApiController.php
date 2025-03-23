@@ -32,4 +32,27 @@ class ApiController extends Controller
             return 'Error adding teacher';
         }
     }
+
+    function update(Request $request)
+    {
+        $teacher = Teacher::find($request->id);
+        $teacher->name = $request->input('name');
+        $teacher->email = $request->input('email');
+        $teacher->batch = $request->input('batch');
+        if ($teacher->save()) {
+            return 'Teacher updated successfully';
+        } else {
+            return 'Error updating teacher';
+        }
+    }
+
+    function delete($id)
+    {
+        $teacher = Teacher::destroy($id);
+        if ($teacher) {
+            return "Deleted successfully";
+        } else {
+            return 'Error deleting';
+        }
+    }
 }
