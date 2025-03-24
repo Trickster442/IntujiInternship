@@ -10,6 +10,8 @@ Route::get('/', function () {
 Route::post('/login-data', [TeacherController::class, 'login']);
 Route::view('/register', 'register');
 
+Route::post('/register-teacher', [TeacherController::class, 'register']);
+
 
 // Principal
 Route::view('/principal/home', 'Principal.home')->middleware('auth');
