@@ -62,3 +62,7 @@ Route::get('/teacher/edit/{id}', [DatabaseController::class, 'updateTeacher']);
 Route::put('/teacher/update/{id}', [DatabaseController::class, 'update']);
 
 Route::get('/teacher/search', [DatabaseController::class, 'searchTeacher']);
+
+//layout
+ROute::view('/layout/home', 'Layout.home');
+Route::view('/layout/about', 'Layout.about');
