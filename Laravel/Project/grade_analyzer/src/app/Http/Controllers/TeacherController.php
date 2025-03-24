@@ -89,4 +89,20 @@ class TeacherController extends Controller
         }
     }
 
+    function updateTeacher(Request $request)
+    {
+        return "This is update function";
+    }
+
+    function getTeacherById($id)
+    {
+        $teacher = Teacher::where('id', $id)->first();
+
+        if ($teacher) {
+            $teacher = $teacher->makeHidden(['id', 'password']);
+            return view('Principal.profile', ["result" => $teacher]);
+        } else {
+            return response()->json(['status' => false, 'message' => 'Error findind']);
+        }
+    }
 }

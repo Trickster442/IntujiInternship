@@ -24,7 +24,11 @@
 
             <div class="navigation">
                 <ul>
-                    <li>Dashboard</li>
+                    <a href="/get-profile/{{ session('user_id') }}">
+                        <li>
+                            Dashboard
+                        </li>
+                    </a>
                     <li>
                         <div class="navigation-button">
                             <span>Students</span>

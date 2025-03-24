@@ -14,8 +14,13 @@ Route::post('/register-teacher', [TeacherController::class, 'register']);
 
 
 // Principal
-Route::view('/principal/home', 'Principal.home')->middleware('auth');
-Route::get('/logout', [TeacherController::class, 'logout']);
+Route::middleware('auth')->group(function () {
+    Route::view('/principal/home', 'Principal.home')->middleware('auth');
+    Route::get('/logout', [TeacherController::class, 'logout']);
+    Route::get('/get-profile/{id}', [TeacherController::class, 'getTeacherById']);
+    Route::view('/profile', 'Principal.profile');
+});
+
 // Teacher
 Route::view('/teacher/home', 'Teacher.home');
 
