@@ -14,10 +14,15 @@ Route::get('/test', function () {
 });
 
 // Api try
-Route::get('/teachers', [ApiController::class, 'list']);
-Route::post('/add-teacher', [ApiController::class, 'add']);
-Route::put('/update-teacher', [ApiController::class, 'update']);
-Route::delete('/delete-teacher/{id}', [ApiController::class, 'delete']);
 
 Route::post('/login', [ApiController::class, 'login']);
 Route::post('/signup', [ApiController::class, 'signUp']);
+
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::get('/teachers', [ApiController::class, 'list']);
+    Route::post('/add-teacher', [ApiController::class, 'add']);
+    Route::put('/update-teacher', [ApiController::class, 'update']);
+    Route::delete('/delete-teacher/{id}', [ApiController::class, 'delete']);
+});
+
+Route::get('/login', [ApiController::class, 'login'])->name('/login');
