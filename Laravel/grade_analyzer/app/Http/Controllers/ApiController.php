@@ -81,4 +81,22 @@ class ApiController extends Controller
             return 'Error deleting';
         }
     }
+
+    function login(Request $request)
+    {
+        return 'This is login function';
+    }
+
+    function signUp(Request $request)
+    {
+        $input = $request->all();
+        $teacher = Teacher::create($input);
+        $success['token'] = $teacher->createToken('teacher')->plainTextToken;
+
+        return response()->json([
+            "success" => true,
+            "result" => $success,
+            "message" => 'User registered successfully'
+        ], 201);
+    }
 }
