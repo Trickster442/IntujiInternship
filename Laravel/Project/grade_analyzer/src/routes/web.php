@@ -8,9 +8,12 @@ Route::get('/', function () {
 });
 
 Route::post('/login-data', [TeacherController::class, 'login']);
-Route::view('/principal/home', 'Principal.home')->middleware('auth');
 Route::view('/register', 'register');
 
+
+// Principal
+Route::view('/principal/home', 'Principal.home')->middleware('auth');
+Route::get('/logout', [TeacherController::class, 'logout']);
 // Teacher
 Route::view('/teacher/home', 'Teacher.home');
 

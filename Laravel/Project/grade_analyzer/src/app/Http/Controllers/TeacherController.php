@@ -22,10 +22,17 @@ class TeacherController extends Controller
         if ($result) {
             session(['user_id' => $result->id]);
             session(['role' => $result->role]);
-            return view(($request->role) . '.home');
+            return redirect('/' . lcfirst($request->role) . '/' . 'home');
         }
 
         return "Credential not match";
+    }
+
+    function logout()
+    {
+        session()->pull('user_id');
+        session()->pull('role');
+        return redirect('/');
     }
 
 }
