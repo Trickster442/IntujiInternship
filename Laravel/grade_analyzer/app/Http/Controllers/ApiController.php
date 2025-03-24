@@ -84,7 +84,18 @@ class ApiController extends Controller
 
     function login(Request $request)
     {
-        return 'This is login function';
+        $teacher = Teacher::where('email', $request->email)->first();
+        if ($teacher->batch != $request->batch) {
+            return "Not matched";
+        }
+
+        $success['token'] = $teacher->createToken('token')->plainTextToken;
+
+        return response()->json([
+            "success" => true,
+            "result" => $success,
+            "message" => 'User Login successfully'
+        ], 201);
     }
 
     function signUp(Request $request)
