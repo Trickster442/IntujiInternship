@@ -15,48 +15,53 @@ class ApiController extends Controller
 
     public function add(Request $request)
     {
-        // Validation rules
-        $rules = [
+        // // Validation rules
+        // $rules = [
+        //     'name' => 'required|string|max:255',
+        //     'email' => 'required|email|max:255',
+        //     'batch' => 'required|string|max:100',
+        // ];
+
+        // // Validate request data, default to empty array if null
+        // $validator = Validator::make($request->all() ?: [], $rules);
+
+        // if ($validator->fails()) {
+        //     return response()->json([
+        //         'status' => 'error',
+        //         'errors' => $validator->errors()
+        //     ], 422);
+        // }
+
+        $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'batch' => 'required|string|max:100',
-        ];
+        ]);
+        // try {
+        // Create new teacher
+        $teacher = new Teacher();
+        $teacher->name = $request->input('name');
+        $teacher->email = $request->input('email');
+        $teacher->batch = $request->input('batch');
 
-        // Validate request data, default to empty array if null
-        $validator = Validator::make($request->all() ?: [], $rules);
-
-        if ($validator->fails()) {
+        if ($teacher->save()) {
             return response()->json([
-                'status' => 'error',
-                'errors' => $validator->errors()
-            ], 422);
+                'status' => 'success',
+                'message' => 'New teacher added successfully',
+                'data' => $teacher
+            ], 201);
         }
 
-        try {
-            // Create new teacher
-            $teacher = new Teacher();
-            $teacher->name = $request->input('name');
-            $teacher->email = $request->input('email');
-            $teacher->batch = $request->input('batch');
-
-            if ($teacher->save()) {
-                return response()->json([
-                    'status' => 'success',
-                    'message' => 'New teacher added successfully',
-                    'data' => $teacher
-                ], 201);
-            }
-
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Failed to save teacher'
-            ], 500);
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Server error: ' . $e->getMessage()
-            ], 500);
-        }
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Failed to save teacher'
+        ], 500);
+        // } catch (\Exception $e) {
+        //     return response()->json([
+        //         'status' => 'error',
+        //         'message' => 'Server error: ' . $e->getMessage()
+        //     ], 500);
+        // }
     }
 
     function update(Request $request)
