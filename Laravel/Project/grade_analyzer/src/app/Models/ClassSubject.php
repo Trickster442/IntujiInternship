@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Teacher extends Model
+class ClassSubject extends Model
 {
     //
-    protected $table = 'teachers';
+    protected $table = 'classes_subjects';
 }

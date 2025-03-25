@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Database\Migrations\Migration;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
     /**
@@ -9,14 +10,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        DB::statement("
-            CREATE TABLE subjects (
-                id BIGSERIAL PRIMARY KEY,
-                subject_name VARCHAR(100) UNIQUE NOT NULL,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            )
-        ");
+        Schema::create('subjects', function (Blueprint $table) {
+            $table->id();
+            $table->string('subject_name', 100)->unique();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -24,6 +22,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        DB::statement("DROP TABLE IF EXISTS subjects");
+        Schema::dropIfExists('subjects');
     }
 };

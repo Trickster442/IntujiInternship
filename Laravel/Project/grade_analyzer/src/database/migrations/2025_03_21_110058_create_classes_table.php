@@ -12,7 +12,7 @@ return new class extends Migration {
         DB::statement("
             CREATE TABLE classes (
                 id SERIAL PRIMARY KEY,
-                class_name VARCHAR(40) UNIQUE NOT NULL,
+                class_name VARCHAR(40) NOT NULL UNIQUE,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             )

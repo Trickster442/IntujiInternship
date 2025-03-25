@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Teacher;
+use Illuminate\Support\Facades\Hash;
 
 class TeacherController extends Controller
 {
@@ -13,19 +14,18 @@ class TeacherController extends Controller
             return app(StudentController::class)->login($request);
         }
 
-        $result = Teacher::select()
-            ->where('email', $request->username)
-            ->where('password', $request->password)
+        $teacher = Teacher::where('email', $request->username)
             ->where('role', $request->role)
             ->first();
 
-        if ($result) {
-            session(['user_id' => $result->id]);
-            session(['role' => $result->role]);
-            return redirect('/' . lcfirst($request->role) . '/' . 'home');
+        if ($teacher && Hash::check($request->password, $teacher->password)) {
+
+            session(['user_id' => $teacher->id, 'role' => $teacher->role]);
+
+            return redirect('/' . strtolower($teacher->role) . '/home');
         }
 
-        return "Credential not match";
+        return redirect()->back()->withErrors(['msg' => 'Credentials do not match']);
     }
 
     function logout()

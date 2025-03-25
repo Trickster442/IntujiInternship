@@ -10,13 +10,13 @@ return new class extends Migration {
     public function up(): void
     {
         DB::statement("
-        CREATE TABLE marks (
-        id serial PRIMARY KEY,
-        student_marks integer NOT NULL,
-        semester varchar(200),
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
+            CREATE TABLE marks (
+                id SERIAL PRIMARY KEY,
+                semester VARCHAR(20) NOT NULL,
+                student_marks INTEGER NOT NULL CHECK (student_marks >= 0 AND student_marks <= 100),
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            )
         ");
     }
 
